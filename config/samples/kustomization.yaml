@@ -1,0 +1,4 @@
+## Append samples you want in your CSV to this file as resources ##
+resources:
+- devnet_v1alpha1_thousandeyes.yaml
+#+kubebuilder:scaffold:manifestskustomizesamples
