@@ -1,0 +1,52 @@
+workspace:
+  base: /go
+  path: src/wwwin-github.cisco.com/DevNet/thousandeyes-operator
+
+pipeline:
+  lint:
+    image: containers.cisco.com/devnet/golangci-lint
+
+  unittest:
+    image: containers.cisco.com/devnet/golang
+
+  report:
+    image: containers.cisco.com/devnet/drone-pkg-publisher:report
+
+  event:
+    image: containers.cisco.com/devnet/drone-build-event
+
+  build:
+    image: library/golang:1.13-alpine
+    environment:
+      - CGO_ENABLED=0
+      - GOOS=linux
+      - GOARCH=amd64
+      - GO111MODULE=on
+      - GOPRIVATE=*.cisco.com
+    commands:
+      - go build -a -tags netgo -ldflags '-w' -o ./bin/manager main.go
+
+  publish/aws:
+    image: plugins/ecr
+    region: us-west-2
+    repo: 512583958123.dkr.ecr.us-west-2.amazonaws.com/devnet/te-operator
+    tags:
+      - "${DRONE_COMMIT:0:7}"
+      - latest
+
+  notify:
+    image: containers.cisco.com/devnet/drone-spark
+    auth_token: MmY2NzliMWYtMWRkMi00YzNjLTgxMzYtNGQyZmQwMTY5ZjE3MzA0ZDA1NTUtYmU4
+    roomName: "DevNet Builds"
+    message: |
+      Great job on your new thousandeyes-operator service build, docker image label: ${DRONE_COMMIT:0:7}!!!
+    when:
+      status: [ success ]
+
+  notify-fail:
+    image: containers.cisco.com/devnet/drone-spark
+    auth_token: MmY2NzliMWYtMWRkMi00YzNjLTgxMzYtNGQyZmQwMTY5ZjE3MzA0ZDA1NTUtYmU4
+    roomName: "DevNet Builds"
+    message: "Whoops, your thousandeyes-operator service build failed!!!"
+    when:
+      status: [ failure ]
