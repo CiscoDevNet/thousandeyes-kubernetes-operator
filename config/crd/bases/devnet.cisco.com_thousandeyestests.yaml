@@ -73,39 +73,6 @@ spec:
             type: object
           status:
             description: ThousandEyesTestStatus defines the observed state of ThousandEyesTest
-            properties:
-              metadata:
-                description: 'INSERT ADDITIONAL STATUS FIELD - define observed state
-                  of cluster Important: Run "make" to regenerate code after modifying
-                  this file'
-                properties:
-                  agents:
-                    items:
-                      properties:
-                        agentId:
-                          type: integer
-                      required:
-                      - agentId
-                      type: object
-                    type: array
-                  httpInterval:
-                    type: integer
-                  interval:
-                    type: integer
-                  testId:
-                    type: integer
-                  testName:
-                    type: string
-                  url:
-                    type: string
-                required:
-                - agents
-                - httpInterval
-                - interval
-                - url
-                type: object
-            required:
-            - metadata
             type: object
         type: object
     served: true
