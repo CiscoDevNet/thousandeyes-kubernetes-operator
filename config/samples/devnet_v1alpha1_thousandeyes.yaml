@@ -1,7 +1,0 @@
-apiVersion: devnet.cisco.com/v1alpha1
-kind: ThousandEyes
-metadata:
-  name: thousandeyes-sample
-spec:
-  # Add fields here
-  foo: bar

@@ -1,0 +1,20 @@
+project_name: go-thousandeyes
+release:
+  github:
+    owner: william20111
+    name: go-thousandeyes
+  draft: false
+  prerelease: true
+  name_template: "{{.ProjectName}}-v{{.Version}}"
+builds:
+  - id: "default"
+    main: ./command/tectl/main.go
+    binary: tectl
+    ldflags:
+      - -s -w -X main.build={{.Version}}
+    goarch:
+      - amd64
+    goos:
+      - windows
+      - linux
+      - darwin

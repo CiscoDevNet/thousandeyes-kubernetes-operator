@@ -9,7 +9,7 @@ rules:
 - apiGroups:
   - devnet.cisco.com
   resources:
-  - thousandeyes
+  - thousandeyestests
   verbs:
   - create
   - delete
@@ -21,13 +21,13 @@ rules:
 - apiGroups:
   - devnet.cisco.com
   resources:
-  - thousandeyes/finalizers
+  - thousandeyestests/finalizers
   verbs:
   - update
 - apiGroups:
   - devnet.cisco.com
   resources:
-  - thousandeyes/status
+  - thousandeyestests/status
   verbs:
   - get
   - patch

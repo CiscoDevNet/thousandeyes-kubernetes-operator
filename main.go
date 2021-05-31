@@ -20,6 +20,8 @@ import (
 	"flag"
 	"os"
 
+	"github.com/william20111/go-thousandeyes"
+
 	// Import all Kubernetes client auth plugins (e.g. Azure, GCP, OIDC, etc.)
 	// to ensure that exec-entrypoint and run can make use of them.
 	_ "k8s.io/client-go/plugin/pkg/client/auth"
@@ -37,8 +39,9 @@ import (
 )
 
 var (
-	scheme   = runtime.NewScheme()
-	setupLog = ctrl.Log.WithName("setup")
+	scheme              = runtime.NewScheme()
+	setupLog            = ctrl.Log.WithName("setup")
+	thousandeyes_client = thousandeyes.NewClient(&thousandeyes.ClientOptions{AuthToken: "2b398de1-2bc4-4c02-b220-1574de96c733"})
 )
 
 func init() {
@@ -78,12 +81,13 @@ func main() {
 		os.Exit(1)
 	}
 
-	if err = (&controllers.ThousandEyesReconciler{
-		Client: mgr.GetClient(),
-		Log:    ctrl.Log.WithName("controllers").WithName("ThousandEyes"),
-		Scheme: mgr.GetScheme(),
+	if err = (&controllers.ThousandEyesTestReconciler{
+		Client:             mgr.GetClient(),
+		Log:                ctrl.Log.WithName("controllers").WithName("ThousandEyesTest"),
+		Scheme:             mgr.GetScheme(),
+		ThousandEyesClient: thousandeyes_client,
 	}).SetupWithManager(mgr); err != nil {
-		setupLog.Error(err, "unable to create controller", "controller", "ThousandEyes")
+		setupLog.Error(err, "unable to create controller", "controller", "ThousandEyesTest")
 		os.Exit(1)
 	}
 	//+kubebuilder:scaffold:builder

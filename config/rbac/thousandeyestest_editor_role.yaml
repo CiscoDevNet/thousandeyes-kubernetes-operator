@@ -1,20 +1,24 @@
-# permissions for end users to view thousandeyes.
+# permissions for end users to edit thousandeyestests.
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: thousandeyes-viewer-role
+  name: thousandeyestest-editor-role
 rules:
 - apiGroups:
   - devnet.cisco.com
   resources:
-  - thousandeyes
+  - thousandeyestests
   verbs:
+  - create
+  - delete
   - get
   - list
+  - patch
+  - update
   - watch
 - apiGroups:
   - devnet.cisco.com
   resources:
-  - thousandeyes/status
+  - thousandeyestests/status
   verbs:
   - get

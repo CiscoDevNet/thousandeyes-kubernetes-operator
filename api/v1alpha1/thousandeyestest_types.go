@@ -23,17 +23,16 @@ import (
 // EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
 // NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
 
-// ThousandEyesSpec defines the desired state of ThousandEyes
-type ThousandEyesSpec struct {
+// ThousandEyesTestSpec defines the desired state of ThousandEyesTest
+type ThousandEyesTestSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
-
-	// Foo is an example field of ThousandEyes. Edit thousandeyes_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+	TestType string   `json:"testType"`
+	Metadata Metadata `json:"metadata"`
 }
 
-// ThousandEyesStatus defines the observed state of ThousandEyes
-type ThousandEyesStatus struct {
+// ThousandEyesTestStatus defines the observed state of ThousandEyesTest
+type ThousandEyesTestStatus struct {
 	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
 }
@@ -41,24 +40,37 @@ type ThousandEyesStatus struct {
 //+kubebuilder:object:root=true
 //+kubebuilder:subresource:status
 
-// ThousandEyes is the Schema for the thousandeyes API
-type ThousandEyes struct {
+// ThousandEyesTest is the Schema for the thousandeyestests API
+type ThousandEyesTest struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
-	Spec   ThousandEyesSpec   `json:"spec,omitempty"`
-	Status ThousandEyesStatus `json:"status,omitempty"`
+	Spec   ThousandEyesTestSpec   `json:"spec,omitempty"`
+	Status ThousandEyesTestStatus `json:"status,omitempty"`
 }
 
 //+kubebuilder:object:root=true
 
-// ThousandEyesList contains a list of ThousandEyes
-type ThousandEyesList struct {
+// ThousandEyesTestList contains a list of ThousandEyesTest
+type ThousandEyesTestList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	Items           []ThousandEyes `json:"items"`
+	Items           []ThousandEyesTest `json:"items"`
+}
+
+type Metadata struct {
+	TestName     string  `json:"testName,omitempty"`
+	TestID       int     `json:"testId,omitempty"`
+	URL          string  `json:"url"`
+	HttpInterval int     `json:"httpInterval"`
+	Interval     int     `json:"interval"`
+	Agents       []Agent `json:"agents"`
+}
+
+type Agent struct {
+	AgentID int `json:"agentId"`
 }
 
 func init() {
-	SchemeBuilder.Register(&ThousandEyes{}, &ThousandEyesList{})
+	SchemeBuilder.Register(&ThousandEyesTest{}, &ThousandEyesTestList{})
 }

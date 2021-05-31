@@ -12,7 +12,7 @@ resources:
   controller: true
   domain: cisco.com
   group: devnet
-  kind: ThousandEyes
+  kind: ThousandEyesTest
   path: wwwin-github.cisco.com/DevNet/thousandeyes-operator/api/v1alpha1
   version: v1alpha1
 version: "3"
