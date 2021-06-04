@@ -25,9 +25,12 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
+	"sigs.k8s.io/controller-runtime/pkg/controller/controllerutil"
 
 	devnetv1alpha1 "wwwin-github.cisco.com/DevNet/thousandeyes-operator/api/v1alpha1"
 )
+
+const teTestFinalizer = "devnet.cisco.com.te.test.finalizer"
 
 // ThousandEyesTestReconciler reconciles a ThousandEyesTest object
 type ThousandEyesTestReconciler struct {
@@ -58,36 +61,63 @@ func (r *ThousandEyesTestReconciler) Reconcile(ctx context.Context, req ctrl.Req
 	err := r.Get(ctx, req.NamespacedName, te)
 	if err != nil {
 		if errors.IsNotFound(err) {
-			// to-do fininalizer
 			return ctrl.Result{}, nil
 		}
 		return ctrl.Result{}, err
 	}
 
-	//check if this test exists on the thousandeyes server
-	//create the test if not exist
 	tests, _ := r.ThousandEyesClient.GetTests()
 	if tests != nil {
 		for _, test := range *tests {
 			if test.TestName == te.Name {
 				te.Spec.Metadata.TestID = test.TestID
-				//check if the test needs to be updated
-				pageLoad, err := r.ThousandEyesClient.GetPageLoad(test.TestID)
-				if err != nil {
-					return ctrl.Result{}, err
-				}
-				if !EqualMetadata(te.Spec.Metadata, *pageLoad) {
-					_, err := UpdateTest(r.ThousandEyesClient, te.Spec)
-					if err != nil {
-						return ctrl.Result{}, err
-					}
-					return ctrl.Result{}, nil
-				}
-				return ctrl.Result{}, nil
+				break
 			}
 		}
 	}
+	// check if the thousandeyes-test instance is marked to be deleted, which is
+	// indicated by the deletion timestamp being set
+	isTeTestMarkedToBeDeleted := te.GetDeletionTimestamp() != nil
+	if isTeTestMarkedToBeDeleted {
+		if controllerutil.ContainsFinalizer(te, teTestFinalizer) {
+			// delete thousandeyes test from server
+			if te.Spec.Metadata.TestID != 0 {
+				err = DeleteTest(r.ThousandEyesClient, te.Spec)
+				if err != nil {
+					return ctrl.Result{}, err
+				}
+				controllerutil.RemoveFinalizer(te, teTestFinalizer)
+				err := r.Update(ctx, te)
+				if err != nil {
+					return ctrl.Result{}, err
+				}
+			}
+		}
+		return ctrl.Result{}, nil
+	}
 
+	if !controllerutil.ContainsFinalizer(te, teTestFinalizer) {
+		controllerutil.AddFinalizer(te, teTestFinalizer)
+		err := r.Update(ctx, te)
+		if err != nil {
+			return ctrl.Result{}, err
+		}
+	}
+
+	if te.Spec.Metadata.TestID != 0 {
+		//check if the test needs to be updated
+		pageLoad, err := r.ThousandEyesClient.GetPageLoad(te.Spec.Metadata.TestID)
+		if err != nil {
+			return ctrl.Result{}, err
+		}
+		if !EqualMetadata(te.Spec.Metadata, *pageLoad) {
+			_, err := UpdateTest(r.ThousandEyesClient, te.Spec)
+			if err != nil {
+				return ctrl.Result{}, err
+			}
+			return ctrl.Result{}, nil
+		}
+	}
 	te.Spec.Metadata.TestName = te.Name
 	_, err = CreateTest(r.ThousandEyesClient, te.Spec)
 	if err != nil {
