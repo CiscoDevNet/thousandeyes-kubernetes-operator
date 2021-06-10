@@ -1,13 +1,13 @@
-# permissions for end users to edit thousandeyestests.
+# permissions for end users to edit webtransactiontests.
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: thousandeyestest-editor-role
+  name: webtransactiontest-editor-role
 rules:
 - apiGroups:
   - devnet.cisco.com
   resources:
-  - thousandeyestests
+  - webtransactiontests
   verbs:
   - create
   - delete
@@ -19,6 +19,6 @@ rules:
 - apiGroups:
   - devnet.cisco.com
   resources:
-  - thousandeyestests/status
+  - webtransactiontests/status
   verbs:
   - get

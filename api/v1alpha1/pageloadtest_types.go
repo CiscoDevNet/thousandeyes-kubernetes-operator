@@ -23,16 +23,15 @@ import (
 // EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
 // NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
 
-// ThousandEyesTestSpec defines the desired state of ThousandEyesTest
-type ThousandEyesTestSpec struct {
+// PageLoadTestSpec defines the desired state of PageLoadTest
+type PageLoadTestSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
-	TestType string   `json:"testType"`
-	Metadata Metadata `json:"metadata"`
+	PageLoad PageLoad `json:"pageLoad"`
 }
 
-// ThousandEyesTestStatus defines the observed state of ThousandEyesTest
-type ThousandEyesTestStatus struct {
+// PageLoadTestStatus defines the observed state of PageLoadTest
+type PageLoadTestStatus struct {
 	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
 }
@@ -40,25 +39,25 @@ type ThousandEyesTestStatus struct {
 //+kubebuilder:object:root=true
 //+kubebuilder:subresource:status
 
-// ThousandEyesTest is the Schema for the thousandeyestests API
-type ThousandEyesTest struct {
+// PageLoadTest is the Schema for the pageloadtest API
+type PageLoadTest struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
-	Spec   ThousandEyesTestSpec   `json:"spec,omitempty"`
-	Status ThousandEyesTestStatus `json:"status,omitempty"`
+	Spec   PageLoadTestSpec   `json:"spec,omitempty"`
+	Status PageLoadTestStatus `json:"status,omitempty"`
 }
 
 //+kubebuilder:object:root=true
 
-// ThousandEyesTestList contains a list of ThousandEyesTest
-type ThousandEyesTestList struct {
+// PageLoadTestList contains a list of PageLoadTest
+type PageLoadTestList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	Items           []ThousandEyesTest `json:"items"`
+	Items           []PageLoadTest `json:"items"`
 }
 
-type Metadata struct {
+type PageLoad struct {
 	TestName     string  `json:"testName,omitempty"`
 	TestID       int     `json:"testId,omitempty"`
 	URL          string  `json:"url"`
@@ -67,10 +66,6 @@ type Metadata struct {
 	Agents       []Agent `json:"agents"`
 }
 
-type Agent struct {
-	AgentID int `json:"agentId"`
-}
-
 func init() {
-	SchemeBuilder.Register(&ThousandEyesTest{}, &ThousandEyesTestList{})
+	SchemeBuilder.Register(&PageLoadTest{}, &PageLoadTestList{})
 }

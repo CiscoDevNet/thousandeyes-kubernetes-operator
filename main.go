@@ -41,7 +41,7 @@ import (
 var (
 	scheme              = runtime.NewScheme()
 	setupLog            = ctrl.Log.WithName("setup")
-	thousandeyes_client = thousandeyes.NewClient(&thousandeyes.ClientOptions{AuthToken: "2b398de1-2bc4-4c02-b220-1574de96c733"})
+	thousandeyes_client = thousandeyes.NewClient(&thousandeyes.ClientOptions{AuthToken: "2666a90c-e442-4691-88c7-fc8f15ec4121"})
 )
 
 func init() {
@@ -80,14 +80,22 @@ func main() {
 		setupLog.Error(err, "unable to start manager")
 		os.Exit(1)
 	}
-
-	if err = (&controllers.ThousandEyesTestReconciler{
+	if err = (&controllers.PageLoadTestReconciler{
 		Client:             mgr.GetClient(),
-		Log:                ctrl.Log.WithName("controllers").WithName("ThousandEyesTest"),
+		Log:                ctrl.Log.WithName("controllers").WithName("PageLoadTest"),
 		Scheme:             mgr.GetScheme(),
 		ThousandEyesClient: thousandeyes_client,
 	}).SetupWithManager(mgr); err != nil {
-		setupLog.Error(err, "unable to create controller", "controller", "ThousandEyesTest")
+		setupLog.Error(err, "unable to create controller", "controller", "PageLoadTest")
+		os.Exit(1)
+	}
+	if err = (&controllers.WebTransactionTestReconciler{
+		Client:             mgr.GetClient(),
+		Log:                ctrl.Log.WithName("controllers").WithName("WebTransactionTest"),
+		Scheme:             mgr.GetScheme(),
+		ThousandEyesClient: thousandeyes_client,
+	}).SetupWithManager(mgr); err != nil {
+		setupLog.Error(err, "unable to create controller", "controller", "WebTransactionTest")
 		os.Exit(1)
 	}
 	//+kubebuilder:scaffold:builder

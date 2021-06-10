@@ -1,0 +1,20 @@
+# permissions for end users to view pageloadtests.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: pageloadtest-viewer-role
+rules:
+- apiGroups:
+  - devnet.cisco.com
+  resources:
+  - pageloadtests
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - devnet.cisco.com
+  resources:
+  - pageloadtests/status
+  verbs:
+  - get

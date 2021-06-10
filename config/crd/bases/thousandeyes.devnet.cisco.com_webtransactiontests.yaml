@@ -6,20 +6,21 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.4.1
   creationTimestamp: null
-  name: thousandeyestests.devnet.cisco.com
+  name: webtransactiontests.thousandeyes.devnet.cisco.com
 spec:
-  group: devnet.cisco.com
+  group: thousandeyes.devnet.cisco.com
   names:
-    kind: ThousandEyesTest
-    listKind: ThousandEyesTestList
-    plural: thousandeyestests
-    singular: thousandeyestest
+    kind: WebTransactionTest
+    listKind: WebTransactionTestList
+    plural: webtransactiontests
+    singular: webtransactiontest
   scope: Namespaced
   versions:
   - name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: ThousandEyesTest is the Schema for the thousandeyestests API
+        description: WebTransactionTest is the Schema for the webtransactiontests
+          API
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -34,9 +35,9 @@ spec:
           metadata:
             type: object
           spec:
-            description: ThousandEyesTestSpec defines the desired state of ThousandEyesTest
+            description: WebTransactionTestSpec defines the desired state of WebTransactionTest
             properties:
-              metadata:
+              webTransaction:
                 properties:
                   agents:
                     items:
@@ -47,32 +48,26 @@ spec:
                       - agentId
                       type: object
                     type: array
-                  httpInterval:
-                    type: integer
                   interval:
                     type: integer
                   testId:
                     type: integer
                   testName:
                     type: string
+                  transactionScript:
+                    type: string
                   url:
                     type: string
                 required:
                 - agents
-                - httpInterval
                 - interval
                 - url
                 type: object
-              testType:
-                description: 'INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
-                  Important: Run "make" to regenerate code after modifying this file'
-                type: string
             required:
-            - metadata
-            - testType
+            - webTransaction
             type: object
           status:
-            description: ThousandEyesTestStatus defines the observed state of ThousandEyesTest
+            description: WebTransactionTestStatus defines the observed state of WebTransactionTest
             type: object
         type: object
     served: true

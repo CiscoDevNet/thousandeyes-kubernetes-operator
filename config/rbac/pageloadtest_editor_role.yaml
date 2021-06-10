@@ -1,0 +1,24 @@
+# permissions for end users to edit pageloadtests.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: pageloadtest-editor-role
+rules:
+- apiGroups:
+  - devnet.cisco.com
+  resources:
+  - pageloadtests
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - devnet.cisco.com
+  resources:
+  - pageloadtests/status
+  verbs:
+  - get

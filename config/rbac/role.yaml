@@ -7,9 +7,9 @@ metadata:
   name: manager-role
 rules:
 - apiGroups:
-  - devnet.cisco.com
+  - thousandeyes.devnet.cisco.com
   resources:
-  - thousandeyestests
+  - pageloadtests
   verbs:
   - create
   - delete
@@ -19,15 +19,41 @@ rules:
   - update
   - watch
 - apiGroups:
-  - devnet.cisco.com
+  - thousandeyes.devnet.cisco.com
   resources:
-  - thousandeyestests/finalizers
+  - pageloadtests/finalizers
   verbs:
   - update
 - apiGroups:
-  - devnet.cisco.com
+  - thousandeyes.devnet.cisco.com
   resources:
-  - thousandeyestests/status
+  - pageloadtests/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - thousandeyes.devnet.cisco.com
+  resources:
+  - webtransactiontests
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - thousandeyes.devnet.cisco.com
+  resources:
+  - webtransactiontests/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - thousandeyes.devnet.cisco.com
+  resources:
+  - webtransactiontests/status
   verbs:
   - get
   - patch
