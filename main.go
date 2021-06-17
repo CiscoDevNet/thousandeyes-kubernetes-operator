@@ -41,7 +41,7 @@ import (
 var (
 	scheme              = runtime.NewScheme()
 	setupLog            = ctrl.Log.WithName("setup")
-	thousandeyes_client = thousandeyes.NewClient(&thousandeyes.ClientOptions{AuthToken: "2666a90c-e442-4691-88c7-fc8f15ec4121"})
+	thousandeyes_client = thousandeyes.NewClient(&thousandeyes.ClientOptions{AuthToken: os.Getenv("THOUSANDEYES_CLIENT_TOKEN")})
 )
 
 func init() {

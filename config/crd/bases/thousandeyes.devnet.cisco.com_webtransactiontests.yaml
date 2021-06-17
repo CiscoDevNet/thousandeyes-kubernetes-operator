@@ -4,7 +4,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.4.1
+    controller-gen.kubebuilder.io/version: v0.4.0
   creationTimestamp: null
   name: webtransactiontests.thousandeyes.devnet.cisco.com
 spec:
@@ -37,34 +37,63 @@ spec:
           spec:
             description: WebTransactionTestSpec defines the desired state of WebTransactionTest
             properties:
-              webTransaction:
-                properties:
-                  agents:
-                    items:
-                      properties:
-                        agentId:
-                          type: integer
-                      required:
-                      - agentId
-                      type: object
-                    type: array
-                  interval:
-                    type: integer
-                  testId:
-                    type: integer
-                  testName:
-                    type: string
-                  transactionScript:
-                    type: string
-                  url:
-                    type: string
-                required:
-                - agents
-                - interval
-                - url
-                type: object
+              agents:
+                items:
+                  properties:
+                    IPV6Policy:
+                      type: string
+                    agentId:
+                      type: integer
+                    agentName:
+                      type: string
+                    agentState:
+                      type: string
+                    agentType:
+                      type: string
+                    countryId:
+                      type: string
+                    createdDate:
+                      type: string
+                    enabled:
+                      type: integer
+                    hostname:
+                      type: string
+                    ipAddresses:
+                      items:
+                        type: string
+                      type: array
+                    keepBrowserCache:
+                      type: integer
+                    lastSeen:
+                      type: string
+                    location:
+                      type: string
+                    network:
+                      type: string
+                    prefix:
+                      type: string
+                    targetForTests:
+                      type: string
+                    utilization:
+                      type: integer
+                    verifySslCertificate:
+                      type: integer
+                  type: object
+                type: array
+              interval:
+                type: integer
+              testId:
+                type: integer
+              testName:
+                type: string
+              transactionScript:
+                type: string
+              url:
+                type: string
             required:
-            - webTransaction
+            - agents
+            - interval
+            - url
             type: object
           status:
             description: WebTransactionTestStatus defines the observed state of WebTransactionTest

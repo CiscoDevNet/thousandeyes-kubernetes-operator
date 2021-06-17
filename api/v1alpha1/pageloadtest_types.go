@@ -27,7 +27,7 @@ import (
 type PageLoadTestSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
-	PageLoad PageLoad `json:"pageLoad"`
+	PageLoad `json:",inline"`
 }
 
 // PageLoadTestStatus defines the observed state of PageLoadTest
@@ -58,12 +58,13 @@ type PageLoadTestList struct {
 }
 
 type PageLoad struct {
-	TestName     string  `json:"testName,omitempty"`
 	TestID       int     `json:"testId,omitempty"`
-	URL          string  `json:"url"`
-	HttpInterval int     `json:"httpInterval"`
-	Interval     int     `json:"interval"`
-	Agents       []Agent `json:"agents"`
+	TestName     string  `json:"testName,omitempty"`
+	Type         string  `json:"type,omitempty"`
+	Agents       []Agent `json:"agents,omitempty"`
+	HTTPInterval int     `json:"httpInterval,omitempty"`
+	Interval     int     `json:"interval,omitempty"`
+	URL          string  `json:"url,omitempty"`
 }
 
 func init() {

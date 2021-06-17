@@ -1,12 +1,12 @@
 apiVersion: thousandeyes.devnet.cisco.com/v1alpha1
-kind: PageloadTest
+kind: PageLoadTest
 metadata:
   name: pageloadtest-sample
 spec:
-  pageLoad:
-    url: https://developer.cisco.com/
-    interval: 300
-    httpInterval: 300
-    agents:
-      - agentId: 4492
-      - agentId: 4495
+  url: https://developer.cisco.com/
+  interval: 600
+  httpInterval: 600
+  agents:
+    - agentId: 4492
+    - agentId: 4495
+

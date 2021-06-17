@@ -4,7 +4,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.4.1
+    controller-gen.kubebuilder.io/version: v0.4.0
   creationTimestamp: null
   name: pageloadtests.thousandeyes.devnet.cisco.com
 spec:
@@ -36,37 +36,61 @@ spec:
           spec:
             description: PageLoadTestSpec defines the desired state of PageLoadTest
             properties:
-              pageLoad:
-                description: 'INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
-                  Important: Run "make" to regenerate code after modifying this file'
-                properties:
-                  agents:
-                    items:
-                      properties:
-                        agentId:
-                          type: integer
-                      required:
-                      - agentId
-                      type: object
-                    type: array
-                  httpInterval:
-                    type: integer
-                  interval:
-                    type: integer
-                  testId:
-                    type: integer
-                  testName:
-                    type: string
-                  url:
-                    type: string
-                required:
-                - agents
-                - httpInterval
-                - interval
-                - url
-                type: object
-            required:
-            - pageLoad
+              agents:
+                items:
+                  properties:
+                    IPV6Policy:
+                      type: string
+                    agentId:
+                      type: integer
+                    agentName:
+                      type: string
+                    agentState:
+                      type: string
+                    agentType:
+                      type: string
+                    countryId:
+                      type: string
+                    createdDate:
+                      type: string
+                    enabled:
+                      type: integer
+                    hostname:
+                      type: string
+                    ipAddresses:
+                      items:
+                        type: string
+                      type: array
+                    keepBrowserCache:
+                      type: integer
+                    lastSeen:
+                      type: string
+                    location:
+                      type: string
+                    network:
+                      type: string
+                    prefix:
+                      type: string
+                    targetForTests:
+                      type: string
+                    utilization:
+                      type: integer
+                    verifySslCertificate:
+                      type: integer
+                  type: object
+                type: array
+              httpInterval:
+                type: integer
+              interval:
+                type: integer
+              testId:
+                type: integer
+              testName:
+                type: string
+              type:
+                type: string
+              url:
+                type: string
             type: object
           status:
             description: PageLoadTestStatus defines the observed state of PageLoadTest

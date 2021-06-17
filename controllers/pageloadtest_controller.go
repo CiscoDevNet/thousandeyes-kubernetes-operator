@@ -22,6 +22,7 @@ import (
 	"github.com/william20111/go-thousandeyes"
 	"k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/runtime"
+	"reflect"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/controller/controllerutil"
@@ -80,7 +81,7 @@ func (r *PageLoadTestReconciler) Reconcile(ctx context.Context, req ctrl.Request
 		if controllerutil.ContainsFinalizer(pl, pageloadFinalizer) {
 			// delete thousandeyes test from server
 			if pl.Spec.PageLoad.TestID != 0 {
-				err = DeletePageLoad(r.ThousandEyesClient, pl.Spec)
+				err = r.ThousandEyesClient.DeletePageLoad(pl.Spec.PageLoad.TestID)
 				if err != nil {
 					return ctrl.Result{}, err
 				}
@@ -102,22 +103,23 @@ func (r *PageLoadTestReconciler) Reconcile(ctx context.Context, req ctrl.Request
 		}
 	}
 
+	payload := PageLoad(pl.Spec.PageLoad)
 	if pl.Spec.PageLoad.TestID != 0 {
 		//check if the test needs to be updated
 		pageLoad, err := r.ThousandEyesClient.GetPageLoad(pl.Spec.PageLoad.TestID)
 		if err != nil {
 			return ctrl.Result{}, err
 		}
-		if !EqualPageLoad(pl.Spec.PageLoad, *pageLoad) {
-			err := UpdatePageLoad(r.ThousandEyesClient, pl.Spec)
+		if !reflect.DeepEqual(pl.Spec.PageLoad, *pageLoad) {
+			_, err = r.ThousandEyesClient.UpdatePageLoad(pl.Spec.PageLoad.TestID, payload)
 			if err != nil {
 				return ctrl.Result{}, err
 			}
 			return ctrl.Result{}, nil
 		}
 	}
-	pl.Spec.PageLoad.TestName = pl.Name
-	err = CreatePageLoad(r.ThousandEyesClient, pl.Spec)
+	payload.TestName = pl.Name
+	_, err = r.ThousandEyesClient.CreatePageLoad(payload)
 	if err != nil {
 		return ctrl.Result{}, err
 	}

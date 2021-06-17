@@ -27,8 +27,7 @@ import (
 type WebTransactionTestSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
-
-	WebTransaction WebTransaction `json:"webTransaction"`
+	WebTransaction `json:",inline"`
 }
 
 // WebTransactionTestStatus defines the observed state of WebTransactionTest

@@ -20,6 +20,7 @@ import (
 	"context"
 	"github.com/william20111/go-thousandeyes"
 	"k8s.io/apimachinery/pkg/api/errors"
+	"reflect"
 	"sigs.k8s.io/controller-runtime/pkg/controller/controllerutil"
 
 	"github.com/go-logr/logr"
@@ -82,7 +83,7 @@ func (r *WebTransactionTestReconciler) Reconcile(ctx context.Context, req ctrl.R
 		if controllerutil.ContainsFinalizer(wt, transactionFinalizer) {
 			// delete thousandeyes test from server
 			if wt.Spec.WebTransaction.TestID != 0 {
-				err = DeleteWebTransaction(r.ThousandEyesClient, wt.Spec)
+				err = r.ThousandEyesClient.DeleteWebTransaction(wt.Spec.TestID)
 				if err != nil {
 					return ctrl.Result{}, err
 				}
@@ -104,14 +105,15 @@ func (r *WebTransactionTestReconciler) Reconcile(ctx context.Context, req ctrl.R
 		}
 	}
 
+	payload := WebTransaction(wt.Spec.WebTransaction)
 	if wt.Spec.WebTransaction.TestID != 0 {
 		//check if the test needs to be updated
 		transaction, err := r.ThousandEyesClient.GetWebTransaction(wt.Spec.WebTransaction.TestID)
 		if err != nil {
 			return ctrl.Result{}, err
 		}
-		if !EqualWebTransaction(wt.Spec.WebTransaction, *transaction) {
-			err := UpdateWebTransaction(r.ThousandEyesClient, wt.Spec)
+		if !reflect.DeepEqual(wt.Spec.WebTransaction, *transaction) {
+			_, err = r.ThousandEyesClient.UpdateWebTransaction(wt.Spec.TestID, payload)
 			if err != nil {
 				return ctrl.Result{}, err
 			}
@@ -119,7 +121,8 @@ func (r *WebTransactionTestReconciler) Reconcile(ctx context.Context, req ctrl.R
 		}
 	}
 	wt.Spec.WebTransaction.TestName = wt.Name
-	err = CreateWebTransaction(r.ThousandEyesClient, wt.Spec)
+	payload.TestName = wt.Name
+	_, err = r.ThousandEyesClient.CreateWebTransaction(payload)
 	if err != nil {
 		return ctrl.Result{}, err
 	}
