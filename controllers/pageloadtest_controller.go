@@ -85,11 +85,11 @@ func (r *PageLoadTestReconciler) Reconcile(ctx context.Context, req ctrl.Request
 				if err != nil {
 					return ctrl.Result{}, err
 				}
-				controllerutil.RemoveFinalizer(pl, pageloadFinalizer)
-				err := r.Update(ctx, pl)
-				if err != nil {
-					return ctrl.Result{}, err
-				}
+			}
+			controllerutil.RemoveFinalizer(pl, pageloadFinalizer)
+			err := r.Update(ctx, pl)
+			if err != nil {
+				return ctrl.Result{}, err
 			}
 		}
 		return ctrl.Result{}, nil

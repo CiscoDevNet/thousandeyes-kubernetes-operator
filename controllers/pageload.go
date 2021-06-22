@@ -10,7 +10,6 @@ func PageLoad(pageLoad v1alpha1.PageLoad) thousandeyes.PageLoad {
 	for _, agent := range pageLoad.Agents {
 		payload.AddAgent(agent.AgentID)
 	}
-	payload.TestName = pageLoad.TestName
 	payload.URL = pageLoad.URL
 	payload.Interval = pageLoad.Interval
 	payload.HTTPInterval = pageLoad.HTTPInterval

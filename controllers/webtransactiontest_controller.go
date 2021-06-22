@@ -87,11 +87,11 @@ func (r *WebTransactionTestReconciler) Reconcile(ctx context.Context, req ctrl.R
 				if err != nil {
 					return ctrl.Result{}, err
 				}
-				controllerutil.RemoveFinalizer(wt, transactionFinalizer)
-				err := r.Update(ctx, wt)
-				if err != nil {
-					return ctrl.Result{}, err
-				}
+			}
+			controllerutil.RemoveFinalizer(wt, transactionFinalizer)
+			err := r.Update(ctx, wt)
+			if err != nil {
+				return ctrl.Result{}, err
 			}
 		}
 		return ctrl.Result{}, nil
@@ -120,7 +120,6 @@ func (r *WebTransactionTestReconciler) Reconcile(ctx context.Context, req ctrl.R
 			return ctrl.Result{}, nil
 		}
 	}
-	wt.Spec.WebTransaction.TestName = wt.Name
 	payload.TestName = wt.Name
 	_, err = r.ThousandEyesClient.CreateWebTransaction(payload)
 	if err != nil {

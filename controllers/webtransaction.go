@@ -10,8 +10,8 @@ func WebTransaction(webTransaction v1alpha1.WebTransaction) thousandeyes.WebTran
 	for _, agent := range webTransaction.Agents {
 		payload.Agents = append(payload.Agents, thousandeyes.Agent{AgentID: agent.AgentID})
 	}
-	payload.TestName = webTransaction.TestName
 	payload.URL = webTransaction.URL
 	payload.Interval = webTransaction.Interval
+	payload.TransactionScript = webTransaction.TransactionScript
 	return payload
 }
