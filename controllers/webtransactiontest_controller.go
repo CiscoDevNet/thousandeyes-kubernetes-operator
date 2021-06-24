@@ -20,7 +20,6 @@ import (
 	"context"
 	"github.com/william20111/go-thousandeyes"
 	"k8s.io/apimachinery/pkg/api/errors"
-	"reflect"
 	"sigs.k8s.io/controller-runtime/pkg/controller/controllerutil"
 
 	"github.com/go-logr/logr"
@@ -105,23 +104,39 @@ func (r *WebTransactionTestReconciler) Reconcile(ctx context.Context, req ctrl.R
 		}
 	}
 
-	payload := WebTransaction(wt.Spec.WebTransaction)
+	data := WebTransaction(wt.Spec.WebTransaction)
+
+	agents, err := r.ThousandEyesClient.GetAgents()
+	if err != nil {
+		return ctrl.Result{}, err
+	}
+	data.Agents = Agents(wt.Spec.Agents, *agents)
+
+	if len(wt.Spec.AlertRules) != 0 {
+		alertRules, err := r.ThousandEyesClient.GetAlertRules()
+		if err != nil {
+			return ctrl.Result{}, err
+		}
+		data.AlertRules = AlertRules(wt.Spec.AlertRules, *alertRules)
+	}
+
 	if wt.Spec.WebTransaction.TestID != 0 {
 		//check if the test needs to be updated
 		transaction, err := r.ThousandEyesClient.GetWebTransaction(wt.Spec.WebTransaction.TestID)
 		if err != nil {
 			return ctrl.Result{}, err
 		}
-		if !reflect.DeepEqual(wt.Spec.WebTransaction, *transaction) {
-			_, err = r.ThousandEyesClient.UpdateWebTransaction(wt.Spec.TestID, payload)
+		if !CompareWebTransaction(wt.Spec.WebTransaction, *transaction) {
+			_, err = r.ThousandEyesClient.UpdateWebTransaction(wt.Spec.TestID, data)
 			if err != nil {
 				return ctrl.Result{}, err
 			}
 			return ctrl.Result{}, nil
 		}
+		return ctrl.Result{}, nil
 	}
-	payload.TestName = wt.Name
-	_, err = r.ThousandEyesClient.CreateWebTransaction(payload)
+	data.TestName = wt.Name
+	_, err = r.ThousandEyesClient.CreateWebTransaction(data)
 	if err != nil {
 		return ctrl.Result{}, err
 	}

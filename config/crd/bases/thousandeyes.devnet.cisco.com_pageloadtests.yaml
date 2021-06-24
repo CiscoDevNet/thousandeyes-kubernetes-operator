@@ -79,14 +79,47 @@ spec:
                       type: integer
                   type: object
                 type: array
+              alertRules:
+                items:
+                  properties:
+                    alertType:
+                      type: string
+                    default:
+                      type: integer
+                    direction:
+                      type: string
+                    expression:
+                      type: string
+                    includeCoveredPrefixes:
+                      type: integer
+                    minimumSources:
+                      type: integer
+                    minimumSourcesPct:
+                      type: integer
+                    notifyOnClear:
+                      type: integer
+                    roundsViolatingMode:
+                      type: string
+                    roundsViolatingOutOf:
+                      type: integer
+                    roundsViolatingRequired:
+                      type: integer
+                    ruleId:
+                      type: integer
+                    ruleName:
+                      type: string
+                    testIds:
+                      items:
+                        type: integer
+                      type: array
+                  type: object
+                type: array
               httpInterval:
                 type: integer
               interval:
                 type: integer
               testId:
                 type: integer
-              testName:
-                type: string
               type:
                 type: string
               url:

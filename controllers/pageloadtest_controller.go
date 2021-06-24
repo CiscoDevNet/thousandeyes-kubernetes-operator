@@ -22,7 +22,6 @@ import (
 	"github.com/william20111/go-thousandeyes"
 	"k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/runtime"
-	"reflect"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/controller/controllerutil"
@@ -103,23 +102,39 @@ func (r *PageLoadTestReconciler) Reconcile(ctx context.Context, req ctrl.Request
 		}
 	}
 
-	payload := PageLoad(pl.Spec.PageLoad)
+	data := PageLoad(pl.Spec.PageLoad)
+
+	agents, err := r.ThousandEyesClient.GetAgents()
+	if err != nil {
+		return ctrl.Result{}, err
+	}
+	data.Agents = Agents(pl.Spec.Agents, *agents)
+
+	if len(pl.Spec.AlertRules) != 0 {
+		alertRules, err := r.ThousandEyesClient.GetAlertRules()
+		if err != nil {
+			return ctrl.Result{}, err
+		}
+		data.AlertRules = AlertRules(pl.Spec.AlertRules, *alertRules)
+	}
+
 	if pl.Spec.PageLoad.TestID != 0 {
 		//check if the test needs to be updated
 		pageLoad, err := r.ThousandEyesClient.GetPageLoad(pl.Spec.PageLoad.TestID)
 		if err != nil {
 			return ctrl.Result{}, err
 		}
-		if !reflect.DeepEqual(pl.Spec.PageLoad, *pageLoad) {
-			_, err = r.ThousandEyesClient.UpdatePageLoad(pl.Spec.PageLoad.TestID, payload)
+		if !ComparePageLoad(pl.Spec.PageLoad, *pageLoad) {
+			_, err := r.ThousandEyesClient.UpdatePageLoad(pl.Spec.PageLoad.TestID, data)
 			if err != nil {
 				return ctrl.Result{}, err
 			}
 			return ctrl.Result{}, nil
 		}
+		return ctrl.Result{}, nil
 	}
-	payload.TestName = pl.Name
-	_, err = r.ThousandEyesClient.CreatePageLoad(payload)
+	data.TestName = pl.Name
+	_, err = r.ThousandEyesClient.CreatePageLoad(data)
 	if err != nil {
 		return ctrl.Result{}, err
 	}

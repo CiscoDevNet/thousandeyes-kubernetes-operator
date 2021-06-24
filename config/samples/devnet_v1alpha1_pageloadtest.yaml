@@ -7,6 +7,7 @@ spec:
   interval: 600
   httpInterval: 600
   agents:
-    - agentId: 4492
-    - agentId: 4495
-
+    - agentName: Hong Kong (Trial)
+    - agentName: Singapore (Trial) - IPv6
+  alertRules:
+    - ruleName: Default Page Load Alert Rule

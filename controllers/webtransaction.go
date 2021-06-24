@@ -6,12 +6,19 @@ import (
 )
 
 func WebTransaction(webTransaction v1alpha1.WebTransaction) thousandeyes.WebTransaction {
-	payload := thousandeyes.WebTransaction{}
-	for _, agent := range webTransaction.Agents {
-		payload.Agents = append(payload.Agents, thousandeyes.Agent{AgentID: agent.AgentID})
+	data := thousandeyes.WebTransaction{}
+	data.URL = webTransaction.URL
+	data.Interval = webTransaction.Interval
+	data.TransactionScript = webTransaction.TransactionScript
+	return data
+}
+
+func CompareWebTransaction(spec v1alpha1.WebTransaction, te thousandeyes.WebTransaction) bool {
+	if spec.URL != te.URL ||
+		spec.Interval != te.Interval ||
+		spec.TransactionScript != te.TransactionScript {
+		return false
 	}
-	payload.URL = webTransaction.URL
-	payload.Interval = webTransaction.Interval
-	payload.TransactionScript = webTransaction.TransactionScript
-	return payload
+	return CompareAgents(spec.Agents, te.Agents) &&
+		CompareAlertRules(spec.AlertRules, te.AlertRules)
 }

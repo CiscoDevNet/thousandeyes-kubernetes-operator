@@ -58,12 +58,12 @@ type WebTransactionTestList struct {
 }
 
 type WebTransaction struct {
-	TestName          string  `json:"testName,omitempty"`
-	TestID            int     `json:"testId,omitempty"`
-	URL               string  `json:"url"`
-	Interval          int     `json:"interval"`
-	Agents            []Agent `json:"agents"`
-	TransactionScript string  `json:"transactionScript,omitempty"`
+	TestID            int         `json:"testId,omitempty"`
+	URL               string      `json:"url"`
+	Interval          int         `json:"interval"`
+	Agents            []Agent     `json:"agents"`
+	TransactionScript string      `json:"transactionScript,omitempty"`
+	AlertRules        []AlertRule `json:"alertRules,omitempty"`
 }
 
 func init() {

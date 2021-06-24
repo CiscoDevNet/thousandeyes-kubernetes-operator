@@ -4,10 +4,11 @@ metadata:
   name: webtransaction-sample
 spec:
   url: https://app.thousandeyes.com/login
-  interval: 600
+  interval: 300
   agents:
-    - agentId: 4492
-    - agentId: 4495
+    - agentName: Frankfurt, Germany (Trial)
+  alertRules:
+    - ruleName: Default Web Transaction 2.0 Alert Rule
   transactionScript: |
     import { By, Key } from 'selenium-webdriver';
     import { driver, test, credentials } from 'thousandeyes';
