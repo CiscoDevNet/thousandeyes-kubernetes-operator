@@ -2,42 +2,43 @@
 [![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
 [![Language](https://img.shields.io/badge/Language-Go-blue.svg)](https://golang.org/)
 
-Thousandeyes operator is a Golang based operator, which is to manage ThousandEyes resources deployed via the Kubernetes cluster.
+ThousandEyes Operator is Kubernetes operator used to manage ThousandEyes [Tests](https://developer.thousandeyes.com/v6/tests/) deployed via the Kubernetes cluster.
 It is built using the [Operator SDK](https://github.com/operator-framework/operator-sdk), which is part of the [Operator Framework](https://github.com/operator-framework/).
 
 The purpose of creating this operator was to provide an easy operations of ThousandEyes on Kubernetes.
 
 ### Supported Features
-This operatator supports creating, updating and deleting the following tests:
+This operatator supports creating, updating and deleting the following test types:
+- HTTP Server Test
 - Page Load Test 
 - Web Transacation Test
 
 ### Prerequisites
 
-ThousandEyes operator requires a Kubernetes cluster of version `>=1.16.0`. If you have just started with Operators, its highly recommended to use latest version of Kubernetes.
+ThousandEyes Operator requires a Kubernetes cluster of version `>=1.16.0`. If you have just started with Operators, its highly recommended to use latest version of Kubernetes.
 
 ## Quick Start
 
-### Deploy ThousandEyes Operator
+### Install ThousandEyes Operator
 
-1. Clone the project on your Kubernetes cluster master node:
+1. Clone the project:
 ```
-$ git clone https://wwwin-github.cisco.com/DevNet/thousandeyes-operator.git
+$ git clone https://github.com/CiscoDevNet/thousandeyes-operator.git
 $ cd thousandeyes-operator
 ```
 
-2. To deploy the ThousandEyes Operator on your Kubernetes cluster, follow the steps:
+2. Get the Oauth Bearer Token from [ThousandEyes dashboard](https://app.thousandeyes.com/login):
 * go to **Account Settings > Users and Roles > User API Tokens > OAuth Bearer Token** in [ThousandEyes dashboard](https://app.thousandeyes.com/login)
 * set the environment variable **THOUSANDEYES_CLIENT_TOKEN** with the **OAuth Bearer Token** in [thousandeyes-operator.yaml](./operator.yaml)
 
-* run the following script:
-
+3 Install the operator:
 ```
 $ ./install-operator.sh
 ```
 
-3. Use command ```kubectl get pods``` to check the ThousandEyes Operator deploy status like:
+4. Verify installation status
 
+Use command ```kubectl get pods``` to check the ThousandEyes Operator deploy status:
 ```
 $ kubectl get pods
 NAME                                          READY   STATUS    RESTARTS   AGE
@@ -54,7 +55,7 @@ The configuration of ThousandEyes test setup should be described in ThousandEyes
 $ kubectl apply -f config/crd/bases/thousandeyes.devnet.cisco.com_pageloadtests.yaml
 ```
 
-2.  Use command ```kubectl get crd``` to check the ThousandEyes CRD deploy status like: 
+2.  Use command ```kubectl get crd``` to check the ThousandEyes CRD deploy status: 
 ```
 $ kubectl get crd
 NAME                                                CREATED AT
