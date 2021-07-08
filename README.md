@@ -29,7 +29,7 @@ ThousandEyes Operator requires a Kubernetes cluster of version `>=1.16.0`. If yo
 
 2. Get the Oauth Bearer Token from [ThousandEyes dashboard](https://app.thousandeyes.com/login):
 
-   ![Oauth Bearer Token](./docs/thousandeyes_get_token.gif)
+   ![Oauth Bearer Token](./docs/thousandeyes_token.gif)
 
 3. Update the Oauth Bearer Token
    
@@ -44,13 +44,13 @@ ThousandEyes Operator requires a Kubernetes cluster of version `>=1.16.0`. If yo
 
    i. Use command ```kubectl get pods``` to check the ThousandEyes Operator deploy status:
    ```
-   $ kubectl get pods
+   $ kubectl get pods | grep thousandeyes
      NAME                                          READY   STATUS    RESTARTS   AGE
      thousandeyes-operator-564b5d75d-jllzk         1/1     Running   0          108s
    ```
    ii. Use command ```kubectl get crd``` to check the ThousandEyes CRD status:
    ```
-   $ kubectl get crd
+   $ kubectl get crd | grep thousandeyes
      NAME                                                CREATED AT
      pageloadtests.thousandeyes.devnet.cisco.com         2021-07-07T15:44:42Z
      webtransactiontests.thousandeyes.devnet.cisco.com   2021-07-07T15:44:44Z 
