@@ -15,7 +15,7 @@ This operatator supports creating, updating and deleting the following test type
 
 ### Prerequisites
 
-ThousandEyes Operator requires a Kubernetes cluster of version `>=1.16.0`. If you have just started with Operators, its highly recommended to use latest version of Kubernetes.
+ThousandEyes Operator requires a Kubernetes cluster of version `>=1.16.0`. If you have just started with Operators, it is highly recommended to use latest version of Kubernetes.
 
 ## Quick Start
 
@@ -32,8 +32,14 @@ ThousandEyes Operator requires a Kubernetes cluster of version `>=1.16.0`. If yo
    ![Oauth Bearer Token](./docs/thousandeyes_token.gif)
 
 3. Update the OAuth Bearer Token
-   
-   Modify OAuthBeaerToken (base64 encoded) in [thousandeyes_operator.yaml](config/deploy/thousandeyes_operator.yaml)
+
+   Encode the token in base64
+   ~~~
+   $ echo -n "YOUR_OAUTH_BEARER_TOKEN" | base64
+   WU9VUl9PQVVUSF9CRUFSRVJfVE9LRU4=
+   ~~~
+
+   Modify OAuthBeaerToken (base64 encoded) in [thousandeyes_operator.yaml](config/deploy/thousandeyes_operator.yaml#L7)
 
 4. Install the operator
    ```
@@ -42,7 +48,7 @@ ThousandEyes Operator requires a Kubernetes cluster of version `>=1.16.0`. If yo
 
 5. Verify installation status
 
-   i. Check the ThousandEyes Operator deploy status
+   i. Check the ThousandEyes Operator pod status
    ```
    $ kubectl get pods | grep thousandeyes
      NAME                                                 READY   STATUS    RESTARTS   AGE
