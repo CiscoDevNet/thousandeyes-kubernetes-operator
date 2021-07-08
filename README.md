@@ -31,9 +31,9 @@ ThousandEyes Operator requires a Kubernetes cluster of version `>=1.16.0`. If yo
 
    ![Oauth Bearer Token](./docs/thousandeyes_token.gif)
 
-3. Update the Oauth Bearer Token
+3. Update the OAuth Bearer Token
    
-   Modify THOUSANDEYES_CLIENT_TOKEN in [thousandeyes_operator.yaml](config/deploy/thousandeyes_operator.yaml)
+   Modify OAuthBeaerToken (base64 encoded) in [thousandeyes_operator.yaml](config/deploy/thousandeyes_operator.yaml)
 
 4. Install the operator:
    ```
@@ -45,8 +45,8 @@ ThousandEyes Operator requires a Kubernetes cluster of version `>=1.16.0`. If yo
    i. Use command ```kubectl get pods``` to check the ThousandEyes Operator deploy status:
    ```
    $ kubectl get pods | grep thousandeyes
-     NAME                                          READY   STATUS    RESTARTS   AGE
-     thousandeyes-operator-564b5d75d-jllzk         1/1     Running   0          108s
+     NAME                                                 READY   STATUS    RESTARTS   AGE
+     devnet-thousandeyes-operator-564b5d75d-jllzk         1/1     Running   0          108s
    ```
    ii. Use command ```kubectl get crd``` to check the ThousandEyes CRD status:
    ```

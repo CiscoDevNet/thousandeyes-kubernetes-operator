@@ -1,3 +1,11 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: thousandeyes-secret
+type: Opaque
+data:
+  OAuthBeaerToken: ZDRmZmMxNTEtZmU1Yy00YTk4LTlkNjgtZjQzYTJlZGZmYjI4
+---
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
@@ -395,7 +403,10 @@ spec:
       containers:
       - env:
         - name: THOUSANDEYES_CLIENT_TOKEN
-          value: d4ffc151-fe5c-4a98-9d68-f43a2edffb28
+          valueFrom:
+            secretKeyRef:
+              name: thousandeyes-secret
+              key: OAuthBeaerToken
         image: lingjshiregistry/thousandeyes-operator:v1.0
         imagePullPolicy: Always
         name: devnet-thousandeyes-operator
