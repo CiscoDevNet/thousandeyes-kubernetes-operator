@@ -1,0 +1,24 @@
+# permissions for end users to edit httpservertests.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: httpservertest-editor-role
+rules:
+- apiGroups:
+  - devnet.cisco.com
+  resources:
+  - httpservertests
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - devnet.cisco.com
+  resources:
+  - httpservertests/status
+  verbs:
+  - get

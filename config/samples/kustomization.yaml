@@ -2,4 +2,5 @@
 resources:
 - devnet_v1alpha1_pageloadtest.yaml
 - devnet_v1alpha1_webtransactiontest.yaml
+- devnet_v1alpha1_httpservertest.yaml
 #+kubebuilder:scaffold:manifestskustomizesamples

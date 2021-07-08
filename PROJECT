@@ -41,4 +41,13 @@ resources:
   kind: WebTransactionTest1
   path: wwwin-github.cisco.com/DevNet/thousandeyes-operator/api/v1alpha1
   version: v1alpha1
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: cisco.com
+  group: devnet
+  kind: HTTPServerTest
+  path: wwwin-github.cisco.com/DevNet/thousandeyes-operator/api/v1alpha1
+  version: v1alpha1
 version: "3"

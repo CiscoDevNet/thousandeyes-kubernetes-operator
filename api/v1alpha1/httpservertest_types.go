@@ -23,15 +23,15 @@ import (
 // EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
 // NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
 
-// WebTransactionTestSpec defines the desired state of WebTransactionTest
-type WebTransactionTestSpec struct {
+// HTTPServerTestSpec defines the desired state of HTTPServerTest
+type HTTPServerTestSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
-	WebTransaction `json:",inline"`
+	HTTPServer `json:",inline"`
 }
 
-// WebTransactionTestStatus defines the observed state of WebTransactionTest
-type WebTransactionTestStatus struct {
+// HTTPServerTestStatus defines the observed state of HTTPServerTest
+type HTTPServerTestStatus struct {
 	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
 }
@@ -39,33 +39,31 @@ type WebTransactionTestStatus struct {
 //+kubebuilder:object:root=true
 //+kubebuilder:subresource:status
 
-// WebTransactionTest is the Schema for the webtransactiontests API
-type WebTransactionTest struct {
+// HTTPServerTest is the Schema for the httpservertests API
+type HTTPServerTest struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
-	Spec   WebTransactionTestSpec   `json:"spec,omitempty"`
-	Status WebTransactionTestStatus `json:"status,omitempty"`
+	Spec   HTTPServerTestSpec   `json:"spec,omitempty"`
+	Status HTTPServerTestStatus `json:"status,omitempty"`
 }
 
 //+kubebuilder:object:root=true
-
-// WebTransactionTestList contains a list of WebTransactionTest
-type WebTransactionTestList struct {
+// HTTPServerTestList contains a list of HTTPServerTest
+type HTTPServerTestList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	Items           []WebTransactionTest `json:"items"`
+	Items           []HTTPServerTest `json:"items"`
 }
 
-type WebTransaction struct {
-	TestID            int         `json:"testId,omitempty"`
-	URL               string      `json:"url"`
-	Interval          int         `json:"interval"`
-	TransactionScript string      `json:"transactionScript,omitempty"`
-	Agents            []Agent     `json:"agents"`
-	AlertRules        []AlertRule `json:"alertRules,omitempty"`
+type HTTPServer struct {
+	TestID     int         `json:"testId,omitempty"`
+	URL        string      `json:"url,omitempty"`
+	Interval   int         `json:"interval,omitempty"`
+	Agents     []Agent     `json:"agents,omitempty"`
+	AlertRules []AlertRule `json:"alertRules,omitempty"`
 }
 
 func init() {
-	SchemeBuilder.Register(&WebTransactionTest{}, &WebTransactionTestList{})
+	SchemeBuilder.Register(&HTTPServerTest{}, &HTTPServerTestList{})
 }

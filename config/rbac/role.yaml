@@ -7,6 +7,32 @@ metadata:
   name: manager-role
 rules:
 - apiGroups:
+  - devnet.cisco.com
+  resources:
+  - httpservertests
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - devnet.cisco.com
+  resources:
+  - httpservertests/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - devnet.cisco.com
+  resources:
+  - httpservertests/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
   - thousandeyes.devnet.cisco.com
   resources:
   - pageloadtests

@@ -59,11 +59,10 @@ type PageLoadTestList struct {
 
 type PageLoad struct {
 	TestID       int         `json:"testId,omitempty"`
-	Type         string      `json:"type,omitempty"`
-	Agents       []Agent     `json:"agents,omitempty"`
-	HTTPInterval int         `json:"httpInterval,omitempty"`
-	Interval     int         `json:"interval,omitempty"`
 	URL          string      `json:"url,omitempty"`
+	Interval     int         `json:"interval,omitempty"`
+	HTTPInterval int         `json:"httpInterval,omitempty"`
+	Agents       []Agent     `json:"agents,omitempty"`
 	AlertRules   []AlertRule `json:"alertRules,omitempty"`
 }
 

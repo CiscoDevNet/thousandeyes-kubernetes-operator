@@ -1,0 +1,12 @@
+apiVersion: thousandeyes.devnet.cisco.com/v1alpha1
+kind: HTTPServerTest
+metadata:
+  name: httpserver-devnet-homepage
+spec:
+  url: https://developer.cisco.com/
+  interval: 120
+  agents:
+    - agentName: Hong Kong (Trial)
+    - agentName: Singapore (Trial) - IPv6
+  alertRules:
+    - ruleName: HTTP Connect Time Alert Rule
