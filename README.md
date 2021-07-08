@@ -22,62 +22,73 @@ ThousandEyes Operator requires a Kubernetes cluster of version `>=1.16.0`. If yo
 ### Install ThousandEyes Operator
 
 1. Clone the project:
-```
-$ git clone https://github.com/CiscoDevNet/thousandeyes-operator.git
-$ cd thousandeyes-operator
-```
+   ```
+   $ git clone https://github.com/CiscoDevNet/thousandeyes-operator.git
+   $ cd thousandeyes-operator
+   ```
 
 2. Get the Oauth Bearer Token from [ThousandEyes dashboard](https://app.thousandeyes.com/login):
-* go to **Account Settings > Users and Roles > User API Tokens > OAuth Bearer Token** in [ThousandEyes dashboard](https://app.thousandeyes.com/login)
-* set the environment variable **THOUSANDEYES_CLIENT_TOKEN** with the **OAuth Bearer Token** in [thousandeyes-operator.yaml](./operator.yaml)
 
-3 Install the operator:
-```
-$ ./install-operator.sh
-```
+   ![Oauth Bearer Token](./docs/thousandeyes_get_token.gif)
 
-4. Verify installation status
+3. Update the Oauth Bearer Token
+   
+   Modify THOUSANDEYES_CLIENT_TOKEN in [thousandeyes_operator.yaml](config/deploy/thousandeyes_operator.yaml)
 
-Use command ```kubectl get pods``` to check the ThousandEyes Operator deploy status:
-```
-$ kubectl get pods
-NAME                                          READY   STATUS    RESTARTS   AGE
-thousandeyes-operator-564b5d75d-jllzk         1/1     Running   0          108s
-```
+4. Install the operator:
+   ```
+   $ kubectl apply -f config/deploy/thousandeyes_operator.yaml
+   ```
 
-### Deploy ThousandEyes CRDs
+5. Verify installation status
 
-The configuration of ThousandEyes test setup should be described in ThousandEyes CRD. You will find all the manifests in [ThousandEyes CRDs](./config/crd/bases) folder.
+   i. Use command ```kubectl get pods``` to check the ThousandEyes Operator deploy status:
+   ```
+   $ kubectl get pods
+     NAME                                          READY   STATUS    RESTARTS   AGE
+     thousandeyes-operator-564b5d75d-jllzk         1/1     Running   0          108s
+   ```
+   ii. Use command ```kubectl get crd``` to check the ThousandEyes CRD status:
+   ```
+   $ kubectl get crd
+     NAME                                                CREATED AT
+     pageloadtests.thousandeyes.devnet.cisco.com         2021-07-07T15:44:42Z
+     webtransactiontests.thousandeyes.devnet.cisco.com   2021-07-07T15:44:44Z 
+   ```
 
-1. To deploy the ThousandEyes CRDs on your Kubernetes cluster, please run the following script:
-
-```
-$ kubectl apply -f config/crd/bases/thousandeyes.devnet.cisco.com_pageloadtests.yaml
-```
-
-2.  Use command ```kubectl get crd``` to check the ThousandEyes CRD deploy status: 
-```
-$ kubectl get crd
-NAME                                                CREATED AT
-pageloadtests.thousandeyes.devnet.cisco.com         2021-06-17T05:36:22Z
-```
 ### Run a page load test
-1. To create a page load test,you need to deploy the ThousandEyes custom resource on your Kubernetes cluster, please run the following script:
-```
-$ kubectl apply -f config/samples/devnet_v1alpha1_pageloadtest.yaml
-```
+1. To create a page load test,you need to deploy the ThousandEyes CR on your Kubernetes cluster, please run the following script:
+    ```
+    $ kubectl apply -f config/samples/devnet_v1alpha1_pageloadtest.yaml
+    ```
 You will find the test with the basic settings configured in the custom resource in ThousandEyes dashboard.
 
-2. To update the configuration of the page load test, just update the specific field of sepc of [custom resource](./config/samples) then deploy it on your Kubernetes cluster, please run the following script:
-```
-$ kubectl apply -f config/samples/devnet_v1alpha1_pageloadtest.yaml
-```
+2. To update the configuration of the page load test, just update the fields specified by [page load test CR spec](./config/samples/devnet_v1alpha1_pageloadtest.yaml) then deploy it on your Kubernetes cluster, please run the following script:
+    ```
+    $ kubectl apply -f config/samples/devnet_v1alpha1_pageloadtest.yaml
+    ```
 3. To delete the page load test, please run the following script:
-```
-$ kubectl delete -f config/samples/devnet_v1alpha1_pageloadtest.yaml
-```
+    ```
+    $ kubectl delete -f config/samples/devnet_v1alpha1_pageloadtest.yaml
+    ```
+You will find the test has been removed from ThousandEyes dashboard.
 
-To run a web transaction test, follow the steps above.
+### Run a web transaction test
+1. To create a web transaction test,you need to deploy the ThousandEyes CR on your Kubernetes cluster, please run the following script:
+   ```
+   $ kubectl apply -f config/samples/devnet_v1alpha1_webtransactiontest.yaml
+   ```
+You will find the test with the basic settings configured in the custom resource in ThousandEyes dashboard.
+
+2. To update the configuration of the web transaction test, just update the fields specified by [web transaction test CR spec](./config/samples/devnet_v1alpha1_webtransactiontest.yaml) then deploy it on your Kubernetes cluster, please run the following script:
+    ```
+    $ kubectl apply -f config/samples/devnet_v1alpha1_webtransactiontest.yaml
+    ```
+3. To delete the web transaction test, please run the following script:
+    ```
+    $ kubectl delete -f config/samples/devnet_v1alpha1_webtransactiontest.yaml
+    ```
+You will find the test has been removed from ThousandEyes dashboard.
 
 ## Reference
 1. [ThousandEyes Getting Started](https://docs.thousandeyes.com/product-documentation/getting-started)
