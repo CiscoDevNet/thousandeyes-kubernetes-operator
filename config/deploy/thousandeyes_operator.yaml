@@ -567,7 +567,7 @@ spec:
             secretKeyRef:
               name: thousandeyes-secret
               key: OAuthBeaerToken
-        image: lingjshiregistry/thousandeyes-operator:v1.0
+        image: ciscodevcloud/thousandeyes-operator:v1.0
         imagePullPolicy: Always
         name: devnet-thousandeyes-operator
         ports:
