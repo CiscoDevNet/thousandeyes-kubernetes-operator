@@ -5,6 +5,8 @@ import (
 	"wwwin-github.cisco.com/DevNet/thousandeyes-operator/api/v1alpha1"
 )
 
+const maxConcurrentReconciles = 3
+
 func Agents(specAgents []v1alpha1.Agent, teAgents thousandeyes.Agents) thousandeyes.Agents {
 	agents := thousandeyes.Agents{}
 	for _, specAgent := range specAgents {
