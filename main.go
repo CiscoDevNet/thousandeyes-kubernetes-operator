@@ -107,6 +107,15 @@ func main() {
 		setupLog.Error(err, "unable to create controller", "controller", "WebTransactionTest")
 		os.Exit(1)
 	}
+	if err = (&controllers.AnnotationMonitoringReconciler{
+		Client:             mgr.GetClient(),
+		Log:                ctrl.Log.WithName("controllers").WithName("AnnotationMonitoring"),
+		Scheme:             mgr.GetScheme(),
+		ThousandEyesClient: thousandeyes_client,
+	}).SetupWithManager(mgr); err != nil {
+		setupLog.Error(err, "unable to create controller", "controller", "AnnotationMonitoring")
+		os.Exit(1)
+	}
 	//+kubebuilder:scaffold:builder
 
 	if err := mgr.AddHealthzCheck("healthz", healthz.Ping); err != nil {

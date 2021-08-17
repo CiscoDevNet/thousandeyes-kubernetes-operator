@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-pageload-sample
+  annotations:
+    thousandeyes.devnet.cisco.com/test-type: page-load
+    thousandeyes.devnet.cisco.com/test-url: https://www.cisco.com/
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /apple
+            pathType: Prefix
+            backend:
+              service:
+                name: apple-service
+                port:
+                  number: 5678
+          - path: /banana
+            pathType: Prefix
+            backend:
+              service:
+                name: banana-service
+                port:
+                  number: 5678

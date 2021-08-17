@@ -1,0 +1,37 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-pageload-sample
+  annotations:
+    thousandeyes.devnet.cisco.com/test-type: page-load
+    thousandeyes.devnet.cisco.com/test-spec: |
+      {
+        "url":"https://www.cisco.com/",
+        "interval": 600,
+        "httpInterval": 600,
+        "agents": [
+           {"agentName":"Hong Kong (Trial)"},
+           {"agentName":"Singapore (Trial) - IPv6"}
+        ],
+        "alertRules": [
+           {"ruleName":"Default Page Load Alert Rule"}
+        ]
+      }
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /apple
+            pathType: Prefix
+            backend:
+              service:
+                name: apple-service
+                port:
+                  number: 5678
+          - path: /banana
+            pathType: Prefix
+            backend:
+              service:
+                name: banana-service
+                port:
+                  number: 5678

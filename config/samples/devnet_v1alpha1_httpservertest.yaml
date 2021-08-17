@@ -9,4 +9,6 @@ spec:
     - agentName: Hong Kong (Trial)
     - agentName: Singapore (Trial) - IPv6
   alertRules:
-    - ruleName: HTTP Connect Time Alert Rule
+    - ruleName: Default HTTP Alert Rule
+
+

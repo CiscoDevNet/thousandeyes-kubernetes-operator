@@ -57,18 +57,26 @@ ThousandEyes Operator requires a Kubernetes cluster of version `>=1.16.0`. If yo
    ii. Check the ThousandEyes CRD status
    ```
    $ kubectl get crd | grep thousandeyes
-     NAME                                                CREATED AT
-     httpservertests.thousandeyes.devnet.cisco.com       2021-07-07T15:44:41Z
-     pageloadtests.thousandeyes.devnet.cisco.com         2021-07-07T15:44:42Z
-     webtransactiontests.thousandeyes.devnet.cisco.com   2021-07-07T15:44:44Z 
+     NAME                                                  CREATED AT
+     annotationmonitorings.thousandeyes.devnet.cisco.com   2021-07-07T15:44:40Z
+     httpservertests.thousandeyes.devnet.cisco.com         2021-07-07T15:44:41Z
+     pageloadtests.thousandeyes.devnet.cisco.com           2021-07-07T15:44:42Z
+     webtransactiontests.thousandeyes.devnet.cisco.com     2021-07-07T15:44:44Z 
    ```
+There are two ways to run a ThousandEyes test:
+- Create a Custom Resource(CR) defined in ThousandEyes Operator
+- Create a Kubernetes Ingress resource with its annotations
+
+We will create the sample tests with the approaches above to make it more clear:
+
+## 1. Run the tests with the ThousandEyes Operator CR
 
 ### Run a HTTP Server Test
 1. Create a HTTP Server test
     ```
     $ kubectl apply -f config/samples/devnet_v1alpha1_httpservertest.yaml
     ```
-2. Update the configuration of the HTTP Server test
+2. Update the settings of the HTTP Server test
   
    Modify the fields specified by [HTTP Server Test CR](./config/samples/devnet_v1alpha1_httpservertest.yaml) and redeploy.
     ```
@@ -84,7 +92,7 @@ ThousandEyes Operator requires a Kubernetes cluster of version `>=1.16.0`. If yo
     ```
     $ kubectl apply -f config/samples/devnet_v1alpha1_pageloadtest.yaml
     ```
-2. Update the configuration of the Page Load test
+2. Update the settings of the Page Load test
 
    Modify the fields specified by [Page Load Test CR](./config/samples/devnet_v1alpha1_pageloadtest.yaml) and redeploy.
     ```
@@ -100,7 +108,7 @@ ThousandEyes Operator requires a Kubernetes cluster of version `>=1.16.0`. If yo
    ```
    $ kubectl apply -f config/samples/devnet_v1alpha1_webtransactiontest.yaml
    ```
-2. Update the configuration of the Web Transaction test
+2. Update the settings of the Web Transaction test
 
    Modify the fields specified by [Web Transaction Test CR](./config/samples/devnet_v1alpha1_webtransactiontest.yaml) and redeploy
     ```
@@ -110,6 +118,118 @@ ThousandEyes Operator requires a Kubernetes cluster of version `>=1.16.0`. If yo
     ```
     $ kubectl delete -f config/samples/devnet_v1alpha1_webtransactiontest.yaml
     ```
+## 2. Run the tests with the Kubernetes Ingress Resource
+There are multiple Ingress controllers, here we take the Nginx Ingress Controller as an example.
+
+### Install Ingress Controller Locally
+1. Install the Nginx Ingress Controller
+   ```
+   $ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/cloud/deploy.yaml
+   ```
+2. Check the Ingress pod status
+   ```
+   $ kubectl get pods -A | grep ingress-nginx
+     ingress-nginx   ingress-nginx-admission-create-2n62c        0/1     Completed   0          66s
+     ingress-nginx   ingress-nginx-admission-patch-fwnlg         0/1     Completed   1          66s
+     ingress-nginx   ingress-nginx-controller-68649d49b8-62zvc   1/1     Running     0          66s
+   ```
+### Run the tests with the Ingress resource
+The settings of the tests could be specified in the following annotations in Ingress resource:
+- thousandeyes.devnet.cisco.com/test-type: specify the test type. (**required**)
+- thousandeyes.devnet.cisco.com/test-url: specify the target url with its default settings. (**required if not specify thousandeyes.devnet.cisco.com/test-spec**)
+- thousandeyes.devnet.cisco.com/test-script: specfy the test script for web transaction test. (**required for web transaction test**)
+- thousandeyes.devnet.cisco.com/test-spec: specify the settings of this test. (**required if not specify thousandeyes.devnet.cisco.com/test-url**)
+
+### Run a HTTP Server Test (Default Settings)
+1. Create a HTTP Server Test
+   ```
+   $ kubectl apply -f config/samples/ingress/ingress_httpserver_default_settings.yaml
+   ```
+2. Update the settings of the HTTP Server test
+
+   Modify the annotation specified by [Ingress resource](./config/samples/ingress/ingress_httpserver_default_settings.yaml#L7) and redeploy.
+    ```
+    $ kubectl apply -f config/samples/ingress/ingress_httpserver_default_settings.yaml
+    ```
+3. Delete the HTTP Server test
+    ```
+    $ kubectl apply -f config/samples/ingress/ingress_httpserver_removal.yaml
+    ```
+### Run a HTTP Server Test (Specific Settings)  
+1. Create a HTTP Server Test
+   ```
+   $ kubectl apply -f config/samples/ingress/ingress_httpserver_specific_settings.yaml
+   ```
+2. Update the settings of the HTTP Server test
+
+   Modify the annotation specified by [Ingress resource](./config/samples/ingress/ingress_httpserver_specific_settings.yaml#L7) and redeploy.
+   ```
+   $ kubectl apply -f config/samples/ingress/ingress_httpserver_specific_settings.yaml
+   ```
+3. Delete the HTTP Server test
+   ```
+   $ kubectl apply -f config/samples/ingress/ingress_httpserver_removal.yaml
+   ```
+### Run a Page Load Test (Default Settings)
+1. Create a Page Load Test
+   ```
+   $ kubectl apply -f config/samples/ingress/ingress_pageload_default_settings.yaml
+   ```
+2. Update the settings of the Page Load test
+
+   Modify the annotation specified by [Ingress resource](./config/samples/ingress/ingress_pageload_default_settings.yaml#L7) and redeploy.
+    ```
+    $ kubectl apply -f config/samples/ingress/ingress_pageload_default_settings.yaml
+    ```
+3. Delete the Page Load test
+    ```
+    $ kubectl apply -f config/samples/ingress/ingress_pageload_removal.yaml
+    ```
+### Run a Page Load Test (Specific Settings)
+1. Create a Page Load Test
+   ```
+   $ kubectl apply -f config/samples/ingress/ingress_pageload_specific_settings.yaml
+   ```
+2. Update the settings of the Page Load test
+
+   Modify the annotation specified by [Ingress resource](./config/samples/ingress/ingress_pageload_specific_settings.yaml#L7) and redeploy.
+   ```
+   $ kubectl apply -f config/samples/ingress/ingress_pageload_specific_settings.yaml
+   ```
+3. Delete the Page Load test
+   ```
+   $ kubectl apply -f config/samples/ingress/ingress_pageload_removal.yaml
+   ```
+### Run a Web Transactions Test (Default Settings)
+1. Create a Web Transactions Test
+   ```
+   $ kubectl apply -f config/samples/ingress/ingress_webtransactions_default_settings.yaml
+   ```
+2. Update the settings of the Web Transactions test
+
+   Modify the annotation specified by [Ingress resource](./config/samples/ingress/ingress_webtransactions_default_settings.yaml#L7) and redeploy.
+    ```
+    $ kubectl apply -f config/samples/ingress/ingress_webtransactions_default_settings.yaml
+    ```
+3. Delete the Web Transactions test
+    ```
+    $ kubectl apply -f config/samples/ingress/ingress_webtransactions_removal.yaml
+    ```
+### Run a Web Transactions Test (Specific Settings)
+1. Create a Web Transactions Test
+   ```
+   $ kubectl apply -f config/samples/ingress/ingress_webtransactions_specific_settings.yaml
+   ```
+2. Update the settings of the Web Transactions test
+
+   Modify the annotation specified by [Ingress resource](./config/samples/ingress/ingress_webtransactions_specific_settings.yaml#L7) and redeploy.
+   ```
+   $ kubectl apply -f config/samples/ingress/ingress_webtransactions_specific_settings.yaml
+   ```
+3. Delete the Web Transactions test
+   ```
+   $ kubectl apply -f config/samples/ingress/ingress_webtransactions_removal.yaml
+   ```
 
 ## References
 1. [ThousandEyes Getting Started](https://docs.thousandeyes.com/product-documentation/getting-started)

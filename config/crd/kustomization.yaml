@@ -5,6 +5,7 @@ resources:
 - bases/thousandeyes.devnet.cisco.com_pageloadtests.yaml
 - bases/thousandeyes.devnet.cisco.com_webtransactiontests.yaml
 - bases/thousandeyes.devnet.cisco.com_httpservertests.yaml
+- bases/thousandeyes.devnet.cisco.com_annotationmonitorings.yaml
 #+kubebuilder:scaffold:crdkustomizeresource
 
 patchesStrategicMerge:
