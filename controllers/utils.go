@@ -5,7 +5,15 @@ import (
 	"wwwin-github.cisco.com/DevNet/thousandeyes-operator/api/v1alpha1"
 )
 
-const maxConcurrentReconciles = 3
+const (
+	none                    = "none"
+	httpserver              = "http-server"
+	pageload                = "page-load"
+	webtransactions         = "web-transactions"
+	HongKong                = "Hong Kong (Trial)"
+	Frankfurt               = "Frankfurt, Germany (Trial)"
+	maxConcurrentReconciles = 3
+)
 
 func Agents(specAgents []v1alpha1.Agent, teAgents thousandeyes.Agents) thousandeyes.Agents {
 	agents := thousandeyes.Agents{}
@@ -19,6 +27,10 @@ func Agents(specAgents []v1alpha1.Agent, teAgents thousandeyes.Agents) thousande
 	}
 	return agents
 
+}
+
+func DefaultAgents() []v1alpha1.Agent {
+	return []v1alpha1.Agent{{AgentName: HongKong}, {AgentName: Frankfurt}}
 }
 
 func AlertRules(specRules []v1alpha1.AlertRule, teRules thousandeyes.AlertRules) thousandeyes.AlertRules {
