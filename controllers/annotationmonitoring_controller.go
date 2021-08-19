@@ -21,6 +21,7 @@ import (
 	"encoding/json"
 	"github.com/go-logr/logr"
 	"github.com/william20111/go-thousandeyes"
+	corev1 "k8s.io/api/core/v1"
 	"k8s.io/api/networking/v1"
 	"k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/runtime"
@@ -64,15 +65,31 @@ type AnnotationMonitoringReconciler struct {
 func (r *AnnotationMonitoringReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
 	_ = r.Log.WithValues("annotationmonitoring", req.NamespacedName)
 
+	var testName string
+	annotations := map[string]string{}
 	ingress := &v1.Ingress{}
 	err := r.Get(ctx, req.NamespacedName, ingress)
 	if err != nil {
 		if errors.IsNotFound(err) {
-			return ctrl.Result{}, nil
+			service := &corev1.Service{}
+			err = r.Get(ctx, req.NamespacedName, service)
+			if err != nil {
+				if errors.IsNotFound(err) {
+					return ctrl.Result{}, nil
+				}
+				return ctrl.Result{}, err
+			}
+			testName = service.Name
+			annotations = service.Annotations
+		} else {
+			return ctrl.Result{}, err
 		}
-		return ctrl.Result{}, err
+	} else {
+		testName = ingress.Name
+		annotations = ingress.Annotations
 	}
-	if testType, ok := ingress.Annotations[annotationTestType]; ok {
+
+	if testType, ok := annotations[annotationTestType]; ok {
 		tests, err := r.ThousandEyesClient.GetTests()
 		if err != nil {
 			return ctrl.Result{}, err
@@ -85,7 +102,7 @@ func (r *AnnotationMonitoringReconciler) Reconcile(ctx context.Context, req ctrl
 		switch testType {
 		case none:
 			for _, test := range *tests {
-				if test.TestName == ingress.Name {
+				if test.TestName == testName {
 					switch test.Type {
 					case httpserver:
 						err = r.ThousandEyesClient.DeleteHTTPServer(test.TestID)
@@ -108,12 +125,12 @@ func (r *AnnotationMonitoringReconciler) Reconcile(ctx context.Context, req ctrl
 			}
 		case httpserver:
 			httpSpec := &devnetv1alpha1.HTTPServerTestSpec{}
-			if specStr, ok := ingress.Annotations[annotationTestSpec]; ok {
+			if specStr, ok := annotations[annotationTestSpec]; ok {
 				err = json.Unmarshal([]byte(specStr), httpSpec)
 				if err != nil {
 					return ctrl.Result{}, err
 				}
-			} else if url, ok := ingress.Annotations[annotationTestURL]; ok {
+			} else if url, ok := annotations[annotationTestURL]; ok {
 				httpSpec.URL = url
 				interval, err := strconv.Atoi(os.Getenv("DEFAULT_INTERVAL"))
 				if err != nil {
@@ -134,7 +151,7 @@ func (r *AnnotationMonitoringReconciler) Reconcile(ctx context.Context, req ctrl
 				data.AlertRules = AlertRules(httpSpec.AlertRules, *alertRules)
 			}
 			for _, test := range *tests {
-				if test.TestName == ingress.Name {
+				if test.TestName == testName {
 					httpSpec.TestID = test.TestID
 					break
 				}
@@ -154,19 +171,19 @@ func (r *AnnotationMonitoringReconciler) Reconcile(ctx context.Context, req ctrl
 				}
 				return ctrl.Result{}, nil
 			}
-			data.TestName = ingress.Name
+			data.TestName = testName
 			_, err = r.ThousandEyesClient.CreateHTTPServer(data)
 			if err != nil {
 				return ctrl.Result{}, err
 			}
 		case pageload:
 			pageloadSpec := &devnetv1alpha1.PageLoadTestSpec{}
-			if specStr, ok := ingress.Annotations[annotationTestSpec]; ok {
+			if specStr, ok := annotations[annotationTestSpec]; ok {
 				err = json.Unmarshal([]byte(specStr), pageloadSpec)
 				if err != nil {
 					return ctrl.Result{}, err
 				}
-			} else if url, ok := ingress.Annotations[annotationTestURL]; ok {
+			} else if url, ok := annotations[annotationTestURL]; ok {
 				pageloadSpec.URL = url
 				interval, err := strconv.Atoi(os.Getenv("DEFAULT_INTERVAL"))
 				if err != nil {
@@ -192,7 +209,7 @@ func (r *AnnotationMonitoringReconciler) Reconcile(ctx context.Context, req ctrl
 				data.AlertRules = AlertRules(pageloadSpec.AlertRules, *alertRules)
 			}
 			for _, test := range *tests {
-				if test.TestName == ingress.Name {
+				if test.TestName == testName {
 					pageloadSpec.TestID = test.TestID
 					break
 				}
@@ -212,19 +229,19 @@ func (r *AnnotationMonitoringReconciler) Reconcile(ctx context.Context, req ctrl
 				}
 				return ctrl.Result{}, nil
 			}
-			data.TestName = ingress.Name
+			data.TestName = testName
 			_, err = r.ThousandEyesClient.CreatePageLoad(data)
 			if err != nil {
 				return ctrl.Result{}, err
 			}
 		case webtransactions:
 			webtransactionSpec := &devnetv1alpha1.WebTransactionTestSpec{}
-			if specStr, ok := ingress.Annotations[annotationTestSpec]; ok {
+			if specStr, ok := annotations[annotationTestSpec]; ok {
 				err = json.Unmarshal([]byte(specStr), webtransactionSpec)
 				if err != nil {
 					return ctrl.Result{}, err
 				}
-			} else if url, ok := ingress.Annotations[annotationTestURL]; ok {
+			} else if url, ok := annotations[annotationTestURL]; ok {
 				webtransactionSpec.URL = url
 				interval, err := strconv.Atoi(os.Getenv("DEFAULT_INTERVAL"))
 				if err != nil {
@@ -235,7 +252,7 @@ func (r *AnnotationMonitoringReconciler) Reconcile(ctx context.Context, req ctrl
 			} else {
 				return ctrl.Result{}, nil
 			}
-			if script, ok := ingress.Annotations[annotationTestScript]; ok {
+			if script, ok := annotations[annotationTestScript]; ok {
 				webtransactionSpec.TransactionScript = script
 			} else {
 				return ctrl.Result{}, nil
@@ -250,7 +267,7 @@ func (r *AnnotationMonitoringReconciler) Reconcile(ctx context.Context, req ctrl
 				data.AlertRules = AlertRules(webtransactionSpec.AlertRules, *alertRules)
 			}
 			for _, test := range *tests {
-				if test.TestName == ingress.Name {
+				if test.TestName == testName {
 					webtransactionSpec.TestID = test.TestID
 					break
 				}
@@ -270,7 +287,7 @@ func (r *AnnotationMonitoringReconciler) Reconcile(ctx context.Context, req ctrl
 				}
 				return ctrl.Result{}, nil
 			}
-			data.TestName = ingress.Name
+			data.TestName = testName
 			_, err = r.ThousandEyesClient.CreateWebTransaction(data)
 			if err != nil {
 				return ctrl.Result{}, err
@@ -286,5 +303,6 @@ func (r *AnnotationMonitoringReconciler) SetupWithManager(mgr ctrl.Manager) erro
 	return ctrl.NewControllerManagedBy(mgr).
 		For(&devnetv1alpha1.AnnotationMonitoring{}).
 		Watches(&source.Kind{Type: &v1.Ingress{}}, &handler.EnqueueRequestForObject{}).
+		Watches(&source.Kind{Type: &corev1.Service{}}, &handler.EnqueueRequestForObject{}).
 		Complete(r)
 }
