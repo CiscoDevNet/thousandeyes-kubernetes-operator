@@ -118,16 +118,16 @@ We will create the sample tests with the approaches above to make it more clear:
     ```
     $ kubectl delete -f config/samples/devnet_v1alpha1_webtransactiontest.yaml
     ```
-## 2. Run the tests with the kubernetes internal resource
+## 2. Run the tests with the Kubernetes internal resource
 
-In this scenario, all the settings of the tests could be specified in the following **annotations** in kubernetes internal resource.
+In this scenario, all the test settings could be specified in the following **annotations** in Kubernetes internal resource.
 
 Once the resource with the annotations is created, the test will be created as well.
 
-- thousandeyes.devnet.cisco.com/test-type: specify the test type. (**required**)
-- thousandeyes.devnet.cisco.com/test-url: specify the target url with its default settings. (**required if not specify thousandeyes.devnet.cisco.com/test-spec**)
-- thousandeyes.devnet.cisco.com/test-script: specfy the test script for web transaction test. (**required for web transaction test**)
-- thousandeyes.devnet.cisco.com/test-spec: specify the settings of this test. (**required if not specify thousandeyes.devnet.cisco.com/test-url**)
+- thousandeyes.devnet.cisco.com/test-type: the test type (**required**).
+- thousandeyes.devnet.cisco.com/test-url: the target url (**required if thousandeyes.devnet.cisco.com/test-spec not exist**).
+- thousandeyes.devnet.cisco.com/test-spec: the test settings (**required if thousandeyes.devnet.cisco.com/test-url not exist**).
+- thousandeyes.devnet.cisco.com/test-script: the script for web transactions test (**required for web transactions test**).
 
 At this point, we support two resources: **Ingress** and **Service**.
 
