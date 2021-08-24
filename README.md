@@ -15,7 +15,7 @@ This operatator supports creating, updating and deleting the following test type
 
 ### Prerequisites
 
-ThousandEyes Operator requires a Kubernetes cluster of version `>=1.16.0`. If you have just started with Operators, it is highly recommended to use latest version of Kubernetes.
+ThousandEyes Operator requires a Kubernetes cluster of version `>=1.18.0`. If you have just started with Operators, it is highly recommended to use latest version of Kubernetes.
 
 ## Quick Start
 
@@ -65,7 +65,7 @@ ThousandEyes Operator requires a Kubernetes cluster of version `>=1.16.0`. If yo
    ```
 There are two ways to run a ThousandEyes test:
 - Create a Custom Resource(CR) defined in ThousandEyes Operator
-- Create a Kubernetes Ingress resource with its annotations
+- Create a Kubernetes internal resource with its annotations
 
 We will create the sample tests with the approaches above to make it more clear:
 
@@ -118,10 +118,25 @@ We will create the sample tests with the approaches above to make it more clear:
     ```
     $ kubectl delete -f config/samples/devnet_v1alpha1_webtransactiontest.yaml
     ```
-## 2. Run the tests with the Kubernetes Ingress Resource
-There are multiple Ingress controllers, here we take the Nginx Ingress Controller as an example.
+## 2. Run the tests with the kubernetes internal resource
+
+In this scenario, all the settings of the tests could be specified in the following **annotations** in kubernetes internal resource.
+
+Once the resource with the annotations is created, the test will be created as well.
+
+- thousandeyes.devnet.cisco.com/test-type: specify the test type. (**required**)
+- thousandeyes.devnet.cisco.com/test-url: specify the target url with its default settings. (**required if not specify thousandeyes.devnet.cisco.com/test-spec**)
+- thousandeyes.devnet.cisco.com/test-script: specfy the test script for web transaction test. (**required for web transaction test**)
+- thousandeyes.devnet.cisco.com/test-spec: specify the settings of this test. (**required if not specify thousandeyes.devnet.cisco.com/test-url**)
+
+At this point, we support two resources: **Ingress** and **Service**.
+
+Here we take Ingress as an example, it is also applied to Service.
 
 ### Install Ingress Controller Locally
+
+There are multiple Ingress controllers, we will use the Nginx Ingress Controller as an instance.
+
 1. Install the Nginx Ingress Controller
    ```
    $ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/cloud/deploy.yaml
@@ -133,12 +148,6 @@ There are multiple Ingress controllers, here we take the Nginx Ingress Controlle
      ingress-nginx   ingress-nginx-admission-patch-fwnlg         0/1     Completed   1          66s
      ingress-nginx   ingress-nginx-controller-68649d49b8-62zvc   1/1     Running     0          66s
    ```
-### Run the tests with the Ingress resource
-The settings of the tests could be specified in the following annotations in Ingress resource:
-- thousandeyes.devnet.cisco.com/test-type: specify the test type. (**required**)
-- thousandeyes.devnet.cisco.com/test-url: specify the target url with its default settings. (**required if not specify thousandeyes.devnet.cisco.com/test-spec**)
-- thousandeyes.devnet.cisco.com/test-script: specfy the test script for web transaction test. (**required for web transaction test**)
-- thousandeyes.devnet.cisco.com/test-spec: specify the settings of this test. (**required if not specify thousandeyes.devnet.cisco.com/test-url**)
 
 ### Run a HTTP Server Test (Default Settings)
 1. Create a HTTP Server Test
