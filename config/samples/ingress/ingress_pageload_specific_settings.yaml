@@ -1,12 +1,15 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
+  # specify the unique test name
   name: ingress-pageload-sample
   annotations:
+    # (required) the test type
     thousandeyes.devnet.cisco.com/test-type: page-load
+    # specify all the basic settings of the test
     thousandeyes.devnet.cisco.com/test-spec: |
       {
-        "url":"https://www.cisco.com/",
+        "url":"https://developer.cisco.com/",
         "interval": 600,
         "httpInterval": 600,
         "agents": [

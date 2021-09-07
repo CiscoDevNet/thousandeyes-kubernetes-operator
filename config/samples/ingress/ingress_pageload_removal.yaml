@@ -1,8 +1,10 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
+  # specify the unique test name
   name: ingress-pageload-sample
   annotations:
+    # set test type to 'none' if you want to delete this test
     thousandeyes.devnet.cisco.com/test-type: none
 spec:
   rules:
