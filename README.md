@@ -18,7 +18,7 @@ It is built using the [Operator SDK](https://github.com/operator-framework/opera
     * [Run a HTTP Server Test](#run-a-http-server-test)
     * [Run a Page Load Test](#run-a-page-load-test)
     * [Run a Web Transactions Test](#run-a-web-transactions-test)
-  * [Run tests with Kubernetes Ingress Resource](#2-run-tests-with-kubernetes-ingress-resource)
+  * [Run Tests With Kubernetes Ingress Resource](#2-run-tests-with-kubernetes-ingress-resource)
     * [Install Ingress Controller Locally](#install-ingress-controller-locally)
     * [Run a HTTP Server Test](#run-a-http-server-test-1)
     * [Run a Page Load Test](#run-a-page-load-test-1)
@@ -52,7 +52,7 @@ We can define a custom resource(CR) following its Custom Resource Definition (CR
 * [Page Load Test CRD](./config/crd/bases/thousandeyes.devnet.cisco.com_pageloadtests.yaml) ( [CR Sample](./config/samples/devnet_v1alpha1_pageloadtest.yaml) )
 * [Web Transactions Test CRD](./config/crd/bases/thousandeyes.devnet.cisco.com_webtransactiontests.yaml) ( [CR Sample](./config/samples/devnet_v1alpha1_webtransactiontest.yaml) )
 
-These fields in Spec could also be found in [ThousandEyes Test Metadata Table](https://developer.thousandeyes.com/v6/tests/).
+These fields in Spec could also be found in [ThousandEyes Test Metadata](https://developer.thousandeyes.com/v6/tests/#/test_metadata).
 
 ### Annotate a Kubernetes Ingress or Service resource
 
@@ -125,49 +125,49 @@ ThousandEyes Operator requires a Kubernetes cluster of version `>=1.18.0`. If yo
 ### Run a HTTP Server Test
 1. Create a HTTP Server test
     ```
-    $ kubectl apply -f config/samples/devnet_v1alpha1_httpservertest.yaml
+    kubectl apply -f config/samples/devnet_v1alpha1_httpservertest.yaml
     ```
 2. Update the settings of the HTTP Server test
   
    Modify the fields specified by [HTTP Server Test CR](./config/samples/devnet_v1alpha1_httpservertest.yaml) and redeploy.
     ```
-    $ kubectl apply -f config/samples/devnet_v1alpha1_httpservertest.yaml
+    kubectl apply -f config/samples/devnet_v1alpha1_httpservertest.yaml
     ```
 3. Delete the HTTP Server test
     ```
-    $ kubectl delete -f config/samples/devnet_v1alpha1_httpservertest.yaml
+    kubectl delete -f config/samples/devnet_v1alpha1_httpservertest.yaml
     ```
 
 ### Run a Page Load Test
 1. Create a Page Load test
     ```
-    $ kubectl apply -f config/samples/devnet_v1alpha1_pageloadtest.yaml
+    kubectl apply -f config/samples/devnet_v1alpha1_pageloadtest.yaml
     ```
 2. Update the settings of the Page Load test
 
    Modify the fields specified by [Page Load Test CR](./config/samples/devnet_v1alpha1_pageloadtest.yaml) and redeploy.
     ```
-    $ kubectl apply -f config/samples/devnet_v1alpha1_pageloadtest.yaml
+    kubectl apply -f config/samples/devnet_v1alpha1_pageloadtest.yaml
     ```
 3. Delete the Page Load test
     ```
-    $ kubectl delete -f config/samples/devnet_v1alpha1_pageloadtest.yaml
+    kubectl delete -f config/samples/devnet_v1alpha1_pageloadtest.yaml
     ```
 
 ### Run a Web Transactions Test
 1. Create a Web Transaction test
    ```
-   $ kubectl apply -f config/samples/devnet_v1alpha1_webtransactiontest.yaml
+   kubectl apply -f config/samples/devnet_v1alpha1_webtransactiontest.yaml
    ```
 2. Update the settings of the Web Transaction test
 
    Modify the fields specified by [Web Transaction Test CR](./config/samples/devnet_v1alpha1_webtransactiontest.yaml) and redeploy
     ```
-    $ kubectl apply -f config/samples/devnet_v1alpha1_webtransactiontest.yaml
+    kubectl apply -f config/samples/devnet_v1alpha1_webtransactiontest.yaml
     ```
 3. Delete the Web Transaction test
     ```
-    $ kubectl delete -f config/samples/devnet_v1alpha1_webtransactiontest.yaml
+    kubectl delete -f config/samples/devnet_v1alpha1_webtransactiontest.yaml
     ```
 ## 2. Run Tests with Kubernetes Ingress Resource
 
@@ -193,94 +193,94 @@ There are multiple Ingress controllers, we will use the Nginx Ingress Controller
 #### 1. Use the Default Settings:
 1. Create a HTTP Server Test
    ```
-   $ kubectl apply -f config/samples/ingress/ingress_httpserver_default_settings.yaml
+   kubectl apply -f config/samples/ingress/ingress_httpserver_default_settings.yaml
    ```
 2. Update the settings of the HTTP Server test
 
    Modify the annotation specified by [Ingress resource](./config/samples/ingress/ingress_httpserver_default_settings.yaml#L7) and redeploy.
     ```
-    $ kubectl apply -f config/samples/ingress/ingress_httpserver_default_settings.yaml
+    kubectl apply -f config/samples/ingress/ingress_httpserver_default_settings.yaml
     ```
 3. Delete the HTTP Server test
     ```
-    $ kubectl apply -f config/samples/ingress/ingress_httpserver_removal.yaml
+    kubectl apply -f config/samples/ingress/ingress_httpserver_removal.yaml
     ```
 #### 2. Use the Specific Settings:
 1. Create a HTTP Server Test
    ```
-   $ kubectl apply -f config/samples/ingress/ingress_httpserver_specific_settings.yaml
+   kubectl apply -f config/samples/ingress/ingress_httpserver_specific_settings.yaml
    ```
 2. Update the settings of the HTTP Server test
 
    Modify the annotation specified by [Ingress resource](./config/samples/ingress/ingress_httpserver_specific_settings.yaml#L7) and redeploy.
    ```
-   $ kubectl apply -f config/samples/ingress/ingress_httpserver_specific_settings.yaml
+   kubectl apply -f config/samples/ingress/ingress_httpserver_specific_settings.yaml
    ```
 3. Delete the HTTP Server test
    ```
-   $ kubectl apply -f config/samples/ingress/ingress_httpserver_removal.yaml
+   kubectl apply -f config/samples/ingress/ingress_httpserver_removal.yaml
    ```
 ### Run a Page Load Test
 #### 1. Use the Default Settings:
 1. Create a Page Load Test
    ```
-   $ kubectl apply -f config/samples/ingress/ingress_pageload_default_settings.yaml
+   kubectl apply -f config/samples/ingress/ingress_pageload_default_settings.yaml
    ```
 2. Update the settings of the Page Load test
 
    Modify the annotation specified by [Ingress resource](./config/samples/ingress/ingress_pageload_default_settings.yaml#L7) and redeploy.
     ```
-    $ kubectl apply -f config/samples/ingress/ingress_pageload_default_settings.yaml
+    kubectl apply -f config/samples/ingress/ingress_pageload_default_settings.yaml
     ```
 3. Delete the Page Load test
     ```
-    $ kubectl apply -f config/samples/ingress/ingress_pageload_removal.yaml
+    kubectl apply -f config/samples/ingress/ingress_pageload_removal.yaml
     ```
 #### 2. Use the Specific Settings:
 1. Create a Page Load Test
    ```
-   $ kubectl apply -f config/samples/ingress/ingress_pageload_specific_settings.yaml
+   kubectl apply -f config/samples/ingress/ingress_pageload_specific_settings.yaml
    ```
 2. Update the settings of the Page Load test
 
    Modify the annotation specified by [Ingress resource](./config/samples/ingress/ingress_pageload_specific_settings.yaml#L7) and redeploy.
    ```
-   $ kubectl apply -f config/samples/ingress/ingress_pageload_specific_settings.yaml
+   kubectl apply -f config/samples/ingress/ingress_pageload_specific_settings.yaml
    ```
 3. Delete the Page Load test
    ```
-   $ kubectl apply -f config/samples/ingress/ingress_pageload_removal.yaml
+   kubectl apply -f config/samples/ingress/ingress_pageload_removal.yaml
    ```
 ### Run a Web Transactions Test
 #### 1. Use the Default Settings:
 1. Create a Web Transactions Test
    ```
-   $ kubectl apply -f config/samples/ingress/ingress_webtransactions_default_settings.yaml
+   kubectl apply -f config/samples/ingress/ingress_webtransactions_default_settings.yaml
    ```
 2. Update the settings of the Web Transactions test
 
    Modify the annotation specified by [Ingress resource](./config/samples/ingress/ingress_webtransactions_default_settings.yaml#L7) and redeploy.
     ```
-    $ kubectl apply -f config/samples/ingress/ingress_webtransactions_default_settings.yaml
+    kubectl apply -f config/samples/ingress/ingress_webtransactions_default_settings.yaml
     ```
 3. Delete the Web Transactions test
     ```
-    $ kubectl apply -f config/samples/ingress/ingress_webtransactions_removal.yaml
+    kubectl apply -f config/samples/ingress/ingress_webtransactions_removal.yaml
     ```
 #### 2. Use the Specific Settings:
 1. Create a Web Transactions Test
    ```
-   $ kubectl apply -f config/samples/ingress/ingress_webtransactions_specific_settings.yaml
+   kubectl apply -f config/samples/ingress/ingress_webtransactions_specific_settings.yaml
    ```
 2. Update the settings of the Web Transactions test
 
    Modify the annotation specified by [Ingress resource](./config/samples/ingress/ingress_webtransactions_specific_settings.yaml#L7) and redeploy.
    ```
-   $ kubectl apply -f config/samples/ingress/ingress_webtransactions_specific_settings.yaml
+   kubectl apply -f config/samples/ingress/ingress_webtransactions_specific_settings.yaml
    ```
 3. Delete the Web Transactions test
    ```
-   $ kubectl apply -f config/samples/ingress/ingress_webtransactions_removal.yaml
+   kubectl apply -f config/samples/ingress/ingress_webtransactions_removal.yaml
    ```
 
 ## References
