@@ -103,7 +103,7 @@ Let`s run an Nginx web app locally, then create a **Page Load** test to monitor 
    You should see the Nginx welcome page which means you have run the app successfully.
 
 ### Create a Page Load Test
-1. Update public URL in [pageload_cr.yaml](./config/samples/pageload_cr.yaml#L6)
+1. Update public URL in [config/samples/pageload_cr.yaml](./config/samples/pageload_cr.yaml#L6)
 2. Apply the page load test CR
 ```
 kubectl apply -f config/samples/pageload_cr.yaml
