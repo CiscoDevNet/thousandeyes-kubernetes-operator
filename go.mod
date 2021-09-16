@@ -1,4 +1,4 @@
-module wwwin-github.cisco.com/DevNet/thousandeyes-operator
+module github.com/CiscoDevNet/thousandeyes-operator
 
 go 1.15
 

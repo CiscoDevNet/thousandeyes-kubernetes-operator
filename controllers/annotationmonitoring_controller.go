@@ -19,6 +19,7 @@ package controllers
 import (
 	"context"
 	"encoding/json"
+	devnetv1alpha1 "github.com/CiscoDevNet/thousandeyes-operator/api/v1alpha1"
 	"github.com/go-logr/logr"
 	"github.com/william20111/go-thousandeyes"
 	corev1 "k8s.io/api/core/v1"
@@ -31,7 +32,6 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/handler"
 	"sigs.k8s.io/controller-runtime/pkg/source"
 	"strconv"
-	devnetv1alpha1 "wwwin-github.cisco.com/DevNet/thousandeyes-operator/api/v1alpha1"
 )
 
 const (

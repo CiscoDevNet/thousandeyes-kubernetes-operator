@@ -33,8 +33,8 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/healthz"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
-	devnetv1alpha1 "wwwin-github.cisco.com/DevNet/thousandeyes-operator/api/v1alpha1"
-	"wwwin-github.cisco.com/DevNet/thousandeyes-operator/controllers"
+	devnetv1alpha1 "github.com/CiscoDevNet/thousandeyes-operator/api/v1alpha1"
+	"github.com/CiscoDevNet/thousandeyes-operator/controllers"
 	//+kubebuilder:scaffold:imports
 )
 

@@ -1,8 +1,8 @@
 package controllers
 
 import (
+	"github.com/CiscoDevNet/thousandeyes-operator/api/v1alpha1"
 	"github.com/william20111/go-thousandeyes"
-	"wwwin-github.cisco.com/DevNet/thousandeyes-operator/api/v1alpha1"
 )
 
 func PageLoad(pageLoad v1alpha1.PageLoad) thousandeyes.PageLoad {

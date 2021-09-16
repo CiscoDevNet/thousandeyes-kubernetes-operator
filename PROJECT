@@ -4,7 +4,7 @@ plugins:
   manifests.sdk.operatorframework.io/v2: {}
   scorecard.sdk.operatorframework.io/v2: {}
 projectName: thousandeyes-operator
-repo: wwwin-github.cisco.com/DevNet/thousandeyes-operator
+repo: github.com/CiscoDevNet/thousandeyes-operator
 resources:
 - api:
     crdVersion: v1
@@ -13,7 +13,7 @@ resources:
   domain: cisco.com
   group: devnet
   kind: ThousandEyesTest
-  path: wwwin-github.cisco.com/DevNet/thousandeyes-operator/api/v1alpha1
+  path: github.com/CiscoDevNet/thousandeyes-operator/api/v1alpha1
   version: v1alpha1
 - api:
     crdVersion: v1
@@ -22,7 +22,7 @@ resources:
   domain: cisco.com
   group: devnet
   kind: PageloadTest
-  path: wwwin-github.cisco.com/DevNet/thousandeyes-operator/api/v1alpha1
+  path: github.com/CiscoDevNet/thousandeyes-operator/api/v1alpha1
   version: v1alpha1
 - api:
     crdVersion: v1
@@ -31,7 +31,7 @@ resources:
   domain: cisco.com
   group: devnet
   kind: WebTransactionTest
-  path: wwwin-github.cisco.com/DevNet/thousandeyes-operator/api/v1alpha1
+  path: github.com/CiscoDevNet/thousandeyes-operator/api/v1alpha1
   version: v1alpha1
 - api:
     crdVersion: v1
@@ -39,7 +39,7 @@ resources:
   domain: cisco.com
   group: devnet
   kind: WebTransactionTest1
-  path: wwwin-github.cisco.com/DevNet/thousandeyes-operator/api/v1alpha1
+  path: github.com/CiscoDevNet/thousandeyes-operator/api/v1alpha1
   version: v1alpha1
 - api:
     crdVersion: v1
@@ -48,6 +48,6 @@ resources:
   domain: cisco.com
   group: devnet
   kind: HTTPServerTest
-  path: wwwin-github.cisco.com/DevNet/thousandeyes-operator/api/v1alpha1
+  path: github.com/CiscoDevNet/thousandeyes-operator/api/v1alpha1
   version: v1alpha1
 version: "3"
