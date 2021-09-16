@@ -10,7 +10,7 @@ metadata:
         "interval": 600,
         "httpInterval": 600,
         "agents": [
-           {"agentName":"Hong Kong (Trial)"},
+           {"agentName":"Tokyo, Japan (Trial)"},
            {"agentName":"Singapore (Trial) - IPv6"}
         ],
         "alertRules": [

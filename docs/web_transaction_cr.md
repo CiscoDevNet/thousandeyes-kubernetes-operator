@@ -1,4 +1,4 @@
-## Web Transaction Test (Use CR)
+## Web Transaction Test (Apply CR)
 
 In this example, you will run a Web Transaction test to interact with **Cisco DevNet homepage**.
 
@@ -40,15 +40,15 @@ spec:
 ```
 The test settings specified in **spec** are defined below:
 
-| Field       | Test Creation| Test Update | Data Type | Notes
-|--------------|----------|---------|----------|----------|
-|url           | Required | n/a     |  string  | target for the test
-|interval       | Required|	Optional | integer| value in seconds. Accpeted Values:[120, 300, 600, 900, 1800, 3600]
-|agents        | Required | Optional|array of agentName|
-|agentName       | Required   | Optional| string| cloud agent name
-|alertRules    | Optional|Optional|array of ruleName| If this field is not specified, The default alert rules will be used.
-|ruleName      |Optional|Optional|string|alert rule name
-|transactionScript|Required|Optional| string|JavaScript of a web transaction test.It could be generated via ThousandEyes Recorder. 
+| Field        | Test Creation| Test Update | Data Type | Default Values | Notes
+|--------------|--------------|-------------|-----------|----------------|-------|
+|url           | Required     | n/a         | string    |                | target for the test
+|interval      | Required     |	Optional    | integer   | 120            | value in seconds. Accpeted Values:[120, 300, 600, 900, 1800, 3600]
+|agents        | Required     | Optional    | array of agentName|        |
+|agentName     | Required     | Optional    | string    | Tokyo, Japan (Trial), Singapore (Trial) - IPv6 | cloud agent name
+|alertRules    | Optional     | Optional    | array of ruleName|         | if this field is not specified, The default alert rules will be used.
+|ruleName      | Optional     | Optional    | string    |                | alert rule name
+|transactionScript|Required   | Optional    | string    |                | javaScript of a web transaction test.It could be generated via ThousandEyes Recorder. 
 
 For more details, please refer to **Web Transaction** [ThousandEyes Test Metadata](https://developer.thousandeyes.com/v6/tests/#/test_metadata).
 

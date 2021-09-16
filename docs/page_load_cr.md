@@ -1,4 +1,4 @@
-## Page Load Test (Use CR)
+## Page Load Test (Apply CR)
 
 In this example, we will run a Page Load test to monitor **Cisco DevNet homepage**.
 
@@ -24,15 +24,15 @@ spec:
 ```
 The test settings specified in **spec** are defined below:
 
-| Field       | Test Creation| Test Update | Data Type | Notes
-|--------------|----------|---------|----------|----------|
-|url           | Required | n/a     |  string  | target for the test
-|interval       | Required|	Optional | integer| value in seconds. Accpeted Values:[120, 300, 600, 900, 1800, 3600]
-|httpInterval  | Required | Optional| integer |value in seconds.Accpeted Values:[120, 300, 600, 900, 1800, 3600].It can not be larger than the interval value; defaults to the same value as interval
-|agents        | Required | Optional|array of agentName|
-|agentName       | Required   | Optional| string| cloud agent name
-|alertRules    | Optional|Optional|array of ruleName| If this field is not specified, The default alert rules will be used.
-|ruleName      |Optional|Optional|string|alert rule name
+| Field        | Test Creation| Test Update | Data Type | Default Values | Notes |
+|--------------|--------------|-------------|----------|-----------------|-------|
+|url           | Required     | n/a         | string   |                 | target for the test
+|interval      | Required     |	Optional    | integer  | 120             | value in seconds. Accpeted Values:[120, 300, 600, 900, 1800, 3600]
+|httpInterval  | Required     | Optional    | integer  | 120             | value in seconds.Accpeted Values:[120, 300, 600, 900, 1800, 3600].It can not be larger than the interval value; defaults to the same value as interval
+|agents        | Required     | Optional    | array of agentName|        |
+|agentName     | Required     | Optional    | string   | Tokyo, Japan (Trial), Singapore (Trial) - IPv6   | cloud agent name
+|alertRules    | Optional     | Optional    | array of ruleName|         | if this field is not specified, The default alert rules will be used.
+|ruleName      | Optional     | Optional    | string   |                 | alert rule name
 
 For more details, please refer to **Page Load** in [ThousandEyes Test Metadata](https://developer.thousandeyes.com/v6/tests/#/test_metadata).
 

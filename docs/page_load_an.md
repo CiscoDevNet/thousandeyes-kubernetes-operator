@@ -1,4 +1,4 @@
-## Page Load Test (Use Annotations)
+## Page Load Test (Add Annotations to Service)
 
 In this example, we will deploy the following **Service** with annotations, it will run a **Page Load** test to monitor **Cisco DevNet homepage**.
 
@@ -58,7 +58,9 @@ iii. Delete the Page Load test
    ```
    The test will be removed from ThousandEyes dashboard.
 
-2. If we want to use test settings by default, we can add **thousandeyes.devnet.cisco.com/test-url** only to Service.
+2. You can add **thousandeyes.devnet.cisco.com/test-url** only to Service.
+   
+   The test will be created with settings by default.
 
 Service: [**config/samples/annotations/service_pageload_default_settings.yaml**](../config/samples/annotations/service_pageload_default_settings.yaml)
 
@@ -98,7 +100,7 @@ iii. Delete the Page Load test
 
    Just set **thousandeyes.devnet.cisco.com/test-type** to **none** in [Service resource](../config/samples/annotations/service_pageload_removal_settings.yaml#L6) and redeploy.
    ```
-   kubectl apply -f config/samples/annotations/servicex_pageload_removal_settings.yaml
+   kubectl apply -f config/samples/annotations/service_pageload_removal_settings.yaml
    ```
 The test will be removed from ThousandEyes dashboard.
 

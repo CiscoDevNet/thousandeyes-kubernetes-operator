@@ -1,4 +1,4 @@
-## HTTP Server Test (Use Annotations)
+## HTTP Server Test (Add Annotations to Ingress)
 
 In this example, We will deploy an **Ingress** with annotations, it will run a **HTTP Server** test to monitor **Cisco DevNet homepage**.
 
@@ -96,8 +96,10 @@ iii. Delete the HTTP Server test
    ```
    The test will be removed from ThousandEyes dashboard.
 
-2. If we want to use test settings by default, we can add **thousandeyes.devnet.cisco.com/test-url** only to Ingress.
-   
+2. You can add **thousandeyes.devnet.cisco.com/test-url** only to Ingress.
+
+   The test will be created with settings by default.
+
 Ingress: [**config/samples/annotations/ingress_httpserver_default_settings.yaml**](../config/samples/annotations/ingress_httpserver_default_settings.yaml)
 
 ```yaml

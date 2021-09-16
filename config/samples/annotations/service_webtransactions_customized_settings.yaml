@@ -5,6 +5,18 @@ metadata:
   annotations:
     thousandeyes.devnet.cisco.com/test-type: web-transactions
     thousandeyes.devnet.cisco.com/test-spec: |
+      {
+        "url":"https://developer.cisco.com/",
+        "interval": 300,
+        "agents": [
+           {"agentName":"Tokyo, Japan (Trial)"},
+           {"agentName":"Singapore (Trial) - IPv6"}
+        ],
+        "alertRules": [
+           {"ruleName":"Default Web Transaction 2.0 Alert Rule"}
+        ]
+      }
+    thousandeyes.devnet.cisco.com/test-script: |
       import { By, Key } from 'selenium-webdriver';
       import { driver, test } from 'thousandeyes';
 
