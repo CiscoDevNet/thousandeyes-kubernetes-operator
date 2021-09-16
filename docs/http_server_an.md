@@ -42,7 +42,6 @@ Based on the pre-requisites, now we can run our test.
 1. If you want to customize the test settings, you can add **thousandeyes.devnet.cisco.com/test-spec** to Ingress.
 
 Ingress: [**config/samples/annotations/ingress_httpserver_customized_settings.yaml**](../config/samples/annotations/ingress_httpserver_customized_settings.yaml)
-customized
 ```yaml
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -91,7 +90,7 @@ ii. Update the settings of the HTTP Server test
 
 iii. Delete the HTTP Server test
    
-   Just set **thousandeyes.devnet.cisco.com/test-type** to **none** in [Ingress resource](../config/samples/annotations/ingress_httpserver_removal.yaml#L7) and redeploy.
+   Just set **thousandeyes.devnet.cisco.com/test-type** to **none** in [Ingress resource](../config/samples/annotations/ingress_httpserver_removal.yaml#L8) and redeploy.
    ```
    kubectl apply -f config/samples/annotations/ingress_httpserver_removal.yaml
    ```
@@ -138,7 +137,7 @@ ii. Update the **url** of the HTTP Server test
 
 iii. Delete the HTTP Server test
    
-   Just set **thousandeyes.devnet.cisco.com/test-type** to **none** in [Ingress resource](../config/samples/annotations/ingress_httpserver_removal.yaml#L7) and redeploy.
+   Just set **thousandeyes.devnet.cisco.com/test-type** to **none** in [Ingress resource](../config/samples/annotations/ingress_httpserver_removal.yaml#L8) and redeploy.
    ```
    kubectl apply -f config/samples/annotations/ingress_httpserver_removal.yaml
    ```

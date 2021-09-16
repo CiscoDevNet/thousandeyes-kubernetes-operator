@@ -2,7 +2,7 @@
 
 In this example, we will deploy the following **Service** with annotations, it will run a **Page Load** test to monitor **Cisco DevNet homepage**.
 
-1. If we want to customize the test settings, we can add **thousandeyes.devnet.cisco.com/test-spec** to Service.
+1. If you want to customize the test settings, you can add **thousandeyes.devnet.cisco.com/test-spec** to Service.
 
 Service: [**config/samples/annotations/service_pageload_customized_settings.yaml**](../config/samples/annotations/service_pageload_customized_settings.yaml)
 
@@ -19,7 +19,7 @@ metadata:
         "interval": 600,
         "httpInterval": 600,
         "agents": [
-           {"agentName":"Hong Kong (Trial)"},
+           {"agentName":"Tokyo, Japan (Trial)"},
            {"agentName":"Singapore (Trial) - IPv6"}
         ],
         "alertRules": [
@@ -44,7 +44,7 @@ i. Create a Page Load test
 
 ii. Update the settings of the Page Load test
 
-   Modify **thousandeyes.devnet.cisco.com/test-spec** in [Service resource](../config/samples/annotations/service_pageload_customized_settings.yaml#L28) and redeploy.
+   Modify **thousandeyes.devnet.cisco.com/test-spec** in [Service resource](../config/samples/annotations/service_pageload_customized_settings.yaml#L7) and redeploy.
    ```
    kubectl apply -f config/samples/annotations/service_pageload_customized_settings.yaml
    ```
@@ -52,7 +52,7 @@ ii. Update the settings of the Page Load test
 
 iii. Delete the Page Load test
 
-   Just set **thousandeyes.devnet.cisco.com/test-type** to **none** in [Service resource](../config/samples/annotations/service_pageload_removal_settings.yaml#L27) and redeploy.
+   Just set **thousandeyes.devnet.cisco.com/test-type** to **none** in [Service resource](../config/samples/annotations/service_pageload_removal_settings.yaml#L6) and redeploy.
    ```
    kubectl apply -f config/samples/annotations/service_pageload_removal_settings.yaml
    ```
@@ -88,7 +88,7 @@ i. Create a Page Load test
 
 ii. Update the settings of the Page Load test
 
-   Modify **thousandeyes.devnet.cisco.com/test-url** in [Service resource](../config/samples/annotations/service_pageload_default_settings.yaml#L28) and redeploy.
+   Modify **thousandeyes.devnet.cisco.com/test-url** in [Service resource](../config/samples/annotations/service_pageload_default_settings.yaml#L7) and redeploy.
    ```
    kubectl apply -f config/samples/annotations/service_pageload_default_settings.yaml
    ```
@@ -96,7 +96,7 @@ ii. Update the settings of the Page Load test
 
 iii. Delete the Page Load test
 
-   Just set **thousandeyes.devnet.cisco.com/test-type** to **none** in [Service resource](../config/samples/annotations/service_pageload_removal_settings.yaml#L27) and redeploy.
+   Just set **thousandeyes.devnet.cisco.com/test-type** to **none** in [Service resource](../config/samples/annotations/service_pageload_removal_settings.yaml#L6) and redeploy.
    ```
    kubectl apply -f config/samples/annotations/servicex_pageload_removal_settings.yaml
    ```

@@ -12,8 +12,6 @@ The purpose of creating this operator is to provide an automate operation of Tho
 * [Prerequisites](#prerequisites)
 * [Quick Start](#quick-start)
 * [Advanced Usages](#advanced-usage)
-  * [Define a Kubernetes Custom Resource](#define-a-kubernetes-custom-resource)
-  * [Annotate a Kubernetes Ingress or Service resource](#annotate-a-kubernetes-ingress-or-service-resource)
 * [Reference](#reference)
 
 ## Supported Test Types
@@ -106,7 +104,7 @@ Let`s run an Nginx web app locally, then create a **Page Load** test to monitor 
 
 ### Create a Page Load Test
 1. Update public URL in [pageload_cr.yaml](./config/samples/pageload_cr.yaml#L6)
-2. Create the page load test CR
+2. Apply the page load test CR
 ```
 kubectl apply -f config/samples/pageload_cr.yaml
 ```

@@ -45,7 +45,7 @@ The test will be created on dashboard.
 
 ii. Update the settings of the Web Transactions test
 
-Modify **thousandeyes.devnet.cisco.com/test-spec** in [Service resource](../config/samples/annotations/service_webtransactions_customized_settings.yaml#L28) and redeploy.
+Modify **thousandeyes.devnet.cisco.com/test-spec** in [Service resource](../config/samples/annotations/service_webtransactions_customized_settings.yaml#L7) and redeploy.
    ```
    kubectl apply -f config/samples/annotations/service_webtransactions_customized_settings.yaml
    ```
@@ -53,7 +53,7 @@ You will find the settings have been updated.
 
 iii. Delete the Web Transactions test
 
-Just set **thousandeyes.devnet.cisco.com/test-type** to **none** in [Service resource](../config/samples/annotations/service_webtransactions_removal_settings.yaml#L27) and redeploy.
+Just set **thousandeyes.devnet.cisco.com/test-type** to **none** in [Service resource](../config/samples/annotations/service_webtransactions_removal_settings.yaml#L6) and redeploy.
    ```
    kubectl apply -f config/samples/annotations/service_webtransactions_removal_settings.yaml
    ```
@@ -91,7 +91,7 @@ The test will be created on dashboard.
 
 ii. Update the settings of the Web Transactions test
 
-Modify **thousandeyes.devnet.cisco.com/test-url** in [Service resource](../config/samples/annotations/service_webtransactions_default_settings.yaml#L28) and redeploy.
+Modify **thousandeyes.devnet.cisco.com/test-url** in [Service resource](../config/samples/annotations/service_webtransactions_default_settings.yaml#L7) and redeploy.
    ```
    kubectl apply -f config/samples/annotations/service_webtransactions_default_settings.yaml
    ```
@@ -99,7 +99,7 @@ You will find the url have been updated.
 
 iii. Delete the Web Transactions test
 
-Just set **thousandeyes.devnet.cisco.com/test-type** to **none** in [Service resource](../config/samples/annotations/service_webtransactions_removal_settings.yaml#L27) and redeploy.
+Just set **thousandeyes.devnet.cisco.com/test-type** to **none** in [Service resource](../config/samples/annotations/service_webtransactions_removal_settings.yaml#L6) and redeploy.
    ```
    kubectl apply -f config/samples/annotations/service_webtransactions_removal_settings.yaml
    ```
