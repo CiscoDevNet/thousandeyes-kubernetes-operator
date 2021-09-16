@@ -2,21 +2,21 @@ apiVersion: thousandeyes.devnet.cisco.com/v1alpha1
 kind: PageLoadTest
 metadata:
   # specify the unique test name
-  name: pageloadtest-sample
+  name: pageload-devnet-homepage
 # specify the basic settings for the page load test
 spec:
   # (required) target url for the test
   url: https://developer.cisco.com/
   # (required) frequency of ThousandEyes Cloud Agents running the test to get the page load layer metrics.
   # Acceptable Values: [120, 300, 600, 900, 1800, 3600] value in seconds
-  interval: 120
+  interval: 300
   # (required) frequency of ThousandEyes Cloud Agents running the test to get the http server layer metrics.
   # Acceptable Values: [120, 300, 600, 900, 1800, 3600] value in seconds
   # Cannot be larger than the interval value; defaults to the same value as interval
-  httpInterval: 120
+  httpInterval: 300
   #(required) array of cloud agent names
   agents:
-    - agentName: Hong Kong (Trial)
+    - agentName: Tokyo, Japan (Trial)
     - agentName: Singapore (Trial) - IPv6
   #(optional) array of alert rules. If this field is not specified, The default alert rules will be used.
   alertRules:

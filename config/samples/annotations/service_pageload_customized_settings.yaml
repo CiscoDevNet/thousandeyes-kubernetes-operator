@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service-pageload
+  annotations:
+    thousandeyes.devnet.cisco.com/test-type: page-load
+    thousandeyes.devnet.cisco.com/test-spec: |
+      {
+        "url":"https://developer.cisco.com/",
+        "interval": 600,
+        "httpInterval": 600,
+        "agents": [
+           {"agentName":"Hong Kong (Trial)"},
+           {"agentName":"Singapore (Trial) - IPv6"}
+        ],
+        "alertRules": [
+           {"ruleName":"Default Page Load Alert Rule"}
+        ]
+      }
+  labels:
+    run: nginx
+spec:
+  selector:
+    run: nginx
+  ports:
+    - port: 80
+      protocol: TCP

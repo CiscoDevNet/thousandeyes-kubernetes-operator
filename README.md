@@ -5,73 +5,26 @@
 ThousandEyes Operator is a Kubernetes operator used to manage ThousandEyes [Tests](https://developer.thousandeyes.com/v6/tests/) deployed via the Kubernetes cluster.
 It is built using the [Operator SDK](https://github.com/operator-framework/operator-sdk), which is part of the [Operator Framework](https://github.com/operator-framework/).
 
+The purpose of creating this operator is to provide an automate operation of ThousandEyes on Kubernetes.
+
 ## Documentation
-* [Benefits](#benefits)
-* [Supported Features](#supported-features)
-* [Use ThousandEyes Operator](#use-thousandeyes-operator)
+* [Supported Test Types](#supported-test-types)
+* [Prerequisites](#prerequisites)
+* [Quick Start](#quick-start)
+* [Advanced Usages](#advanced-usage)
   * [Define a Kubernetes Custom Resource](#define-a-kubernetes-custom-resource)
   * [Annotate a Kubernetes Ingress or Service resource](#annotate-a-kubernetes-ingress-or-service-resource)
-* [Quick Start](#quick-start)
-  * [Prerequisites](#prerequisites)
-  * [Install ThousandEyes Operator](#install-thousandeyes-operator)
-  * [Run Tests With Custom Resource](#1-run-tests-with-custom-resource)
-    * [Run a HTTP Server Test](#run-a-http-server-test)
-    * [Run a Page Load Test](#run-a-page-load-test)
-    * [Run a Web Transactions Test](#run-a-web-transactions-test)
-  * [Run Tests With Kubernetes Ingress Resource](#2-run-tests-with-kubernetes-ingress-resource)
-    * [Install Ingress Controller Locally](#install-ingress-controller-locally)
-    * [Run a HTTP Server Test](#run-a-http-server-test-1)
-    * [Run a Page Load Test](#run-a-page-load-test-1)
-    * [Run a Web Transactions Test](#run-a-web-transactions-test-1)
+* [Reference](#reference)
 
-## Benefits
-Here are the benefits of building this operator:
-* Automate ThousandEyes test operation
-* Define ThousandEyes tests as Code
-* Manage ThousandEyes tests as K8s resources in a cloud native way
-* Ready for DevOps
-
-## Supported Features
-At this stage, ThousandEyes Operatator supports creating, updating and deleting the following three test types.
+## Supported Test Types
+ThousandEyes Operatator supports managing the following test types.
 - HTTP Server Test
 - Page Load Test
 - Web Transacations Test
 
-We will support more types and features in the future.
+More types will be supported in the future.
 
-## Use ThousandEyes Operator
-There are two ways to run a ThousandEyes test with the operator:
-- Define a Kubernetes Custom Resource
-- Annotate a Kubernetes Ingress or Service resource
-
-### Define a Kubernetes Custom Resource
-
-We can define a custom resource(CR) following its Custom Resource Definition (CRD) respectively:
-
-* [HTTP Server Test CRD](./config/crd/bases/thousandeyes.devnet.cisco.com_httpservertests.yaml) ( [CR Sample](./config/samples/devnet_v1alpha1_httpservertest.yaml) )
-* [Page Load Test CRD](./config/crd/bases/thousandeyes.devnet.cisco.com_pageloadtests.yaml) ( [CR Sample](./config/samples/devnet_v1alpha1_pageloadtest.yaml) )
-* [Web Transactions Test CRD](./config/crd/bases/thousandeyes.devnet.cisco.com_webtransactiontests.yaml) ( [CR Sample](./config/samples/devnet_v1alpha1_webtransactiontest.yaml) )
-
-These fields in Spec could also be found in [ThousandEyes Test Metadata](https://developer.thousandeyes.com/v6/tests/#/test_metadata).
-
-### Annotate a Kubernetes Ingress or Service resource
-
-We can add the following annotations in Ingress or Service resource:
-
-* **thousandeyes.devnet.cisco.com/test-type**: test type
-* **thousandeyes.devnet.cisco.com/test-url**: target url
-* **thousandeyes.devnet.cisco.com/test-spec**: test settings
-* **thousandeyes.devnet.cisco.com/test-script**: transaction script for web transactions test
-
-Below are the Ingress samples for your reference:
-
-* HTTP Server Test: [Case1](./config/samples/ingress/ingress_httpserver_default_settings.yaml)   [Case2](./config/samples/ingress/ingress_httpserver_specific_settings.yaml)   [Case3](./config/samples/ingress/ingress_httpserver_removal.yaml)
-* Page Load Test: [Case1](./config/samples/ingress/ingress_pageload_default_settings.yaml)   [Case2](./config/samples/ingress/ingress_pageload_specific_settings.yaml)   [Case3](./config/samples/ingress/ingress_pageload_removal.yaml)
-* Web Transactions Test: [Case1](./config/samples/ingress/ingress_webtransactions_default_settings.yaml)   [Case2](./config/samples/ingress/ingress_webtransactions_specific_settings.yaml)   [Case3](./config/samples/ingress/ingress_webtransactions_removal.yaml)
-
-## Quick Start
-
-### Prerequisites
+## Prerequisites
 
 ThousandEyes Operator requires a Kubernetes cluster of version `>=1.18.0`. If you have just started with Operators, it is highly recommended to use latest version of Kubernetes.
 
@@ -87,15 +40,14 @@ ThousandEyes Operator requires a Kubernetes cluster of version `>=1.18.0`. If yo
 
    ![Oauth Bearer Token](./docs/thousandeyes_token.gif)
 
-3. Update the OAuth Bearer Token
+3. Update the OAuth bearer token
 
    Encode the token in base64
    ```
    echo -n "YOUR_OAUTH_BEARER_TOKEN" | base64
-   WU9VUl9PQVVUSF9CRUFSRVJfVE9LRU4=
    ```
 
-   Modify OAuthBeaerToken (base64 encoded) in [thousandeyes_operator.yaml](config/deploy/thousandeyes_operator.yaml#L7)
+   Modify OAuthBeaerToken (base64 encoded) in [thousandeyes_operator.yaml](./config/deploy/thousandeyes_operator.yaml#L7)
 
 4. Install the operator
    ```
@@ -104,15 +56,17 @@ ThousandEyes Operator requires a Kubernetes cluster of version `>=1.18.0`. If yo
 
 5. Verify installation status
 
-   i. Check the ThousandEyes Operator pod status
+   i. Check ThousandEyes Operator pod status
    ```
    kubectl get pods | grep thousandeyes
+   
      NAME                                                 READY   STATUS    RESTARTS   AGE
      devnet-thousandeyes-operator-564b5d75d-jllzk         1/1     Running   0          108s
    ```
-   ii. Check the ThousandEyes CRD status
+   ii. Check ThousandEyes CRD status
    ```
    kubectl get crd | grep thousandeyes
+   
      NAME                                                  CREATED AT
      annotationmonitorings.thousandeyes.devnet.cisco.com   2021-07-07T15:44:40Z
      httpservertests.thousandeyes.devnet.cisco.com         2021-07-07T15:44:41Z
@@ -120,170 +74,53 @@ ThousandEyes Operator requires a Kubernetes cluster of version `>=1.18.0`. If yo
      webtransactiontests.thousandeyes.devnet.cisco.com     2021-07-07T15:44:44Z 
    ```
 
-## 1. Run Tests with Custom Resource
+## Quick Start
 
-### Run a HTTP Server Test
-1. Create a HTTP Server test
-    ```
-    kubectl apply -f config/samples/devnet_v1alpha1_httpservertest.yaml
-    ```
-2. Update the settings of the HTTP Server test
-  
-   Modify the fields specified by [HTTP Server Test CR](./config/samples/devnet_v1alpha1_httpservertest.yaml) and redeploy.
-    ```
-    kubectl apply -f config/samples/devnet_v1alpha1_httpservertest.yaml
-    ```
-3. Delete the HTTP Server test
-    ```
-    kubectl delete -f config/samples/devnet_v1alpha1_httpservertest.yaml
-    ```
+Let`s run an Nginx web app locally, then create a **Page Load** test to monitor this app.
 
-### Run a Page Load Test
-1. Create a Page Load test
-    ```
-    kubectl apply -f config/samples/devnet_v1alpha1_pageloadtest.yaml
-    ```
-2. Update the settings of the Page Load test
+### Run a basic Nginx Web App
 
-   Modify the fields specified by [Page Load Test CR](./config/samples/devnet_v1alpha1_pageloadtest.yaml) and redeploy.
-    ```
-    kubectl apply -f config/samples/devnet_v1alpha1_pageloadtest.yaml
-    ```
-3. Delete the Page Load test
-    ```
-    kubectl delete -f config/samples/devnet_v1alpha1_pageloadtest.yaml
-    ```
-
-### Run a Web Transactions Test
-1. Create a Web Transaction test
+1. Create an Nginx web app
    ```
-   kubectl apply -f config/samples/devnet_v1alpha1_webtransactiontest.yaml
+   cd thousandeyes-operator
+   kubectl apply -f config/samples/nginx.yaml
    ```
-2. Update the settings of the Web Transaction test
-
-   Modify the fields specified by [Web Transaction Test CR](./config/samples/devnet_v1alpha1_webtransactiontest.yaml) and redeploy
-    ```
-    kubectl apply -f config/samples/devnet_v1alpha1_webtransactiontest.yaml
-    ```
-3. Delete the Web Transaction test
-    ```
-    kubectl delete -f config/samples/devnet_v1alpha1_webtransactiontest.yaml
-    ```
-## 2. Run Tests with Kubernetes Ingress Resource
-
-We will take Ingress as an example, it is also applied to Service.
-
-### Install Ingress Controller Locally
-
-There are multiple Ingress controllers, we will use the Nginx Ingress Controller as an instance.
-
-1. Install the Nginx Ingress Controller
+2. Check the Nginx pod status
    ```
-   kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/cloud/deploy.yaml
+    kubectl get pods -A | grep nginx
+    default         nginx-6976ddb986-rxqv6                          1/1     Running     0          12s
    ```
-2. Check the Ingress pod status
+3. Expose **Nginx service** to Internet Using [ngrok](https://ngrok.com/)
    ```
-   kubectl get pods -A | grep ingress-nginx
-     ingress-nginx   ingress-nginx-admission-create-2n62c        0/1     Completed   0          66s
-     ingress-nginx   ingress-nginx-admission-patch-fwnlg         0/1     Completed   1          66s
-     ingress-nginx   ingress-nginx-controller-68649d49b8-62zvc   1/1     Running     0          66s
+   kubectl apply -f config/samples/ngrok.yaml  
+   ```
+4. Get the public URL of this web app
+   ```
+   kubectl exec $(kubectl get pods -l=app=ngrok -o=jsonpath='{.items[0].metadata.name}') -- curl --silent  http://localhost:4040/api/tunnels | sed -nE 's/.*public_url":"([^"]*).*/\1/p'
    ```
 
-### Run a HTTP Server Test
-#### 1. Use the Default Settings:
-1. Create a HTTP Server Test
-   ```
-   kubectl apply -f config/samples/ingress/ingress_httpserver_default_settings.yaml
-   ```
-2. Update the settings of the HTTP Server test
+5. Access this app
 
-   Modify the annotation specified by [Ingress resource](./config/samples/ingress/ingress_httpserver_default_settings.yaml#L7) and redeploy.
-    ```
-    kubectl apply -f config/samples/ingress/ingress_httpserver_default_settings.yaml
-    ```
-3. Delete the HTTP Server test
-    ```
-    kubectl apply -f config/samples/ingress/ingress_httpserver_removal.yaml
-    ```
-#### 2. Use the Specific Settings:
-1. Create a HTTP Server Test
-   ```
-   kubectl apply -f config/samples/ingress/ingress_httpserver_specific_settings.yaml
-   ```
-2. Update the settings of the HTTP Server test
+   Open your favorite browser and navigate to the public URL.
+   You should see the Nginx welcome page which means you have run the app successfully.
 
-   Modify the annotation specified by [Ingress resource](./config/samples/ingress/ingress_httpserver_specific_settings.yaml#L7) and redeploy.
-   ```
-   kubectl apply -f config/samples/ingress/ingress_httpserver_specific_settings.yaml
-   ```
-3. Delete the HTTP Server test
-   ```
-   kubectl apply -f config/samples/ingress/ingress_httpserver_removal.yaml
-   ```
-### Run a Page Load Test
-#### 1. Use the Default Settings:
-1. Create a Page Load Test
-   ```
-   kubectl apply -f config/samples/ingress/ingress_pageload_default_settings.yaml
-   ```
-2. Update the settings of the Page Load test
+### Create a Page Load Test
+1. Update public URL in [pageload_cr.yaml](./config/samples/pageload_cr.yaml#L6)
+2. Create the page load test CR
+```
+kubectl apply -f config/samples/pageload_cr.yaml
+```
+3. Go to ThousandEyes dashboard
 
-   Modify the annotation specified by [Ingress resource](./config/samples/ingress/ingress_pageload_default_settings.yaml#L7) and redeploy.
-    ```
-    kubectl apply -f config/samples/ingress/ingress_pageload_default_settings.yaml
-    ```
-3. Delete the Page Load test
-    ```
-    kubectl apply -f config/samples/ingress/ingress_pageload_removal.yaml
-    ```
-#### 2. Use the Specific Settings:
-1. Create a Page Load Test
-   ```
-   kubectl apply -f config/samples/ingress/ingress_pageload_specific_settings.yaml
-   ```
-2. Update the settings of the Page Load test
+   This test has been created on ThousandEyes dashboard.
+   ![Page Load Test](./docs/pageload-test.png)
 
-   Modify the annotation specified by [Ingress resource](./config/samples/ingress/ingress_pageload_specific_settings.yaml#L7) and redeploy.
-   ```
-   kubectl apply -f config/samples/ingress/ingress_pageload_specific_settings.yaml
-   ```
-3. Delete the Page Load test
-   ```
-   kubectl apply -f config/samples/ingress/ingress_pageload_removal.yaml
-   ```
-### Run a Web Transactions Test
-#### 1. Use the Default Settings:
-1. Create a Web Transactions Test
-   ```
-   kubectl apply -f config/samples/ingress/ingress_webtransactions_default_settings.yaml
-   ```
-2. Update the settings of the Web Transactions test
+## Advanced Usage
+There are two ways to run ThousandEyes tests with ThousandEyes Operator:
+1. [Create a Kubernetes Custom Resource](./docs/custom_resource.md)
+2. [Annotate Kubernetes Ingress / Service](./docs/annotations.md)
 
-   Modify the annotation specified by [Ingress resource](./config/samples/ingress/ingress_webtransactions_default_settings.yaml#L7) and redeploy.
-    ```
-    kubectl apply -f config/samples/ingress/ingress_webtransactions_default_settings.yaml
-    ```
-3. Delete the Web Transactions test
-    ```
-    kubectl apply -f config/samples/ingress/ingress_webtransactions_removal.yaml
-    ```
-#### 2. Use the Specific Settings:
-1. Create a Web Transactions Test
-   ```
-   kubectl apply -f config/samples/ingress/ingress_webtransactions_specific_settings.yaml
-   ```
-2. Update the settings of the Web Transactions test
-
-   Modify the annotation specified by [Ingress resource](./config/samples/ingress/ingress_webtransactions_specific_settings.yaml#L7) and redeploy.
-   ```
-   kubectl apply -f config/samples/ingress/ingress_webtransactions_specific_settings.yaml
-   ```
-3. Delete the Web Transactions test
-   ```
-   kubectl apply -f config/samples/ingress/ingress_webtransactions_removal.yaml
-   ```
-
-## References
+## Reference
 1. [ThousandEyes Getting Started](https://docs.thousandeyes.com/product-documentation/getting-started)
 2. [ThousandEyes Test MetaData](https://developer.thousandeyes.com/v6/tests/#/test_metadata)
 

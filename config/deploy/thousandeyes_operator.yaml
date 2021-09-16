@@ -4,7 +4,7 @@ metadata:
   name: thousandeyes-secret
 type: Opaque
 data:
-  OAuthBeaerToken: ZDRmZmMxNTEtZmU1Yy00YTk4LTlkNjgtZjQzYTJlZGZmYjI4
+  OAuthBeaerToken: <OAuthBeaerToken>
 ---
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition

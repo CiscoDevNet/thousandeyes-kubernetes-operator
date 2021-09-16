@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   # specify the unique test name
-  name: ingress-httpserver-sample
+  name: annotations-httpserver
   annotations:
     # (required) the test type
     thousandeyes.devnet.cisco.com/test-type: http-server
@@ -12,17 +12,10 @@ spec:
   rules:
     - http:
         paths:
-          - path: /apple
+          - path: /
             pathType: Prefix
             backend:
               service:
-                name: apple-service
+                name: nginx-service
                 port:
-                  number: 5678
-          - path: /banana
-            pathType: Prefix
-            backend:
-              service:
-                name: banana-service
-                port:
-                  number: 5678
+                  number: 80

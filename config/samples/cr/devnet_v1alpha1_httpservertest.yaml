@@ -9,10 +9,10 @@ spec:
   url: https://developer.cisco.com/
   # (required) frequency of ThousandEyes Cloud Agents running the test.
   # Acceptable Values: [120, 300, 600, 900, 1800, 3600] value in seconds
-  interval: 120
+  interval: 300
   #(required) array of cloud agent names
   agents:
-    - agentName: Hong Kong (Trial)
+    - agentName: Tokyo, Japan (Trial)
     - agentName: Singapore (Trial) - IPv6
   #(optional) array of alert rules. If this field is not specified, The default alert rules will be used.
   alertRules:

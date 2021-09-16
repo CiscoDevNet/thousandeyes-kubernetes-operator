@@ -1,0 +1,13 @@
+apiVersion: thousandeyes.devnet.cisco.com/v1alpha1
+kind: PageLoadTest
+metadata:
+  name: quickstart-pageload
+spec:
+  url: <Public URL>
+  interval: 120
+  httpInterval: 120
+  agents:
+    - agentName: New York, NY (Trial)
+    - agentName: Singapore (Trial) - IPv6
+  alertRules:
+    - ruleName: Default Page Load Alert Rule
