@@ -1,8 +1,8 @@
 ## Web Transaction Test (Add Annotations to Service)
 
-In this example, we will deploy a following **Service** with annotations, it will run a **Web Transaction** test to interact with **Cisco DevNet homepage**.
+In this example, we will deploy the following **Service** with annotations, it will run a **Web Transaction** test to interact with **Cisco DevNet homepage**.
 
-1. If we want to customize the test settings, we can add **thousandeyes.devnet.cisco.com/test-spec** to Service.
+1. If you want to customize the test settings, we can add **thousandeyes.devnet.cisco.com/test-spec** to Service.
 
 Service: [**config/samples/annotations/service_webtransactions_customized_settings.yaml**](../config/samples/annotations/service_webtransactions_customized_settings.yaml)
 
@@ -59,7 +59,7 @@ Just set **thousandeyes.devnet.cisco.com/test-type** to **none** in [Service res
    ```
 The test will be removed from ThousandEyes dashboard.
 
-2. You can add **thousandeyes.devnet.cisco.com/test-url** only to Service.
+2. You can also just add **thousandeyes.devnet.cisco.com/test-url** to Service.
 
    The test will be created with settings by default.
 

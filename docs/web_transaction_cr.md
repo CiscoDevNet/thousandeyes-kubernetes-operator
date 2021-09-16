@@ -1,6 +1,6 @@
 ## Web Transaction Test (Apply CR)
 
-In this example, you will run a Web Transaction test to interact with **Cisco DevNet homepage**.
+In this example, we will run a Web Transaction test to interact with **Cisco DevNet homepage**.
 
 ### 1. Define Custom Resource (CR)
 You can define a Web Transaction CR below based on [Web Transaction CRD](../config/crd/bases/thousandeyes.devnet.cisco.com_webtransactiontests.yaml) (CRD):

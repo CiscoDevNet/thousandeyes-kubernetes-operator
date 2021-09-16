@@ -3,7 +3,7 @@
 In this example, we will run a Page Load test to monitor **Cisco DevNet homepage**.
 
 ### 1. Define Custom Resource (CR)
-We can define a Page Load CR below based on [Page Load CRD](../config/crd/bases/thousandeyes.devnet.cisco.com_pageloadtests.yaml) (CRD):
+You can define a Page Load CR below based on [Page Load CRD](../config/crd/bases/thousandeyes.devnet.cisco.com_pageloadtests.yaml) (CRD):
 
 CR: [**config/samples/cr/devnet_v1alpha1_pageloadtest.yaml**](../config/samples/cr/devnet_v1alpha1_pageloadtest.yaml)
 ```yaml

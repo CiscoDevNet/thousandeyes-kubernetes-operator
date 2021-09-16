@@ -96,7 +96,7 @@ iii. Delete the HTTP Server test
    ```
    The test will be removed from ThousandEyes dashboard.
 
-2. You can add **thousandeyes.devnet.cisco.com/test-url** only to Ingress.
+2. You can also just add **thousandeyes.devnet.cisco.com/test-url** to Ingress.
 
    The test will be created with settings by default.
 

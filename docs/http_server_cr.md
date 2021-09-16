@@ -3,7 +3,7 @@
 In this example, we will run a HTTP Server test to monitor **Cisco DevNet homepage**.
 
 ### 1. Define Custom Resource (CR)
-We can define a HTTP Server CR below based on [HTTP Server CRD](../config/crd/bases/thousandeyes.devnet.cisco.com_httpservertests.yaml):
+You can define a HTTP Server CR below based on [HTTP Server CRD](../config/crd/bases/thousandeyes.devnet.cisco.com_httpservertests.yaml):
 
 CR: [**config/samples/cr/devnet_v1alpha1_httpservertest.yaml**](../config/samples/cr/devnet_v1alpha1_httpservertest.yaml)
 ```yaml
