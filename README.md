@@ -38,6 +38,8 @@ ThousandEyes Operator requires a Kubernetes cluster of version `>=1.18.0`. If yo
 
    ![Oauth Bearer Token](./docs/thousandeyes_token.gif)
 
+   If the token has been generated, you can get from your admin or revoke it to create a new one. 
+
 3. Update the OAuth bearer token
 
    Encode the token in base64
@@ -85,30 +87,35 @@ Let`s run an Nginx web app locally, then create a **Page Load** test to monitor 
    ```
 2. Check the Nginx pod status
    ```
-    kubectl get pods -A | grep nginx
-    default         nginx-6976ddb986-rxqv6                          1/1     Running     0          12s
+   kubectl get pods -A | grep nginx
+   default       nginx-6976ddb986-rxqv6          1/1     Running    0        12s
    ```
 3. Expose **Nginx service** to Internet Using [ngrok](https://ngrok.com/)
    ```
    kubectl apply -f config/samples/ngrok.yaml  
    ```
-4. Get the public URL of this web app
+4. Check the ngrok pod status
    ```
-   kubectl exec $(kubectl get pods -l=app=ngrok -o=jsonpath='{.items[0].metadata.name}') -- curl --silent  http://localhost:4040/api/tunnels | sed -nE 's/.*public_url":"([^"]*).*/\1/p'
+   kubectl get pods -A | grep ngrok
+   default       ngrok-5dfd559764-zx9r7          1/1     Running   0         7s
    ```
-
-5. Access this app
+5. Get the public URL of this web app
+   ```
+   ./config/samples/public_url.sh
+   ```
+6. Access this app
 
    Open your favorite browser and navigate to the public URL.
+
    You should see the Nginx welcome page which means you have run the app successfully.
 
 ### Create a Page Load Test
-1. Update public URL in [config/samples/pageload_cr.yaml](./config/samples/pageload_cr.yaml#L6)
+1. Update public URL above in [config/samples/pageload_cr.yaml](./config/samples/pageload_cr.yaml#L6)
 2. Apply the page load test CR
-```
-kubectl apply -f config/samples/pageload_cr.yaml
-```
-3. Go to ThousandEyes dashboard
+   ```
+   kubectl apply -f config/samples/pageload_cr.yaml
+   ```
+3. Go to [ThousandEyes dashboard](https://app.thousandeyes.com/settings/tests/?tab=settings)
 
    This test has been created on ThousandEyes dashboard.
    ![Page Load Test](./docs/pageload-test.png)
