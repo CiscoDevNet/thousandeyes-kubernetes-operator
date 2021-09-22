@@ -9,7 +9,7 @@ spec:
   url: https://developer.cisco.com/
   # (required) frequency of ThousandEyes Cloud Agents running the test.
   # Acceptable Values: [300, 600, 900, 1800, 3600] value in seconds
-  interval: 300
+  interval: 1800
   #(required) array of cloud agent names
   agents:
     - agentName: Singapore (Trial) - IPv6

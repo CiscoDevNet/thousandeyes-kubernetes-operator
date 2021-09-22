@@ -2,7 +2,9 @@
 
 In this example, we will deploy the following **Service** with annotations, it will run a **Page Load** test to monitor **Cisco DevNet homepage**.
 
-1. If you want to customize the test settings, you can add **thousandeyes.devnet.cisco.com/test-spec** to Service.
+1.If you want to customize the test settings, you can add **thousandeyes.devnet.cisco.com/test-spec** to Service.
+
+This annotation follows [PageLoad CR Spec definition](./page_load_cr.md#the-test-settings-specified-in-spec-are-defined-below)
 
 Service: [**config/samples/annotations/service_pageload_customized_settings.yaml**](../config/samples/annotations/service_pageload_customized_settings.yaml)
 
@@ -16,8 +18,8 @@ metadata:
     thousandeyes.devnet.cisco.com/test-spec: |
       {
         "url":"https://developer.cisco.com/",
-        "interval": 600,
-        "httpInterval": 600,
+        "interval": 1800,
+        "httpInterval": 1800,
         "agents": [
            {"agentName":"Tokyo, Japan (Trial)"},
            {"agentName":"Singapore (Trial) - IPv6"}
@@ -58,9 +60,7 @@ iii. Delete the Page Load test
    ```
    The test will be removed from ThousandEyes dashboard.
 
-2. You can also just add **thousandeyes.devnet.cisco.com/test-url** to Service.
-   
-   The test will be created with settings by default.
+2.If you want to use the [default settings](page_load_cr.md#the-test-settings-specified-in-spec-are-defined-below), you can just add **thousandeyes.devnet.cisco.com/test-url** to Service.
 
 Service: [**config/samples/annotations/service_pageload_default_settings.yaml**](../config/samples/annotations/service_pageload_default_settings.yaml)
 
@@ -68,7 +68,7 @@ Service: [**config/samples/annotations/service_pageload_default_settings.yaml**]
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginx-service-pageload-default
+  name: nginx-service-pageload
   annotations:
     thousandeyes.devnet.cisco.com/test-type: page-load
     thousandeyes.devnet.cisco.com/test-url: https://developer.cisco.com/

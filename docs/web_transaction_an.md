@@ -2,7 +2,9 @@
 
 In this example, we will deploy the following **Service** with annotations, it will run a **Web Transaction** test to interact with **Cisco DevNet homepage**.
 
-1. If you want to customize the test settings, we can add **thousandeyes.devnet.cisco.com/test-spec** to Service.
+1.If you want to customize the test settings, we can add **thousandeyes.devnet.cisco.com/test-spec** to Service.
+
+This annotation follows [Web Transaction CR Spec definition](./web_transaction_cr.md#the-test-settings-specified-in-spec-are-defined-below)
 
 Service: [**config/samples/annotations/service_webtransactions_customized_settings.yaml**](../config/samples/annotations/service_webtransactions_customized_settings.yaml)
 
@@ -16,7 +18,7 @@ metadata:
       thousandeyes.devnet.cisco.com/test-spec: |
          {
            "url":"https://developer.cisco.com/",
-           "interval": 300,
+           "interval": 1800,
            "agents": [
              {"agentName":"Tokyo, Japan (Trial)"},
              {"agentName":"Singapore (Trial) - IPv6"}
@@ -26,7 +28,22 @@ metadata:
            ]
          }
       thousandeyes.devnet.cisco.com/test-script: |
-         test
+         import { By, Key } from 'selenium-webdriver';
+         import { driver, test } from 'thousandeyes';
+         runScript();
+         async function runScript() {
+            await configureDriver();
+            const settings = test.getSettings();
+            // Load page
+            await driver.get(settings.url);
+            await click(By.id(`offer-getstarted`));
+         }
+         async function configureDriver() {
+            await driver.manage().setTimeouts({
+                implicit: 7 * 1000, // If an element is not found, reattempt for this many milliseconds
+            });
+         }
+         ... ...
    labels:
       run: nginx
 spec:
@@ -59,9 +76,7 @@ Just set **thousandeyes.devnet.cisco.com/test-type** to **none** in [Service res
    ```
 The test will be removed from ThousandEyes dashboard.
 
-2. You can also just add **thousandeyes.devnet.cisco.com/test-url** to Service.
-
-   The test will be created with settings by default.
+2.If you want to use the [default settings](web_transaction_cr.md#the-test-settings-specified-in-spec-are-defined-below), you can just add **thousandeyes.devnet.cisco.com/test-url** to Service.
 
 Service: [**config/samples/annotations/service_webtransactions_default_settings.yaml**](../config/samples/annotations/service_webtransactions_default_settings.yaml)
 
@@ -74,7 +89,22 @@ metadata:
       thousandeyes.devnet.cisco.com/test-type: web-transactions
       thousandeyes.devnet.cisco.com/test-url: https://developer.cisco.com/
       thousandeyes.devnet.cisco.com/test-script: |
-         test
+         import { By, Key } from 'selenium-webdriver';
+         import { driver, test } from 'thousandeyes';
+         runScript();
+         async function runScript() {
+            await configureDriver();
+            const settings = test.getSettings();
+            // Load page
+            await driver.get(settings.url);
+            await click(By.id(`offer-getstarted`));
+         }
+         async function configureDriver() {
+            await driver.manage().setTimeouts({
+                implicit: 7 * 1000, // If an element is not found, reattempt for this many milliseconds
+            });
+         }
+         ... ...
    labels:
       run: nginx
 spec:

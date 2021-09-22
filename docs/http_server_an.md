@@ -39,7 +39,9 @@ Based on the pre-requisites, now we can run our test.
 
 ### Run a HTTP Server Test
 
-1. If you want to customize the test settings, you can add **thousandeyes.devnet.cisco.com/test-spec** to Ingress.
+1.If you want to customize the test settings, you can add **thousandeyes.devnet.cisco.com/test-spec** to Ingress.
+
+This annotation follows [HTTPServer CR Spec definition](./http_server_cr.md#the-test-settings-specified-in-spec-are-defined-below)
 
 Ingress: [**config/samples/annotations/ingress_httpserver_customized_settings.yaml**](../config/samples/annotations/ingress_httpserver_customized_settings.yaml)
 ```yaml
@@ -53,7 +55,7 @@ metadata:
       thousandeyes.devnet.cisco.com/test-spec: |
          {
            "url":"https://developer.cisco.com/",
-           "interval": 300,
+           "interval": 1800,
            "agents": [
               {"agentName":"Tokyo, Japan (Trial)"},
               {"agentName":"Singapore (Trial) - IPv6"}
@@ -96,9 +98,7 @@ iii. Delete the HTTP Server test
    ```
    The test will be removed from ThousandEyes dashboard.
 
-2. You can also just add **thousandeyes.devnet.cisco.com/test-url** to Ingress.
-
-   The test will be created with settings by default.
+2.If you want to use the [default settings](./http_server_cr.md#the-test-settings-specified-in-spec-are-defined-below), you can just add **thousandeyes.devnet.cisco.com/test-url** to Ingress.
 
 Ingress: [**config/samples/annotations/ingress_httpserver_default_settings.yaml**](../config/samples/annotations/ingress_httpserver_default_settings.yaml)
 

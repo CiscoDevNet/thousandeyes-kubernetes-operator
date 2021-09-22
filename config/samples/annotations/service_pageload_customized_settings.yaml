@@ -7,8 +7,8 @@ metadata:
     thousandeyes.devnet.cisco.com/test-spec: |
       {
         "url":"https://developer.cisco.com/",
-        "interval": 600,
-        "httpInterval": 600,
+        "interval": 1800,
+        "httpInterval": 1800,
         "agents": [
            {"agentName":"Tokyo, Japan (Trial)"},
            {"agentName":"Singapore (Trial) - IPv6"}

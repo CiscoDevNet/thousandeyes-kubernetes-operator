@@ -621,10 +621,10 @@ spec:
               name: thousandeyes-secret
               key: OAuthBeaerToken
         - name: DEFAULT_INTERVAL
-          value: "120"
+          value: "3600"
         - name: DEFAULT_HTTP_INTERVAL
-          value: "120"
-        image: ciscodevcloud/thousandeyes-operator:v1.2
+          value: "3600"
+        image: ciscodevcloud/thousandeyes-operator:v1.1
         imagePullPolicy: Always
         name: devnet-thousandeyes-operator
         ports:

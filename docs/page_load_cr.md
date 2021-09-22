@@ -14,24 +14,24 @@ metadata:
    name: pageload-devnet-homepage
 spec:
    url: https://developer.cisco.com/
-   interval: 300
-   httpInterval: 300
+   interval: 1800
+   httpInterval: 1800
    agents:
       - agentName: Tokyo, Japan (Trial)
       - agentName: Singapore (Trial) - IPv6
    alertRules:
       - ruleName: Default Page Load Alert Rule
 ```
-The test settings specified in **spec** are defined below:
+#### The test settings specified in **spec** are defined below:
 
-| Field        | Test Creation| Test Update | Data Type | Default Values | Notes |
+| Field        | Test Creation| Test Update | Data Type | Default Values (used for samples) | Notes |
 |--------------|--------------|-------------|----------|-----------------|-------|
 |url           | Required     | n/a         | string   |                 | target for the test
-|interval      | Required     |	Optional    | integer  | 120             | value in seconds. Accpeted Values:[120, 300, 600, 900, 1800, 3600]
-|httpInterval  | Required     | Optional    | integer  | 120             | value in seconds.Accpeted Values:[120, 300, 600, 900, 1800, 3600].It can not be larger than the interval value; defaults to the same value as interval
+|interval      | Required     |	Optional    | integer  | 3600            | value in seconds. Accpeted Values:[120, 300, 600, 900, 1800, 3600]
+|httpInterval  | Required     | Optional    | integer  | 3600            | value in seconds.Accpeted Values:[120, 300, 600, 900, 1800, 3600].It can not be larger than the interval value; defaults to the same value as interval
 |agents        | Required     | Optional    | array of agentName|        |
 |agentName     | Required     | Optional    | string   | Tokyo, Japan (Trial), Singapore (Trial) - IPv6   | cloud agent name
-|alertRules    | Optional     | Optional    | array of ruleName|         | if this field is not specified, The default alert rules will be used.
+|alertRules    | Optional     | Optional    | array of ruleName| applicable defaults in ThousandEyes server.       | if this field is not specified, The default alert rules will be used.
 |ruleName      | Optional     | Optional    | string   |                 | alert rule name
 
 For more details, please refer to **Page Load** in [ThousandEyes Test Metadata](https://developer.thousandeyes.com/v6/tests/#/test_metadata).
@@ -48,7 +48,7 @@ Run the commands respectively, check the test on ThoudandEyes dashboard.
 
 2. Update settings of this test
 
-   Modify fields in **spec** in [devnet_v1alpha1_pageloadtest](../config/samples/cr/devnet_v1alpha1_pageloadtest.yaml) and redeploy.
+   Modify fields in **spec** in [devnet_v1alpha1_pageloadtest](../config/samples/cr/devnet_v1alpha1_pageloadtest.yaml#L7) and redeploy.
     ```
     kubectl apply -f config/samples/cr/devnet_v1alpha1_pageloadtest.yaml
     ```

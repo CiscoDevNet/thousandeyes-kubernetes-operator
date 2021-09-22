@@ -9,11 +9,11 @@ spec:
   url: https://developer.cisco.com/
   # (required) frequency of ThousandEyes Cloud Agents running the test to get the page load layer metrics.
   # Acceptable Values: [120, 300, 600, 900, 1800, 3600] value in seconds
-  interval: 300
+  interval: 1800
   # (required) frequency of ThousandEyes Cloud Agents running the test to get the http server layer metrics.
   # Acceptable Values: [120, 300, 600, 900, 1800, 3600] value in seconds
   # Cannot be larger than the interval value; defaults to the same value as interval
-  httpInterval: 300
+  httpInterval: 1800
   #(required) array of cloud agent names
   agents:
     - agentName: Tokyo, Japan (Trial)

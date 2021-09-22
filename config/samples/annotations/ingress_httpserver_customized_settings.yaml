@@ -2,13 +2,13 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   # the unique test name
-  name: annotations-httpserver
+  name: ingress-httpserver
   annotations:
     thousandeyes.devnet.cisco.com/test-type: http-server
     thousandeyes.devnet.cisco.com/test-spec: |
       {
         "url":"https://developer.cisco.com/",
-        "interval": 300,
+        "interval": 1800,
         "agents": [
            {"agentName":"Tokyo, Japan (Trial)"},
            {"agentName":"Singapore (Trial) - IPv6"}

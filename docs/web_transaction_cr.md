@@ -11,15 +11,15 @@ apiVersion: thousandeyes.devnet.cisco.com/v1alpha1
 kind: WebTransactionTest
 metadata:
   # the test name
-  name: transactions-devnet-homepage
+  name: webtransaction-devnet-homepage
 spec:
   url: https://developer.cisco.com/
-  interval: 120
+  interval: 1800
   agents:
     - agentName: Hong Kong (Trial)
     - agentName: Singapore (Trial) - IPv6
   alertRules:
-    - ruleName: Default HTTP Alert Rule
+    - ruleName: Default Web Transaction 2.0 Alert Rule
   transactionScript: |
      import { By, Key } from 'selenium-webdriver';
      import { driver, test } from 'thousandeyes';
@@ -38,15 +38,15 @@ spec:
      }
       ... ...
 ```
-The test settings specified in **spec** are defined below:
+#### The test settings specified in **spec** are defined below:
 
-| Field        | Test Creation| Test Update | Data Type | Default Values | Notes
+| Field        | Test Creation| Test Update | Data Type | Default Values (used for samples) | Notes
 |--------------|--------------|-------------|-----------|----------------|-------|
 |url           | Required     | n/a         | string    |                | target for the test
-|interval      | Required     |	Optional    | integer   | 120            | value in seconds. Accpeted Values:[120, 300, 600, 900, 1800, 3600]
+|interval      | Required     |	Optional    | integer   | 3600            | value in seconds. Accpeted Values:[120, 300, 600, 900, 1800, 3600]
 |agents        | Required     | Optional    | array of agentName|        |
 |agentName     | Required     | Optional    | string    | Tokyo, Japan (Trial), Singapore (Trial) - IPv6 | cloud agent name
-|alertRules    | Optional     | Optional    | array of ruleName|         | if this field is not specified, The default alert rules will be used.
+|alertRules    | Optional     | Optional    | array of ruleName| applicable defaults in ThousandEyes server.  | if this field is not specified, The default alert rules will be used.
 |ruleName      | Optional     | Optional    | string    |                | alert rule name
 |transactionScript|Required   | Optional    | string    |                | javaScript of a web transaction test.It could be generated via ThousandEyes Recorder. 
 
@@ -64,7 +64,7 @@ Run the commands respectively, check the test on ThoudandEyes dashboard.
 
 2. Update settings of this test
 
-   Modify fields in **spec** in [devnet_v1alpha1_webtransactiontest.yaml](../config/samples/cr/devnet_v1alpha1_webtransactiontest.yaml) and redeploy
+   Modify fields in **spec** in [devnet_v1alpha1_webtransactiontest.yaml](../config/samples/cr/devnet_v1alpha1_webtransactiontest.yaml#L7) and redeploy
     ```
     kubectl apply -f config/samples/cr/devnet_v1alpha1_webtransactiontest.yaml
     ```

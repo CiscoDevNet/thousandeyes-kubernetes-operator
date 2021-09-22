@@ -4,8 +4,8 @@ metadata:
   name: quickstart-pageload
 spec:
   url: <Public URL>
-  interval: 120
-  httpInterval: 120
+  interval: 1800
+  httpInterval: 1800
   agents:
     - agentName: New York, NY (Trial)
     - agentName: Singapore (Trial) - IPv6
