@@ -39,9 +39,9 @@ import (
 )
 
 var (
-	scheme              = runtime.NewScheme()
-	setupLog            = ctrl.Log.WithName("setup")
-	thousandeyes_client = thousandeyes.NewClient(&thousandeyes.ClientOptions{AuthToken: os.Getenv("THOUSANDEYES_CLIENT_TOKEN")})
+	scheme             = runtime.NewScheme()
+	setupLog           = ctrl.Log.WithName("setup")
+	thousandeyesClient = thousandeyes.NewClient(&thousandeyes.ClientOptions{AuthToken: os.Getenv("THOUSANDEYES_CLIENT_TOKEN")})
 )
 
 func init() {
@@ -84,7 +84,7 @@ func main() {
 		Client:             mgr.GetClient(),
 		Log:                ctrl.Log.WithName("controllers").WithName("HTTPServerTest"),
 		Scheme:             mgr.GetScheme(),
-		ThousandEyesClient: thousandeyes_client,
+		ThousandEyesClient: thousandeyesClient,
 	}).SetupWithManager(mgr); err != nil {
 		setupLog.Error(err, "unable to create controller", "controller", "HTTPServerTest")
 		os.Exit(1)
@@ -93,7 +93,7 @@ func main() {
 		Client:             mgr.GetClient(),
 		Log:                ctrl.Log.WithName("controllers").WithName("PageLoadTest"),
 		Scheme:             mgr.GetScheme(),
-		ThousandEyesClient: thousandeyes_client,
+		ThousandEyesClient: thousandeyesClient,
 	}).SetupWithManager(mgr); err != nil {
 		setupLog.Error(err, "unable to create controller", "controller", "PageLoadTest")
 		os.Exit(1)
@@ -102,7 +102,7 @@ func main() {
 		Client:             mgr.GetClient(),
 		Log:                ctrl.Log.WithName("controllers").WithName("WebTransactionTest"),
 		Scheme:             mgr.GetScheme(),
-		ThousandEyesClient: thousandeyes_client,
+		ThousandEyesClient: thousandeyesClient,
 	}).SetupWithManager(mgr); err != nil {
 		setupLog.Error(err, "unable to create controller", "controller", "WebTransactionTest")
 		os.Exit(1)
@@ -111,7 +111,7 @@ func main() {
 		Client:             mgr.GetClient(),
 		Log:                ctrl.Log.WithName("controllers").WithName("AnnotationMonitoring"),
 		Scheme:             mgr.GetScheme(),
-		ThousandEyesClient: thousandeyes_client,
+		ThousandEyesClient: thousandeyesClient,
 	}).SetupWithManager(mgr); err != nil {
 		setupLog.Error(err, "unable to create controller", "controller", "AnnotationMonitoring")
 		os.Exit(1)
