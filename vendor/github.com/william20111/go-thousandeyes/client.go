@@ -155,6 +155,7 @@ func (c *Client) do(method, path string, body io.Reader, headers *map[string]str
 	time.Sleep(delay)
 
 	resp, err := c.HTTPClient.Do(req)
+	log.Printf("[INFO] %s %s", method, endpoint)
 	if err != nil {
 		return nil, err
 	}
@@ -248,10 +249,15 @@ func setDelay(req *http.Request, resp *http.Response, now time.Time) time.Durati
 				rate.ConcurrentMessages = rate.ConcurrentMessages[i:]
 				break
 			}
+			if i == (len(rate.ConcurrentMessages) -1) {
+				rate.ConcurrentMessages = rate.ConcurrentMessages[:0]
+			}
 		}
-
 		delta += int64(len(rate.ConcurrentMessages))
 		delay = time.Duration(baseDelay * float64(delta))
+		if delay > time.Minute {
+			delay = time.Duration((rate.Reset - now.Unix() + 1) * time.Second.Nanoseconds())
+		}
 		rate.ConcurrentMessages = append(rate.ConcurrentMessages, now.Add(delay))
 		log.Printf("[INFO] %v of %v requests / min remain.  Sleeping %v to prevent rate limiting.",
 			rate.Remaining, rate.Limit, delay)
