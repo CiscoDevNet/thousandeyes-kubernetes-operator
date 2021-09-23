@@ -624,7 +624,7 @@ spec:
           value: "3600"
         - name: DEFAULT_HTTP_INTERVAL
           value: "3600"
-        image: ciscodevcloud/thousandeyes-operator:v1.1
+        image: ciscodevcloud/thousandeyes-operator:v1.2
         imagePullPolicy: Always
         name: devnet-thousandeyes-operator
         ports:
