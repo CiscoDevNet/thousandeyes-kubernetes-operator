@@ -16,7 +16,7 @@ spec:
   url: https://developer.cisco.com/
   interval: 1800
   agents:
-    - agentName: Hong Kong (Trial)
+    - agentName: Tokyo, Japan (Trial)
     - agentName: Singapore (Trial) - IPv6
   alertRules:
     - ruleName: Default Web Transaction 2.0 Alert Rule

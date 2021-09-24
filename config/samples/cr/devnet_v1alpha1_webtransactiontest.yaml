@@ -12,6 +12,7 @@ spec:
   interval: 1800
   #(required) array of cloud agent names
   agents:
+    - agentName: Tokyo, Japan (Trial)
     - agentName: Singapore (Trial) - IPv6
   #(optional) array of alert rules. If this field is not specified, The default alert rules will be used.
   alertRules:
