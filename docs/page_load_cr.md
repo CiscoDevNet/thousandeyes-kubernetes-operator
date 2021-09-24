@@ -1,4 +1,4 @@
-## Page Load Test (Apply CR)
+## Page Load Test (Using Custom Resource)
 
 In this example, we will run a Page Load test to monitor **Cisco DevNet homepage**.
 
@@ -41,24 +41,24 @@ For more details, please refer to **Page Load** in [ThousandEyes Test Metadata](
 Run the commands respectively, check the test on ThoudandEyes dashboard.
 
 1. Create a Page Load test
-    ```
-    kubectl apply -f config/samples/cr/devnet_v1alpha1_pageloadtest.yaml
-    ```
+   ```
+   kubectl apply -f config/samples/cr/devnet_v1alpha1_pageloadtest.yaml
+   ```
    The test will be created on dashboard.
 
 2. Update settings of this test
 
    Modify fields in **spec** in [devnet_v1alpha1_pageloadtest](../config/samples/cr/devnet_v1alpha1_pageloadtest.yaml#L7) and redeploy.
-    ```
-    kubectl apply -f config/samples/cr/devnet_v1alpha1_pageloadtest.yaml
-    ```
+   ```
+   kubectl apply -f config/samples/cr/devnet_v1alpha1_pageloadtest.yaml
+   ```
    You will find the settings have been updated.   
 
 3. Delete this test
-    ```
-    kubectl delete -f config/samples/cr/devnet_v1alpha1_pageloadtest.yaml
-    ```
-  The test will be removed from ThousandEyes dashboard.
+   ```
+   kubectl delete -f config/samples/cr/devnet_v1alpha1_pageloadtest.yaml
+   ```
+   The test will be removed from ThousandEyes dashboard.
 
 
 

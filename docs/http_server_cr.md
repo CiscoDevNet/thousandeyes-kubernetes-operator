@@ -46,17 +46,17 @@ Run the commands respectively, check the test on ThoudandEyes dashboard.
 
 2. Update settings of this test
 
-   Modify fields in **spec** in [devnet_v1alpha1_httpservertest.yaml](../config/samples/cr/devnet_v1alpha1_httpservertest.yaml#L7) and redeploy.
+    Modify fields in **spec** in [devnet_v1alpha1_httpservertest.yaml](../config/samples/cr/devnet_v1alpha1_httpservertest.yaml#L7) and redeploy.
     ```
     kubectl apply -f config/samples/cr/devnet_v1alpha1_httpservertest.yaml
     ```
-   You will find the settings have been updated.
+    You will find the settings have been updated.
 
 3. Delete this test
     ```
     kubectl delete -f config/samples/cr/devnet_v1alpha1_httpservertest.yaml
     ```
-   The test will be removed from ThousandEyes dashboard.
+    The test will be removed from ThousandEyes dashboard.
 
 
 

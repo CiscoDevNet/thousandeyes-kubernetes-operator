@@ -1,4 +1,4 @@
-## Web Transaction Test (Apply CR)
+## Web Transaction Test (Using Custom Resource)
 
 In this example, we will run a Web Transaction test to interact with **Cisco DevNet homepage**.
 
@@ -65,15 +65,15 @@ Run the commands respectively, check the test on ThoudandEyes dashboard.
 2. Update settings of this test
 
    Modify fields in **spec** in [devnet_v1alpha1_webtransactiontest.yaml](../config/samples/cr/devnet_v1alpha1_webtransactiontest.yaml#L7) and redeploy
-    ```
-    kubectl apply -f config/samples/cr/devnet_v1alpha1_webtransactiontest.yaml
-    ```
-    You will find the settings have been updated.
+   ```
+   kubectl apply -f config/samples/cr/devnet_v1alpha1_webtransactiontest.yaml
+   ```
+   You will find the settings have been updated.
 
 3. Delete this test
-    ```
-    kubectl delete -f config/samples/cr/devnet_v1alpha1_webtransactiontest.yaml
-    ```
+   ```
+   kubectl delete -f config/samples/cr/devnet_v1alpha1_webtransactiontest.yaml
+   ```
    The test will be removed from ThousandEyes dashboard.
 
 

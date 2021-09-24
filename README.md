@@ -16,7 +16,7 @@ It is built using the [Operator SDK](https://github.com/operator-framework/opera
 ThousandEyes Operator supports managing the following test types.
 - [HTTP Server Test](https://docs.thousandeyes.com/product-documentation/internet-and-wan-monitoring/tests/http-server-tests)
 - [Page Load Test](https://docs.thousandeyes.com/product-documentation/browser-synthetics/page-load-tests)
-- [Web Transactions Test](https://docs.thousandeyes.com/product-documentation/browser-synthetics/transaction-tests)
+- [Web Transaction Test](https://docs.thousandeyes.com/product-documentation/browser-synthetics/transaction-tests)
 
 More types will be supported in the future.
 
@@ -100,7 +100,7 @@ Let`s run a Nginx web app, then create a **Page Load** test to monitor this app
    ```
    ./config/samples/public_url.sh
    ```
-   Your public URL for Nginx web app is similar to this:
+   Your public URL for Nginx web app is similar to:
    ```
    https://9c5f-64-104-125-230.eu.ngrok.io
    ```

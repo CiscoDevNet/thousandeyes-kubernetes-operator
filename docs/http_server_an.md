@@ -10,8 +10,8 @@ We will add annotations on it to run a **HTTP Server** test monitoring **Cisco D
    ```
 2. Check the Nginx pod status
    ```
-    kubectl get pods -A | grep nginx
-    default         nginx-6976ddb986-rxqv6                          1/1     Running     0          12s
+   kubectl get pods -A | grep nginx
+   default         nginx-6976ddb986-rxqv6                          1/1     Running     0          12s
    ```
 3. Install Nginx Ingress Controller
    ```
@@ -27,9 +27,9 @@ We will add annotations on it to run a **HTTP Server** test monitoring **Cisco D
 
 Now we are ready to run a test.
 
-Two options to run a test.
+Two options to run a HTTP Server test.
 
-### Option 1: Run a HTTP Server test using `thousandeyes.devnet.cisco.com/test-url`
+### Option 1: Using `thousandeyes.devnet.cisco.com/test-url`
 
 Ingress: [**config/samples/annotations/ingress_httpserver_default_settings.yaml**](../config/samples/annotations/ingress_httpserver_default_settings.yaml)
 ```yaml
@@ -77,7 +77,7 @@ All the other settings will use [default values](http_server_cr.md#the-test-sett
    ```
    The test will be removed from ThousandEyes dashboard.
 
-### Option 2: Run a HTTP Server test using `thousandeyes.devnet.cisco.com/test-spec`
+### Option 2: Using `thousandeyes.devnet.cisco.com/test-spec`
 
 This annotation follows [HTTPServer CR Spec definition](./http_server_cr.md#the-test-settings-specified-in-spec-are-defined-below)
 
@@ -130,7 +130,7 @@ spec:
 
 3. Delete the HTTP Server test
    
-   Just set `thousandeyes.devnet.cisco.com/test-type` to `none` in [config/samples/annotations/ingress_httpserver_removal.yaml](../config/samples/annotations/ingress_httpserver_removal.yaml#L8) and redeploy.
+   Set `thousandeyes.devnet.cisco.com/test-type` to `none` in [config/samples/annotations/ingress_httpserver_removal.yaml](../config/samples/annotations/ingress_httpserver_removal.yaml#L8) and redeploy.
    ```
    kubectl apply -f config/samples/annotations/ingress_httpserver_removal.yaml
    ```

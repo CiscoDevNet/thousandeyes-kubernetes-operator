@@ -2,9 +2,9 @@
 
 In this example, Let`s deploy a **Service**, we will add annotations on it to run a **Page Load** test monitoring **Cisco DevNet homepage**.
 
-Two options to run a test.
+Two options to run a Page Load test.
 
-### Option 1: Run a Page Load test using `thousandeyes.devnet.cisco.com/test-url`
+### Option 1: Using `thousandeyes.devnet.cisco.com/test-url`
 
 Service: [**config/samples/annotations/service_pageload_default_settings.yaml**](../config/samples/annotations/service_pageload_default_settings.yaml)
 ```yaml
@@ -48,7 +48,7 @@ All the other settings will use [default values](page_load_cr.md#the-test-settin
    ```
    The test will be removed from ThousandEyes dashboard.
 
-### Option 2: Run a Page Load test using `thousandeyes.devnet.cisco.com/test-spec`
+### Option 2: Using `thousandeyes.devnet.cisco.com/test-spec`
 
 This annotation follows [PageLoad CR Spec definition](./page_load_cr.md#the-test-settings-specified-in-spec-are-defined-below)
 
