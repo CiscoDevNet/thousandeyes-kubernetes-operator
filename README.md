@@ -34,11 +34,11 @@ More types will be supported in the future.
    cd thousandeyes-operator
    ```
 
-2. Get the Oauth Bearer Token from [ThousandEyes dashboard](https://app.thousandeyes.com/login)
+2. Get OAuth Bearer Token from [ThousandEyes dashboard](https://app.thousandeyes.com/login)
 
-   ![Oauth Bearer Token](./docs/thousandeyes_token.gif)
+   ![OAuth Bearer Token](./docs/thousandeyes_token.gif)
 
-   If the token has been generated, you can get from your admin or revoke it to create a new one. 
+   If this token has been generated, you can get from your admin or revoke it to create a new one. 
 
 3. Update the OAuth bearer token
 
