@@ -38,7 +38,7 @@ More types will be supported in the future.
 
    ![OAuth Bearer Token](./docs/thousandeyes_token.gif)
 
-   If this token has been generated, you can get from your admin or revoke it to create a new one. 
+   If this token has been generated, you can get it from your admin or revoke it to create a new one. 
 
 3. Update the OAuth bearer token
 
