@@ -1,13 +1,58 @@
-## Page Load Test (Add Annotations to Service)
+## Page Load Test (Using Annotations on Service)
 
-In this example, we will deploy the following **Service** with annotations, it will run a **Page Load** test to monitor **Cisco DevNet homepage**.
+In this example, Let`s deploy a **Service**, we will add annotations on it to run a **Page Load** test monitoring **Cisco DevNet homepage**.
 
-1.If you want to customize the test settings, you can add **thousandeyes.devnet.cisco.com/test-spec** to Service.
+Two options to run a test.
+
+### Option 1: Run a Page Load test using `thousandeyes.devnet.cisco.com/test-url`
+
+Service: [**config/samples/annotations/service_pageload_default_settings.yaml**](../config/samples/annotations/service_pageload_default_settings.yaml)
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service-pageload
+  annotations:
+    thousandeyes.devnet.cisco.com/test-type: page-load
+    thousandeyes.devnet.cisco.com/test-url: https://developer.cisco.com/
+  labels:
+    run: nginx
+spec:
+  selector:
+    run: nginx
+  ports:
+    - port: 80
+      protocol: TCP
+```
+All the other settings will use [default values](page_load_cr.md#the-test-settings-specified-in-spec-are-defined-below)
+
+1. Create a Page Load test
+   ```
+   kubectl apply -f config/samples/annotations/service_pageload_default_settings.yaml
+   ```
+   The test will be created on dashboard.
+
+2. Update the settings of the Page Load test
+
+   Modify `thousandeyes.devnet.cisco.com/test-url` in [config/samples/annotations/service_pageload_default_settings.yaml](../config/samples/annotations/service_pageload_default_settings.yaml#L7) and redeploy.
+   ```
+   kubectl apply -f config/samples/annotations/service_pageload_default_settings.yaml
+   ```
+   You will find the url have been updated.
+
+3. Delete the Page Load test
+
+   Set `thousandeyes.devnet.cisco.com/test-type` to `none` in [config/samples/annotations/service_pageload_removal_settings.yaml](../config/samples/annotations/service_pageload_removal_settings.yaml#L6) and redeploy.
+   ```
+   kubectl apply -f config/samples/annotations/service_pageload_removal_settings.yaml
+   ```
+   The test will be removed from ThousandEyes dashboard.
+
+### Option 2: Run a Page Load test using `thousandeyes.devnet.cisco.com/test-spec`
 
 This annotation follows [PageLoad CR Spec definition](./page_load_cr.md#the-test-settings-specified-in-spec-are-defined-below)
 
 Service: [**config/samples/annotations/service_pageload_customized_settings.yaml**](../config/samples/annotations/service_pageload_customized_settings.yaml)
-
 ```yaml
 apiVersion: v1
 kind: Service
@@ -38,73 +83,30 @@ spec:
       protocol: TCP
 ```
 
-i. Create a Page Load test
+1. Create a Page Load test
    ```
    kubectl apply -f config/samples/annotations/service_pageload_customized_settings.yaml
    ```
    The test will be created on dashboard.
 
-ii. Update the settings of the Page Load test
+2. Update the settings of the Page Load test
 
-   Modify **thousandeyes.devnet.cisco.com/test-spec** in [Service resource](../config/samples/annotations/service_pageload_customized_settings.yaml#L7) and redeploy.
+   Modify `thousandeyes.devnet.cisco.com/test-spec` in [config/samples/annotations/service_pageload_customized_settings.yaml](../config/samples/annotations/service_pageload_customized_settings.yaml#L7) and redeploy.
    ```
    kubectl apply -f config/samples/annotations/service_pageload_customized_settings.yaml
    ```
    You will find the settings have been updated.
 
-iii. Delete the Page Load test
+3. Delete the Page Load test
 
-   Just set **thousandeyes.devnet.cisco.com/test-type** to **none** in [Service resource](../config/samples/annotations/service_pageload_removal_settings.yaml#L6) and redeploy.
+   Set `thousandeyes.devnet.cisco.com/test-type` to `none` in [config/samples/annotations/service_pageload_removal_settings.yaml](../config/samples/annotations/service_pageload_removal_settings.yaml#L6) and redeploy.
    ```
    kubectl apply -f config/samples/annotations/service_pageload_removal_settings.yaml
    ```
    The test will be removed from ThousandEyes dashboard.
 
-2.If you want to use the [default settings](page_load_cr.md#the-test-settings-specified-in-spec-are-defined-below), you can just add **thousandeyes.devnet.cisco.com/test-url** to Service.
 
-Service: [**config/samples/annotations/service_pageload_default_settings.yaml**](../config/samples/annotations/service_pageload_default_settings.yaml)
 
-```yaml
-apiVersion: v1
-kind: Service
-metadata:
-  name: nginx-service-pageload
-  annotations:
-    thousandeyes.devnet.cisco.com/test-type: page-load
-    thousandeyes.devnet.cisco.com/test-url: https://developer.cisco.com/
-  labels:
-    run: nginx
-spec:
-  selector:
-    run: nginx
-  ports:
-    - port: 80
-      protocol: TCP
-```
-
-i. Create a Page Load test
-   ```
-   kubectl apply -f config/samples/annotations/service_pageload_default_settings.yaml
-   ```
-   The test will be created on dashboard.
-
-ii. Update the settings of the Page Load test
-
-   Modify **thousandeyes.devnet.cisco.com/test-url** in [Service resource](../config/samples/annotations/service_pageload_default_settings.yaml#L7) and redeploy.
-   ```
-   kubectl apply -f config/samples/annotations/service_pageload_default_settings.yaml
-   ```
-   You will find the url have been updated.
-
-iii. Delete the Page Load test
-
-   Just set **thousandeyes.devnet.cisco.com/test-type** to **none** in [Service resource](../config/samples/annotations/service_pageload_removal_settings.yaml#L6) and redeploy.
-   ```
-   kubectl apply -f config/samples/annotations/service_pageload_removal_settings.yaml
-   ```
-The test will be removed from ThousandEyes dashboard.
-
-The usage of annotations applies to **Kubernetes Ingress** resource as well.
 
 
 

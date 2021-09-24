@@ -1,6 +1,6 @@
 ## Create a Kubernetes Custom Resource
 
-ThousandEyes Operator provides several CRDs to allow you manage the ThousandEyes tests.
+ThousandEyes Operator provides several CRDs for you to manage ThousandEyes tests.
 
 Here are examples for your guidance:
 

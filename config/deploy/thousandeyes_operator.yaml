@@ -4,7 +4,7 @@ metadata:
   name: thousandeyes-secret
 type: Opaque
 data:
-  OAuthBeaerToken: <OAuthBeaerToken>
+  OAuthBearerToken: <OAuthBearerToken>
 ---
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
@@ -619,7 +619,7 @@ spec:
           valueFrom:
             secretKeyRef:
               name: thousandeyes-secret
-              key: OAuthBeaerToken
+              key: OAuthBearerToken
         - name: DEFAULT_INTERVAL
           value: "3600"
         - name: DEFAULT_HTTP_INTERVAL

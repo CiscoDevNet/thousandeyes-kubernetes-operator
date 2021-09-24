@@ -1,14 +1,11 @@
-## HTTP Server Test (Add Annotations to Ingress)
+## HTTP Server Test (Using Annotations on Ingress)
 
-In this example, We will deploy an **Ingress** with annotations, it will run a **HTTP Server** test to monitor **Cisco DevNet homepage**.
+In this example, Let`s deploy an **Ingress** used to expose **Nginx web app** to public.
 
-This Ingress is used to expose **Nginx web app** to public. 
+We will add annotations on it to run a **HTTP Server** test monitoring **Cisco DevNet homepage**.
 
-So First, we need to create an Nginx web app.
-
-1. Create an Nginx web app
+1. Create a Nginx web app
    ```
-   cd thousandeyes-operator
    kubectl apply -f config/samples/nginx.yaml
    ```
 2. Check the Nginx pod status
@@ -16,18 +13,11 @@ So First, we need to create an Nginx web app.
     kubectl get pods -A | grep nginx
     default         nginx-6976ddb986-rxqv6                          1/1     Running     0          12s
    ```
-
-Second, we need to install an ingress controller on local.
-
-### Install Ingress Controller Locally
-
-There are multiple Ingress controllers, we will use Nginx Ingress Controller as an example.
-
-1. Install the Nginx Ingress Controller
+3. Install Nginx Ingress Controller
    ```
    kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/cloud/deploy.yaml
    ```
-2. Check the Ingress pod status
+4. Check the Ingress pod status
    ```
    kubectl get pods -A | grep ingress-nginx
      ingress-nginx   ingress-nginx-admission-create-2n62c        0/1     Completed   0          66s
@@ -35,11 +25,59 @@ There are multiple Ingress controllers, we will use Nginx Ingress Controller as 
      ingress-nginx   ingress-nginx-controller-68649d49b8-62zvc   1/1     Running     0          66s
    ```
 
-Based on the pre-requisites, now we can run our test.
+Now we are ready to run a test.
 
-### Run a HTTP Server Test
+Two options to run a test.
 
-1.If you want to customize the test settings, you can add **thousandeyes.devnet.cisco.com/test-spec** to Ingress.
+### Option 1: Run a HTTP Server test using `thousandeyes.devnet.cisco.com/test-url`
+
+Ingress: [**config/samples/annotations/ingress_httpserver_default_settings.yaml**](../config/samples/annotations/ingress_httpserver_default_settings.yaml)
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+   # the unique test name
+   name: ingress-httpserver
+   annotations:
+      thousandeyes.devnet.cisco.com/test-type: http-server
+      thousandeyes.devnet.cisco.com/test-url: https://developer.cisco.com/
+spec:
+   rules:
+      - http:
+           paths:
+              - path: /
+                pathType: Prefix
+                backend:
+                   service:
+                      name: nginx-service
+                      port:
+                         number: 80
+```
+All the other settings will use [default values](http_server_cr.md#the-test-settings-specified-in-spec-are-defined-below)
+
+1. Create a HTTP Server Test
+   ```
+   kubectl apply -f config/samples/annotations/ingress_httpserver_default_settings.yaml
+   ```
+   The test will be created on dashboard.
+
+2. Update the HTTP Server test url
+
+   Modify `thousandeyes.devnet.cisco.com/test-url` in [config/samples/annotations/ingress_httpserver_default_settings.yaml](../config/samples/annotations/ingress_httpserver_default_settings.yaml#L10) and redeploy.
+   ```
+   kubectl apply -f config/samples/annotations/ingress_httpserver_default_settings.yaml 
+   ```   
+   You will find the url has been updated.
+
+3. Delete the HTTP Server test
+
+   Set `thousandeyes.devnet.cisco.com/test-type` to `none` in [config/samples/annotations/ingress_httpserver_removal.yaml](../config/samples/annotations/ingress_httpserver_removal.yaml#L8) and redeploy.
+   ```
+   kubectl apply -f config/samples/annotations/ingress_httpserver_removal.yaml
+   ```
+   The test will be removed from ThousandEyes dashboard.
+
+### Option 2: Run a HTTP Server test using `thousandeyes.devnet.cisco.com/test-spec`
 
 This annotation follows [HTTPServer CR Spec definition](./http_server_cr.md#the-test-settings-specified-in-spec-are-defined-below)
 
@@ -76,76 +114,28 @@ spec:
                       port:
                          number: 80
 ```
-i. Create a HTTP Server test
+1. Create a HTTP Server test
    ```
    kubectl apply -f config/samples/annotations/ingress_httpserver_customized_settings.yaml
    ```
    The test will be created on dashboard.
 
-ii. Update the settings of the HTTP Server test
+2. Update the settings of the HTTP Server test
 
-   Modify **thousandeyes.devnet.cisco.com/test-spec** in [Ingress resource](../config/samples/annotations/ingress_httpserver_customized_settings.yaml#L8) and redeploy.
+   Modify `thousandeyes.devnet.cisco.com/test-spec` in [config/samples/annotations/ingress_httpserver_customized_settings.yaml](../config/samples/annotations/ingress_httpserver_customized_settings.yaml#L8) and redeploy.
    ```
    kubectl apply -f config/samples/annotations/ingress_httpserver_customized_settings.yaml
    ```
    You will find the settings have been updated.
 
-iii. Delete the HTTP Server test
+3. Delete the HTTP Server test
    
-   Just set **thousandeyes.devnet.cisco.com/test-type** to **none** in [Ingress resource](../config/samples/annotations/ingress_httpserver_removal.yaml#L8) and redeploy.
+   Just set `thousandeyes.devnet.cisco.com/test-type` to `none` in [config/samples/annotations/ingress_httpserver_removal.yaml](../config/samples/annotations/ingress_httpserver_removal.yaml#L8) and redeploy.
    ```
    kubectl apply -f config/samples/annotations/ingress_httpserver_removal.yaml
    ```
    The test will be removed from ThousandEyes dashboard.
 
-2.If you want to use the [default settings](./http_server_cr.md#the-test-settings-specified-in-spec-are-defined-below), you can just add **thousandeyes.devnet.cisco.com/test-url** to Ingress.
-
-Ingress: [**config/samples/annotations/ingress_httpserver_default_settings.yaml**](../config/samples/annotations/ingress_httpserver_default_settings.yaml)
-
-```yaml
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-   # the unique test name
-   name: ingress-httpserver
-   annotations:
-      thousandeyes.devnet.cisco.com/test-type: http-server
-      thousandeyes.devnet.cisco.com/test-url: https://developer.cisco.com/
-spec:
-   rules:
-      - http:
-           paths:
-              - path: /
-                pathType: Prefix
-                backend:
-                   service:
-                      name: nginx-service
-                      port:
-                         number: 80
-```
-i. Create a HTTP Server Test
-   ```
-   kubectl apply -f config/samples/annotations/ingress_httpserver_default_settings.yaml
-   ```
-   The test will be created on dashboard.
-
-ii. Update the **url** of the HTTP Server test
-
-   Modify **thousandeyes.devnet.cisco.com/test-url** in [Ingress resource](../config/samples/annotations/ingress_httpserver_default_settings.yaml#L10) and redeploy.
-   ```
-   kubectl apply -f config/samples/annotations/ingress_httpserver_default_settings.yaml 
-   ```   
-   You will find the url have been updated.
-
-iii. Delete the HTTP Server test
-   
-   Just set **thousandeyes.devnet.cisco.com/test-type** to **none** in [Ingress resource](../config/samples/annotations/ingress_httpserver_removal.yaml#L8) and redeploy.
-   ```
-   kubectl apply -f config/samples/annotations/ingress_httpserver_removal.yaml
-   ```
-   The test will be removed from ThousandEyes dashboard.
-
-The usage of annotations applies to **Kubernetes Service** resource as well.
 
    
 

@@ -1,4 +1,4 @@
-## HTTP Server Test (Apply CR)
+## HTTP Server Test (Using Custom Resource)
 
 In this example, we will run a HTTP Server test to monitor **Cisco DevNet homepage**.
 
