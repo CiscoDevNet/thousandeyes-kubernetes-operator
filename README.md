@@ -11,7 +11,7 @@ The purpose of creating this operator is to provide an automate operation of Tho
 * [Supported Test Types](#supported-test-types)
 * [Prerequisites](#prerequisites)
 * [Quick Start](#quick-start)
-* [Advanced Usages](#advanced-usage)
+* [Advanced Usage](#advanced-usage)
 * [Reference](#reference)
 
 ## Supported Test Types
