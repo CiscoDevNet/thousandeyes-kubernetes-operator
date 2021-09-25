@@ -1,4 +1,4 @@
-module github.com/CiscoDevNet/thousandeyes-operator
+module github.com/CiscoDevNet/thousandeyes-kubernetes-operator
 
 go 1.15
 

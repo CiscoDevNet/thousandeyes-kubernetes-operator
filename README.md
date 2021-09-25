@@ -30,8 +30,8 @@ More types will be supported in the future.
 
 1. Clone the project
    ```
-   git clone https://github.com/CiscoDevNet/thousandeyes-operator.git
-   cd thousandeyes-operator
+   git clone https://github.com/CiscoDevNet/thousandeyes-kubernetes-operator.git
+   cd thousandeyes-kubernetes-operator
    ```
 
 2. Get OAuth Bearer Token from [ThousandEyes dashboard](https://app.thousandeyes.com/login)

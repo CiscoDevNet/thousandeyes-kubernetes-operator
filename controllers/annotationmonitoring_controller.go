@@ -19,7 +19,7 @@ package controllers
 import (
 	"context"
 	"encoding/json"
-	devnetv1alpha1 "github.com/CiscoDevNet/thousandeyes-operator/api/v1alpha1"
+	devnetv1alpha1 "github.com/CiscoDevNet/thousandeyes-kubernetes-operator/api/v1alpha1"
 	"github.com/go-logr/logr"
 	"github.com/william20111/go-thousandeyes"
 	corev1 "k8s.io/api/core/v1"

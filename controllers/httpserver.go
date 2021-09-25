@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"github.com/CiscoDevNet/thousandeyes-operator/api/v1alpha1"
+	"github.com/CiscoDevNet/thousandeyes-kubernetes-operator/api/v1alpha1"
 	"github.com/william20111/go-thousandeyes"
 )
 

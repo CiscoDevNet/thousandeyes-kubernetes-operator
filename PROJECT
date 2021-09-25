@@ -3,8 +3,8 @@ layout: go.kubebuilder.io/v3
 plugins:
   manifests.sdk.operatorframework.io/v2: {}
   scorecard.sdk.operatorframework.io/v2: {}
-projectName: thousandeyes-operator
-repo: github.com/CiscoDevNet/thousandeyes-operator
+projectName: thousandeyes-kubernetes-operator
+repo: github.com/CiscoDevNet/thousandeyes-kubernetes-operator
 resources:
 - api:
     crdVersion: v1
@@ -13,7 +13,7 @@ resources:
   domain: cisco.com
   group: devnet
   kind: ThousandEyesTest
-  path: github.com/CiscoDevNet/thousandeyes-operator/api/v1alpha1
+  path: github.com/CiscoDevNet/thousandeyes-kubernetes-operator/api/v1alpha1
   version: v1alpha1
 - api:
     crdVersion: v1
@@ -22,7 +22,7 @@ resources:
   domain: cisco.com
   group: devnet
   kind: PageloadTest
-  path: github.com/CiscoDevNet/thousandeyes-operator/api/v1alpha1
+  path: github.com/CiscoDevNet/thousandeyes-kubernetes-operator/api/v1alpha1
   version: v1alpha1
 - api:
     crdVersion: v1
@@ -31,7 +31,7 @@ resources:
   domain: cisco.com
   group: devnet
   kind: WebTransactionTest
-  path: github.com/CiscoDevNet/thousandeyes-operator/api/v1alpha1
+  path: github.com/CiscoDevNet/thousandeyes-kubernetes-operator/api/v1alpha1
   version: v1alpha1
 - api:
     crdVersion: v1
@@ -39,7 +39,7 @@ resources:
   domain: cisco.com
   group: devnet
   kind: WebTransactionTest1
-  path: github.com/CiscoDevNet/thousandeyes-operator/api/v1alpha1
+  path: github.com/CiscoDevNet/thousandeyes-kubernetes-operator/api/v1alpha1
   version: v1alpha1
 - api:
     crdVersion: v1
@@ -48,6 +48,6 @@ resources:
   domain: cisco.com
   group: devnet
   kind: HTTPServerTest
-  path: github.com/CiscoDevNet/thousandeyes-operator/api/v1alpha1
+  path: github.com/CiscoDevNet/thousandeyes-kubernetes-operator/api/v1alpha1
   version: v1alpha1
 version: "3"

@@ -18,7 +18,7 @@ package controllers
 
 import (
 	"context"
-	devnetv1alpha1 "github.com/CiscoDevNet/thousandeyes-operator/api/v1alpha1"
+	devnetv1alpha1 "github.com/CiscoDevNet/thousandeyes-kubernetes-operator/api/v1alpha1"
 	"github.com/go-logr/logr"
 	"github.com/william20111/go-thousandeyes"
 	"k8s.io/apimachinery/pkg/api/errors"
