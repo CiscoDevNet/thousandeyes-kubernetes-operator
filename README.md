@@ -1,5 +1,5 @@
 ## ThousandEyes Kubernetes Operator
-[![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
+
 [![Language](https://img.shields.io/badge/Language-Go-blue.svg)](https://golang.org/)
 
 ThousandEyes Kubernetes Operator is a Kubernetes operator used to manage ThousandEyes [Tests](https://developer.thousandeyes.com/v6/tests/) deployed via Kubernetes cluster.
@@ -47,7 +47,7 @@ More types will be supported in the future.
    echo -n "YOUR_OAUTH_BEARER_TOKEN" | base64
    ```
 
-   Modify OAuthBearerToken (base64 encoded) in [thousandeyes_kubernetes_operator.yaml](./config/deploy/thousandeyes_kubernetes_operator.yaml#L7)
+   Modify OAuthBearerToken (base64 encoded) in [config/deploy/thousandeyes_kubernetes_operator.yaml](./config/deploy/thousandeyes_kubernetes_operator.yaml#L7)
 
 4. Install the operator
    ```
