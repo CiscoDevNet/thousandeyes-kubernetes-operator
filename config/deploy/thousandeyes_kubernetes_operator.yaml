@@ -577,13 +577,13 @@ roleRef:
   name: thousandeyes-manager-role
 subjects:
 - kind: ServiceAccount
-  name: thousandeyes-operator
+  name: thousandeyes-kubernetes-operator
   namespace: default
 ---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: thousandeyes-operator
+  name: thousandeyes-kubernetes-operator
   namespace: default
 ---
 apiVersion: apps/v1
@@ -591,15 +591,15 @@ kind: Deployment
 metadata:
   creationTimestamp: null
   labels:
-    app: devnet-thousandeyes-operator
-  name: devnet-thousandeyes-operator
+    app: devnet-thousandeyes-kubernetes-operator
+  name: devnet-thousandeyes-kubernetes-operator
 spec:
   progressDeadlineSeconds: 600
   replicas: 1
   revisionHistoryLimit: 10
   selector:
     matchLabels:
-      app: devnet-thousandeyes-operator
+      app: devnet-thousandeyes-kubernetes-operator
       tier: backend
   strategy:
     rollingUpdate:
@@ -610,7 +610,7 @@ spec:
     metadata:
       creationTimestamp: null
       labels:
-        app: devnet-thousandeyes-operator
+        app: devnet-thousandeyes-kubernetes-operator
         tier: backend
     spec:
       containers:
@@ -624,9 +624,9 @@ spec:
           value: "3600"
         - name: DEFAULT_HTTP_INTERVAL
           value: "3600"
-        image: ciscodevcloud/thousandeyes-operator:v1.2
+        image: ciscodevcloud/thousandeyes-kubernetes-operator:v1.1
         imagePullPolicy: Always
-        name: devnet-thousandeyes-operator
+        name: devnet-thousandeyes-kubernetes-operator
         ports:
         - containerPort: 80
           protocol: TCP
@@ -643,6 +643,6 @@ spec:
       restartPolicy: Always
       schedulerName: default-scheduler
       securityContext: {}
-      serviceAccountName: thousandeyes-operator
+      serviceAccountName: thousandeyes-kubernetes-operator
       terminationGracePeriodSeconds: 30
 status: {}

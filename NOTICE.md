@@ -1,2 +1,2 @@
-ThousandEyes Operator 2021 Cisco Systems, Inc. and/or its affiliates
+ThousandEyes Kubernetes Operator 2021 Cisco Systems, Inc. and/or its affiliates
 This project includes software developed at Cisco Systems, Inc. and/or its affiliates.

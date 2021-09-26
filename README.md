@@ -1,8 +1,8 @@
-## ThousandEyes Operator
+## ThousandEyes Kubernetes Operator
 [![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
 [![Language](https://img.shields.io/badge/Language-Go-blue.svg)](https://golang.org/)
 
-ThousandEyes Operator is a Kubernetes operator used to manage ThousandEyes [Tests](https://developer.thousandeyes.com/v6/tests/) deployed via the Kubernetes cluster.
+ThousandEyes Kubernetes Operator is a Kubernetes operator used to manage ThousandEyes [Tests](https://developer.thousandeyes.com/v6/tests/) deployed via Kubernetes cluster.
 It is built using the [Operator SDK](https://github.com/operator-framework/operator-sdk), which is part of the [Operator Framework](https://github.com/operator-framework/).
 
 ## Table of Contents
@@ -13,7 +13,7 @@ It is built using the [Operator SDK](https://github.com/operator-framework/opera
 * [Reference](#reference)
 
 ## Supported Test Types
-ThousandEyes Operator supports managing the following test types.
+ThousandEyes Kubernetes Operator supports managing the following test types.
 - [HTTP Server Test](https://docs.thousandeyes.com/product-documentation/internet-and-wan-monitoring/tests/http-server-tests)
 - [Page Load Test](https://docs.thousandeyes.com/product-documentation/browser-synthetics/page-load-tests)
 - [Web Transaction Test](https://docs.thousandeyes.com/product-documentation/browser-synthetics/transaction-tests)
@@ -26,7 +26,7 @@ More types will be supported in the future.
 1. Access to working kubernetes cluster (version `>=1.18.0`) and local kubectl cli. [Docker desktop kubernetes](https://docs.docker.com/desktop/kubernetes/), [Minikube](https://minikube.sigs.k8s.io/docs/start/) or [kind](https://kind.sigs.k8s.io/) are some of popular options to setup local kubernetes cluster.
 2. [Trial account for ThousandEyes](https://www.thousandeyes.com/lps/network-monitoring/#lps-free-trial)
 
-### Deploy ThousandEyes Operator
+### Deploy ThousandEyes Kubernetes Operator
 
 1. Clone the project
    ```
@@ -47,21 +47,21 @@ More types will be supported in the future.
    echo -n "YOUR_OAUTH_BEARER_TOKEN" | base64
    ```
 
-   Modify OAuthBearerToken (base64 encoded) in [thousandeyes_operator.yaml](./config/deploy/thousandeyes_operator.yaml#L7)
+   Modify OAuthBearerToken (base64 encoded) in [thousandeyes_kubernetes_operator.yaml](./config/deploy/thousandeyes_kubernetes_operator.yaml#L7)
 
 4. Install the operator
    ```
-   kubectl apply -f config/deploy/thousandeyes_operator.yaml
+   kubectl apply -f config/deploy/thousandeyes_kubernetes_operator.yaml
    ```
 
 5. Verify installation status
 
-   i. Check ThousandEyes Operator pod status
+   i. Check ThousandEyes Kubernetes Operator pod status
    ```
    kubectl get pods | grep thousandeyes
    
-     NAME                                                 READY   STATUS    RESTARTS   AGE
-     devnet-thousandeyes-operator-564b5d75d-jllzk         1/1     Running   0          108s
+     NAME                                                            READY   STATUS    RESTARTS   AGE
+     devnet-thousandeyes-kubernetes-operator-564b5d75d-jllzk         1/1     Running   0          108s
    ```
    ii. Check ThousandEyes CRD status
    ```
