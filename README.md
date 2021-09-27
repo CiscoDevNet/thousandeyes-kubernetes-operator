@@ -1,5 +1,6 @@
 ## ThousandEyes Kubernetes Operator
 
+[![published](https://static.production.devnetcloud.com/codeexchange/assets/images/devnet-published.svg)](https://developer.cisco.com/codeexchange/github/repo/CiscoDevNet/thousandeyes-kubernetes-operator)
 [![Language](https://img.shields.io/badge/Language-Go-blue.svg)](https://golang.org/)
 
 ThousandEyes Kubernetes Operator is a Kubernetes operator used to manage ThousandEyes [Tests](https://developer.thousandeyes.com/v6/tests/) deployed via Kubernetes cluster.
