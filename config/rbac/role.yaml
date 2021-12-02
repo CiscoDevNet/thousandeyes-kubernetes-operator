@@ -7,9 +7,9 @@ metadata:
   name: manager-role
 rules:
 - apiGroups:
-  - devnet.cisco.com
+  - ""
   resources:
-  - httpservertests
+  - services
   verbs:
   - create
   - delete
@@ -19,21 +19,21 @@ rules:
   - update
   - watch
 - apiGroups:
-  - devnet.cisco.com
+  - networking
   resources:
-  - httpservertests/finalizers
+  - services/finalizers
   verbs:
   - update
 - apiGroups:
-  - devnet.cisco.com
+  - networking
   resources:
-  - httpservertests/status
+  - services/status
   verbs:
   - get
   - patch
   - update
 - apiGroups:
-  - networking
+  - networking.k8s.io
   resources:
   - ingresses
   verbs:
@@ -54,6 +54,58 @@ rules:
   - networking
   resources:
   - ingresses/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - thousandeyes.devnet.cisco.com
+  resources:
+  - annotationmonitorings
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - thousandeyes.devnet.cisco.com
+  resources:
+  - annotationmonitorings/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - thousandeyes.devnet.cisco.com
+  resources:
+  - annotationmonitorings/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - thousandeyes.devnet.cisco.com
+  resources:
+  - httpservertests
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - thousandeyes.devnet.cisco.com
+  resources:
+  - httpservertests/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - thousandeyes.devnet.cisco.com
+  resources:
+  - httpservertests/status
   verbs:
   - get
   - patch

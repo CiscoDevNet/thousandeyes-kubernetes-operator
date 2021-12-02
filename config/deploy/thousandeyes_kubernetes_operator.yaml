@@ -483,6 +483,84 @@ metadata:
   name: thousandeyes-manager-role
 rules:
 - apiGroups:
+  - ""
+  resources:
+  - services
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - networking
+  resources:
+  - services/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - networking
+  resources:
+  - services/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - networking.k8s.io
+  resources:
+  - ingresses
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - networking
+  resources:
+  - ingresses/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - networking
+  resources:
+  - ingresses/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - thousandeyes.devnet.cisco.com
+  resources:
+  - annotationmonitorings
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - thousandeyes.devnet.cisco.com
+  resources:
+  - annotationmonitorings/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - thousandeyes.devnet.cisco.com
+  resources:
+  - annotationmonitorings/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
   - thousandeyes.devnet.cisco.com
   resources:
   - httpservertests
